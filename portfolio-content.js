@@ -18,8 +18,8 @@ window.PORTFOLIO_CONTENT = {
         "badge": "LZ"
       },
       {
-        "title": "S.M.U.R.F.",
-        "description": "Power Apps maintenance request system with guided intake, automatic urgency determination, assignment, reminders, and searchable records.",
+        "title": "SMURF",
+        "description": "Rule-based maintenance request system with guided intake, urgency determination, maintenance assignment, reminder emails, and searchable request history.",
         "link": "work.html#smurf",
         "linkText": "See system",
         "badge": "S"
@@ -54,10 +54,10 @@ window.PORTFOLIO_CONTENT = {
       },
       {
         "id": "smurf",
-        "title": "S.M.U.R.F.",
-        "description": "Shared Maintenance Urgency-Based Request Form built with Power Apps, Power Automate, and SharePoint / Lists. The system uses guided intake and structured Yes/No responses to determine request urgency, then supports assignment, status tracking, reminders, and searchable maintenance history.",
-        "tag": "Power Platform",
-        "galleryKey": ""
+        "title": "SMURF",
+        "description": "Power Apps maintenance request system that standardizes requests from submission through closure. Structured assessments determine initial priority automatically, SharePoint maintains the request record, and a separate Maintenance App handles assignment, work orders, status, notes, and follow-up. Power Automate manages notifications and recurring assignment reminders.",
+        "tag": "Power Apps / Power Automate / SharePoint",
+        "galleryKey": "smurf"
       },
       {
         "id": "carrt",
@@ -167,8 +167,6 @@ window.PORTFOLIO_CONTENT = {
         "img-022.png",
         "img-023.png",
         "img-024.png",
-        "img-025.png",
-        "img-026.png",
       ],
       "pdf": "steam-locomotive-cad-project.pdf",
       "pdfText": "Open full CAD project PDF ›"

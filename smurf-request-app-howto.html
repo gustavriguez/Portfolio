@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="author" content="Gustavorodriguezpc">
+<title>SMURF Request App | How To</title>
+<style>
+:root{--blue:#0B5C9E;--pale:#F4F7FB;--light:#EAF3FF;--line:#C9DDF4;--text:#172033;--danger:#B42318;--white:#fff}
+*{box-sizing:border-box}body{margin:0;background:var(--pale);font-family:Arial,Helvetica,sans-serif;color:var(--text)}
+.page{max-width:1100px;margin:0 auto;padding:28px}.hero{background:var(--blue);color:#fff;border-radius:18px;padding:24px 28px;display:flex;justify-content:space-between;gap:30px;align-items:center}.brand{font-size:38px;font-weight:900;font-style:italic;letter-spacing:.5px}.sub{font-size:16px;font-weight:700;margin-top:4px}.tag{font-size:13px;max-width:460px;line-height:1.45;text-align:right}.notice{margin-top:16px;border:1px solid #F4B9B2;border-left:8px solid var(--danger);background:#FFF4F2;border-radius:12px;padding:14px 16px;font-size:14px;line-height:1.45}.notice b{color:var(--danger)}
+.section-title{font-size:24px;font-weight:900;color:var(--blue);margin:26px 0 12px}.flow{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.step{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:16px;min-height:154px}.num{width:34px;height:34px;border-radius:50%;background:var(--blue);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:900;margin-bottom:10px}.step h3{margin:0 0 7px;font-size:16px}.step p{margin:0;font-size:13px;line-height:1.45}.wide{grid-column:span 2}.rules{display:grid;grid-template-columns:1fr 1fr;gap:12px}.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px}.card h3{margin:0 0 9px;font-size:17px;color:var(--blue)}.card ul{margin:0;padding-left:20px}.card li{margin:7px 0;font-size:13px;line-height:1.4}.footer{margin-top:18px;border-top:2px solid var(--blue);padding-top:12px;font-size:12px;display:flex;justify-content:space-between;gap:20px}.pill{display:inline-block;border:1px solid var(--line);background:var(--light);border-radius:999px;padding:5px 9px;font-size:11px;font-weight:700;color:var(--blue)}
+@media(max-width:800px){.page{padding:16px}.hero{display:block}.tag{text-align:left;margin-top:12px}.flow{grid-template-columns:1fr}.wide{grid-column:span 1}.rules{grid-template-columns:1fr}}
+@media print{body{background:#fff}.page{max-width:none;padding:10mm}.hero{-webkit-print-color-adjust:exact;print-color-adjust:exact}.step,.card,.notice{break-inside:avoid}.footer{font-size:10px}}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="hero">
+    <div><div class="brand">SMURF</div><div class="sub">Shared Maintenance Urgency-Based Request Form</div></div>
+    <div class="tag"><b>How to submit a maintenance request</b><br>Answer what you observe. SMURF calculates the initial urgency automatically.</div>
+  </div>
+
+  <div class="notice"><b>Emergency situations:</b> Submit SMURF for documentation/work-order tracking, but also contact the appropriate team through RelayX radio or the site emergency communication process.</div>
+
+  <div class="section-title">How to use the Request App</div>
+  <div class="flow">
+    <div class="step"><div class="num">1</div><h3>Select Department + Building</h3><p>Choose where the issue belongs. Department and building are selected independently.</p></div>
+    <div class="step"><div class="num">2</div><h3>Answer General Questions</h3><p>Complete every Yes/No question based on the current condition.</p></div>
+    <div class="step"><div class="num">3</div><h3>Choose Concern Type</h3><p>Mechanical, Utilities/Facilities, Safety/EHS, Quality/Process Impact, or Controls/Electrical/Automation.</p></div>
+    <div class="step"><div class="num">4</div><h3>Answer Concern Questions</h3><p>Complete all questions for the selected concern type. Do not try to manually choose urgency.</p></div>
+    <div class="step"><div class="num">5</div><h3>Enter Request Details</h3><p>Add room/area, asset number if known, issue summary, details, and impact notes.</p></div>
+    <div class="step"><div class="num">6</div><h3>Add Attachments</h3><p>Include useful photos, screenshots, alarms, or other supporting files when available.</p></div>
+    <div class="step"><div class="num">7</div><h3>Review</h3><p>Check location, concern type, issue details, reported conditions, and SMURF initial priority.</p></div>
+    <div class="step"><div class="num">8</div><h3>Submit</h3><p>Submit the request. Start a new request only after the current one is confirmed submitted.</p></div>
+  </div>
+
+  <div class="section-title">What makes a good request?</div>
+  <div class="rules">
+    <div class="card"><h3>Use factual descriptions</h3><ul><li>What is happening?</li><li>Where is it happening?</li><li>What equipment or asset is involved?</li><li>When did it start?</li><li>What is the impact on work, production, quality, utilities, facilities, or safety?</li></ul></div>
+    <div class="card"><h3>Let SMURF assign initial priority</h3><ul><li>Requester does not select urgency.</li><li>Yes answers are retained as reported conditions.</li><li>Urgency is calculated from configured SMURF logic.</li><li>Maintenance can review the full request and reported conditions after submission.</li></ul></div>
+  </div>
+
+  <div class="footer"><span><b>Quick path:</b> Home → General → Concern Type → Concern Questions → Details → Attachments → Review → Submit</span><span class="pill">Requester Quick Guide</span></div>
+</div>
+</body>
+</html>

@@ -147,19 +147,20 @@ body[data-page="about"] .daily-dock.right .site-photo{display:none}
 @media(max-width:700px){.favorite-film-grid{grid-template-columns:repeat(2,1fr)}}
 
 /* one and only bullshark placement */
-.beach-shark-scene{position:fixed;left:7px;bottom:6px;width:176px;height:86px;z-index:19;pointer-events:none;overflow:hidden;border-radius:8px;filter:drop-shadow(0 1px 1px rgba(0,0,0,.12))}
-.beach-sky{position:absolute;inset:0 0 43px;background:linear-gradient(#dceffd,#f9f4df);border:1px solid #aab5bc;border-bottom:0;border-radius:8px 8px 0 0}
-.beach-ocean{position:absolute;left:0;right:0;bottom:15px;height:34px;background:repeating-linear-gradient(0deg,#75b9d8 0 4px,#a4d4e5 4px 7px);border-left:1px solid #8da5b2;border-right:1px solid #8da5b2;overflow:hidden}
+.beach-shark-scene{position:fixed;left:7px;bottom:6px;width:188px;height:98px;z-index:19;pointer-events:none;overflow:hidden;border-radius:8px;filter:drop-shadow(0 1px 1px rgba(0,0,0,.12))}
+.beach-sky{position:absolute;inset:0 0 47px;background:linear-gradient(#dceffd,#f9f4df);border:1px solid #aab5bc;border-bottom:0;border-radius:8px 8px 0 0}
+.beach-ocean{position:absolute;left:0;right:0;bottom:15px;height:39px;z-index:1;background:repeating-linear-gradient(0deg,#75b9d8 0 4px,#a4d4e5 4px 7px);border-left:1px solid #8da5b2;border-right:1px solid #8da5b2;overflow:hidden}
 .beach-ocean:before{content:"";position:absolute;left:-8px;right:-8px;top:3px;height:7px;background:repeating-linear-gradient(90deg,rgba(255,255,255,.8) 0 13px,transparent 13px 24px);opacity:.65;animation:shore-wave 4s linear infinite}
+.beach-water-front{position:absolute;left:0;right:0;bottom:15px;height:15px;z-index:4;background:repeating-linear-gradient(0deg,rgba(89,166,201,.42) 0 3px,rgba(183,224,239,.58) 3px 6px);border-left:1px solid #8da5b2;border-right:1px solid #8da5b2;opacity:.75}
 .beach-sand{position:absolute;left:0;right:0;bottom:0;height:17px;border:1px solid #ad9c70;border-top:0;border-radius:0 0 8px 8px;background:repeating-linear-gradient(0deg,#ddc690 0 3px,#ead9ad 3px 6px)}
 .beach-palm{position:absolute;right:20px;bottom:10px;width:5px;height:52px;background:#76522f;transform:rotate(8deg);transform-origin:bottom center;z-index:4}
 .beach-palm:before,.beach-palm:after{content:"";position:absolute;left:2px;top:-4px;width:32px;height:9px;border-radius:100% 0;background:#3e8a58;transform-origin:left center}
 .beach-palm:before{transform:rotate(-28deg)}.beach-palm:after{transform:rotate(24deg)}
 .beach-palm-frond{position:absolute;right:17px;bottom:55px;width:31px;height:8px;border-radius:0 100%;background:#4f9b63;transform:rotate(170deg);z-index:4}
-.beach-shark{position:absolute;left:15px;bottom:19px;width:66px;height:auto;z-index:3;image-rendering:pixelated;filter:drop-shadow(0 1px 0 rgba(0,0,0,.14));animation:beach-swim 6.5s ease-in-out infinite alternate}
-@keyframes beach-swim{0%{transform:translateX(0) translateY(1px)}48%{transform:translateX(62px) translateY(-3px)}52%{transform:translateX(62px) translateY(-3px)}100%{transform:translateX(0) translateY(1px)}}
+.beach-shark{position:absolute;left:14px;bottom:18px;width:82px;height:auto;z-index:3;image-rendering:pixelated;filter:drop-shadow(0 1px 0 rgba(0,0,0,.14));animation:beach-swim 6.5s ease-in-out infinite alternate}
+@keyframes beach-swim{0%{transform:translateX(0) translateY(1px)}48%{transform:translateX(66px) translateY(-3px)}52%{transform:translateX(66px) translateY(-3px)}100%{transform:translateX(0) translateY(1px)}}
 @keyframes shore-wave{to{transform:translateX(24px)}}
-@media(max-width:1030px){.beach-shark-scene{width:138px;height:72px}.beach-shark{width:54px}.beach-palm{right:14px;height:44px}.beach-palm-frond{right:11px;bottom:48px}}
+@media(max-width:1030px){.beach-shark-scene{width:154px;height:82px}.beach-shark{width:66px}.beach-palm{right:14px;height:44px}.beach-palm-frond{right:11px;bottom:48px}}
 @media(max-width:760px){.beach-shark-scene{display:none}}
 
 /* --- v19 Pokémon-only popup; bear + forest modes removed --- */
@@ -327,67 +328,25 @@ body[data-page="about"] .daily-dock.right .site-photo{display:none}
 
 
 /* ================================================================
-   V23 — RADIO_33 + dancing Gustavo
-   Additive styling for the existing Apple/2001 portfolio.
+   V25 — RADIO_33 + terminal signal monitor
    ================================================================ */
-.radio-dance-mount{
-  max-width:760px;
-  margin:16px auto 20px;
-  padding:0 10px;
-}
-.grd-radio-widget{
-  --grd-green:#7df19b;
-  --grd-green-bright:#c7ffd6;
-  position:relative;
-  width:min(470px,100%);
-  min-width:0;
-  margin:0 auto;
-  padding:12px 12px 18px;
-  border:1px solid #82909b;
-  border-radius:14px;
-  background:
-    repeating-linear-gradient(0deg,rgba(255,255,255,.045) 0 1px,transparent 1px 4px),
-    linear-gradient(180deg,#bcc8d1 0%,#aab8c2 100%);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.92),inset 0 -4px 8px rgba(38,54,66,.12),0 5px 14px rgba(0,0,0,.08);
-  overflow:visible;
-}
-.grd-radio-label{margin:0 0 8px 2px;font:700 9px/1.2 Arial,sans-serif;letter-spacing:.14em;color:#536471}
-.grd-radio-stage{position:relative;height:260px}
-.grd-antenna{position:absolute;width:186px;height:5px;right:43px;top:27px;border-radius:999px;background:#2f363b;border:1px solid #111719;transform:rotate(-23deg);transform-origin:right center}
-.grd-antenna::before{content:"";position:absolute;left:-8px;top:-4px;width:11px;height:11px;border-radius:50%;background:#272e32;border:1px solid #111619}
-.grd-radio{position:absolute;left:6px;right:6px;bottom:0;height:207px;border:2px solid #56636c;border-radius:23px;background:linear-gradient(180deg,#eceeeb 0%,#d8dddb 56%,#bec8cb 100%);box-shadow:inset 0 2px #fff,inset 0 -7px rgba(60,72,77,.14),0 8px 16px rgba(0,0,0,.14)}
-.grd-handle{position:absolute;left:84px;right:84px;top:-30px;height:33px;border:7px solid #41494e;border-bottom:0;border-radius:14px 14px 0 0}
-.grd-radio-inner{position:absolute;inset:14px;display:grid;grid-template-columns:112px minmax(0,1fr);gap:12px}
-.grd-grille{position:relative;border:1px solid #707c83;border-radius:11px;background:radial-gradient(circle,#465158 0 2px,transparent 2.4px) 0 0/11px 11px,#b2bcc1;box-shadow:inset 0 2px 5px rgba(0,0,0,.17);overflow:hidden}
-.grd-speaker-core{position:absolute;inset:27px;border-radius:50%;background:radial-gradient(circle,#1f262a 0 25%,#49545b 26% 36%,#21282c 37% 100%);opacity:.42}
-.grd-radio-widget.is-playing .grd-speaker-core{animation:grdSpeaker .34s ease-in-out infinite alternate}
-@keyframes grdSpeaker{from{transform:scale(.94)}to{transform:scale(1.07)}}
-.grd-radio-right{min-width:0;display:grid;grid-template-rows:78px 1fr;gap:9px}
-.grd-tuner{min-width:0;border:1px solid #304b3f;border-radius:10px;background:repeating-linear-gradient(0deg,rgba(107,255,158,.045) 0 1px,transparent 1px 3px),#07120d;box-shadow:inset 0 0 12px rgba(0,0,0,.75);padding:8px 9px;color:var(--grd-green);overflow:hidden}
-.grd-tuner-top{display:flex;justify-content:space-between;gap:7px;flex-wrap:wrap;font:7px/1.2 ui-monospace,Menlo,Consolas,monospace;color:#96e0aa}
-.grd-station{margin-top:4px;font:700 9px/1.15 ui-monospace,Menlo,Consolas,monospace;color:var(--grd-green-bright);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.grd-freq{position:relative;height:25px;margin-top:7px}
-.grd-freq-line{position:absolute;left:0;right:0;top:7px;height:1px;background:#4d805d}
-.grd-freq-line::before{content:"";position:absolute;left:0;right:0;top:-3px;height:7px;background:repeating-linear-gradient(90deg,#4d805d 0 1px,transparent 1px 13px)}
-.grd-needle{position:absolute;left:58%;top:0;width:2px;height:21px;background:#ddffe6;box-shadow:0 0 7px var(--grd-green)}
-.grd-radio-widget.is-playing .grd-needle{animation:grdTune 2.3s ease-in-out infinite alternate}
-@keyframes grdTune{from{left:54%}to{left:62%}}
-.grd-freq-labels{position:absolute;left:0;right:0;bottom:0;display:flex;justify-content:space-between;font:7px ui-monospace,Menlo,Consolas,monospace;color:#67bd7e}
-.grd-lower{display:grid;grid-template-columns:minmax(0,1fr) 65px;gap:8px}
-.grd-cassette-case{border:1px solid #717d84;border-radius:9px;background:#a9b4ba;padding:7px;box-shadow:inset 0 1px rgba(255,255,255,.75)}
-.grd-cassette{min-height:75px;border:2px solid #4d5961;border-radius:8px;background:#313a40;display:grid;grid-template-columns:36px minmax(0,1fr) 36px;gap:5px;align-items:center;padding:7px}
-.grd-reel{width:32px;height:32px;margin:auto;border-radius:50%;border:4px solid #ccd2d5;background:conic-gradient(#697680 0 12%,#e2e6e8 12% 24%,#697680 24% 36%,#e2e6e8 36% 48%,#697680 48% 60%,#e2e6e8 60% 72%,#697680 72% 84%,#e2e6e8 84% 100%);box-shadow:inset 0 0 0 6px #4f5b63}
-.grd-radio-widget.is-playing .grd-reel{animation:grdSpin .9s linear infinite}
-@keyframes grdSpin{to{transform:rotate(360deg)}}
-.grd-cassette-copy{min-width:0;text-align:center;color:#edf2f4;font:700 6px/1.3 Arial,sans-serif;letter-spacing:.07em;overflow-wrap:anywhere}
-.grd-cassette-copy strong{display:block;color:#fff;font-size:8px;margin-bottom:2px}
-.grd-knobs{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px}
-.grd-knob{position:relative;border-radius:50%;border:2px solid #59646b;background:radial-gradient(circle at 35% 30%,#fafaf8 0 8%,#d5d9da 26%,#99a2a6 48%,#52595d 75%,#2d3235 100%);box-shadow:inset 0 0 0 2px rgba(255,255,255,.18),0 2px 4px rgba(0,0,0,.18)}
-.grd-knob.big{width:44px;height:44px}.grd-knob.small{width:28px;height:28px}
-.grd-knob::after{content:"";position:absolute;left:50%;top:5px;width:2px;height:8px;background:#20272b;transform:translateX(-50%)}
-.grd-dancer{position:absolute;z-index:5;left:-17px;bottom:-15px;width:72px;height:72px;background-image:url("gustavo_dance_8bit_atlas.png");background-repeat:no-repeat;background-size:800% 100%;background-position:0 0;image-rendering:pixelated;filter:drop-shadow(0 2px 1px rgba(0,0,0,.18));transform-origin:50% 100%;animation:grdDance 1.55s steps(1,end) infinite}
-.grd-radio-widget.is-playing .grd-dancer{animation-duration:.72s}
-@keyframes grdDance{0%{background-position:0 0;transform:translateY(0)}12.5%{background-position:14.2857% 0;transform:translateY(-1px)}25%{background-position:28.5714% 0;transform:translateY(0)}37.5%{background-position:42.8571% 0;transform:translateY(-2px)}50%{background-position:57.1428% 0;transform:translateY(0)}62.5%{background-position:71.4285% 0;transform:translateY(-2px)}75%{background-position:85.7142% 0;transform:translateY(-1px)}87.5%,100%{background-position:100% 0;transform:translateY(0)}}
-.grd-radio-note{position:absolute;right:10px;bottom:-9px;color:#425b70;font:700 8px/1.2 ui-monospace,Menlo,Consolas,monospace;letter-spacing:.06em;opacity:.85}
-@media(max-width:520px){.radio-dance-mount{padding:0 6px}.grd-radio-widget{padding-left:8px;padding-right:8px}.grd-radio-stage{height:250px}.grd-radio-inner{grid-template-columns:97px minmax(0,1fr);gap:8px}.grd-handle{left:70px;right:70px}.grd-dancer{left:-4px;width:62px;height:62px}}
-@media(prefers-reduced-motion:reduce){.grd-dancer,.grd-radio-widget.is-playing .grd-speaker-core,.grd-radio-widget.is-playing .grd-reel,.grd-radio-widget.is-playing .grd-needle{animation:none!important}}
+.radio-dance-mount{max-width:780px;margin:16px auto 22px;padding:0 8px}
+.grd-radio-widget{--grd-green:#75f29b;--grd-green2:#c9ffd8;position:relative;margin:auto;padding:10px 11px 17px;border:1px solid #778894;border-radius:13px;background:linear-gradient(#c6d0d7,#abb9c2);box-shadow:inset 0 1px #fff,inset 0 -4px 8px rgba(39,55,66,.13),0 5px 13px rgba(0,0,0,.09);overflow:visible}
+.grd-radio-label{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 1px 8px;color:#4b5d69;font:700 8px/1.2 ui-monospace,Menlo,Consolas,monospace;letter-spacing:.1em}.grd-radio-label b{font-size:10px;color:#263640}
+.grd-broadcast-grid{display:grid;grid-template-columns:238px minmax(0,1fr);gap:10px;align-items:stretch}
+.grd-radio-side{position:relative;min-height:184px;padding-top:24px}
+.grd-antenna{position:absolute;right:22px;top:10px;width:128px;height:4px;border:1px solid #171c20;border-radius:99px;background:#30383d;transform:rotate(-17deg);transform-origin:right center}.grd-antenna:before{content:"";position:absolute;left:-7px;top:-4px;width:9px;height:9px;border-radius:50%;background:#262e33;border:1px solid #111}
+.grd-radio{position:absolute;left:4px;right:4px;bottom:0;height:152px;border:2px solid #56636c;border-radius:18px;background:linear-gradient(#f0f1ee,#d8dedd 60%,#bdc7ca);box-shadow:inset 0 2px #fff,inset 0 -6px rgba(50,63,69,.13),0 6px 11px rgba(0,0,0,.13)}
+.grd-handle{position:absolute;left:52px;right:52px;top:-20px;height:22px;border:6px solid #41494e;border-bottom:0;border-radius:12px 12px 0 0}
+.grd-radio-inner{position:absolute;inset:12px;display:grid;grid-template-columns:91px minmax(0,1fr);gap:10px}
+.grd-grille{position:relative;border:1px solid #6f7c84;border-radius:10px;background:radial-gradient(circle,#455159 0 1.5px,transparent 1.9px) 0 0/8px 8px,#b4bec3;box-shadow:inset 0 2px 5px rgba(0,0,0,.18);overflow:hidden}.grd-speaker-core{position:absolute;inset:22px;border-radius:50%;background:radial-gradient(circle,#1d2428 0 24%,#4d5960 25% 38%,#22292d 39% 100%);opacity:.5;transform:scale(.96)}
+.grd-radio-widget.is-playing .grd-speaker-core{animation:grdSpeaker .22s ease-in-out infinite alternate}@keyframes grdSpeaker{to{transform:scale(1.07)}}
+.grd-radio-face{min-width:0;display:flex;flex-direction:column;gap:6px;padding:4px 0}.grd-mini-display{border:1px solid #354b42;border-radius:5px;background:#07120d;padding:6px;color:#89dda0;font:7px ui-monospace,Menlo,Consolas,monospace;box-shadow:inset 0 0 9px #000}.grd-mini-display b{float:right;color:#d1ffdd;font-size:9px}
+.grd-freq{position:relative;height:19px;border:1px solid #9aa4aa;border-radius:4px;background:#eef1ef}.grd-freq-line{position:absolute;left:7px;right:7px;top:9px;height:1px;background:#56666e}.grd-freq-line:before{content:"";position:absolute;left:0;right:0;top:-4px;height:9px;background:repeating-linear-gradient(90deg,#7b858a 0 1px,transparent 1px 10px)}.grd-needle{position:absolute;left:60%;top:2px;width:2px;height:14px;background:#be2e2e;box-shadow:0 0 3px #be2e2e}.grd-radio-widget.is-playing .grd-needle{animation:grdTune 1.9s ease-in-out infinite alternate}@keyframes grdTune{from{left:56%}to{left:64%}}
+.grd-freq-labels{display:flex;justify-content:space-between;color:#53616a;font:6px ui-monospace,Menlo,Consolas,monospace;margin-top:-4px}.grd-knob-row{display:flex;gap:7px;justify-content:flex-end;margin-top:auto}.grd-knob-row i{width:18px;height:18px;border:1px solid #59646a;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff 0 8%,#cfd4d5 28%,#7e898e 58%,#363d41 100%);box-shadow:0 1px 2px rgba(0,0,0,.18)}
+.grd-dancer{position:absolute;z-index:7;left:-10px;bottom:-13px;width:62px;height:62px;background:url("gustavo_dance_8bit_atlas.png") 0 0/800% 100% no-repeat;image-rendering:pixelated;filter:drop-shadow(0 2px 1px rgba(0,0,0,.2));transform-origin:50% 100%;animation:grdDance 1.35s steps(1,end) infinite}.grd-radio-widget.is-playing .grd-dancer{animation-duration:.63s}@keyframes grdDance{0%{background-position:0 0;transform:translateY(0)}12.5%{background-position:14.2857% 0;transform:translateY(-1px)}25%{background-position:28.5714% 0;transform:translateY(0)}37.5%{background-position:42.8571% 0;transform:translateY(-2px)}50%{background-position:57.1428% 0;transform:translateY(0)}62.5%{background-position:71.4285% 0;transform:translateY(-2px)}75%{background-position:85.7142% 0;transform:translateY(-1px)}87.5%,100%{background-position:100% 0;transform:translateY(0)}}
+.grd-signal-terminal{min-width:0;border:1px solid #263d34;border-radius:8px;background:repeating-linear-gradient(0deg,rgba(105,255,154,.035) 0 1px,transparent 1px 3px),#06100b;box-shadow:inset 0 0 16px #000;padding:9px 10px;color:var(--grd-green);overflow:hidden}.grd-terminal-head{display:flex;justify-content:space-between;gap:8px;border-bottom:1px solid #244a31;padding-bottom:5px;font:6.5px/1.2 ui-monospace,Menlo,Consolas,monospace;letter-spacing:.08em;color:#78b98b}.grd-terminal-head b{color:#b7ffc9;white-space:nowrap}.grd-station{height:25px;padding:6px 0 2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--grd-green2);font:700 9px/1.2 ui-monospace,Menlo,Consolas,monospace;text-shadow:0 0 6px rgba(117,242,155,.25)}
+.grd-wave-wrap{position:relative;height:102px;border:1px solid #173321;background:linear-gradient(rgba(91,218,126,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(91,218,126,.045) 1px,transparent 1px);background-size:100% 19px,36px 100%;overflow:hidden}.grd-wave-scope{position:absolute;left:0;right:0;top:0;width:100%;height:78px}.grd-wave-zero{stroke:#214b30;stroke-width:.7}.grd-wave-main{fill:none;stroke:#baffca;stroke-width:1.8;vector-effect:non-scaling-stroke;filter:drop-shadow(0 0 3px rgba(99,255,142,.65))}.grd-wave-ghost{fill:none;stroke:#3e9c59;stroke-width:1;opacity:.55;vector-effect:non-scaling-stroke}
+.grd-eq{position:absolute;left:7px;right:7px;bottom:5px;height:25px;display:flex;gap:2px;align-items:flex-end}.grd-eq i{display:block;flex:1;min-width:1px;height:6px;background:#62d885;box-shadow:0 0 3px rgba(94,236,132,.28);transition:height .12s linear,opacity .12s linear}.grd-terminal-meta{display:flex;justify-content:space-between;gap:8px;margin-top:6px;color:#4f9863;font:6px ui-monospace,Menlo,Consolas,monospace}.grd-radio-note{margin-top:7px;text-align:right;color:#536875;font:6.5px/1.3 ui-monospace,Menlo,Consolas,monospace}
+@media(max-width:650px){.grd-broadcast-grid{grid-template-columns:1fr}.grd-radio-side{width:min(260px,100%);margin:auto}.grd-signal-terminal{min-height:165px}.grd-radio-label{align-items:flex-start}.grd-radio-note{text-align:left}}
+@media(prefers-reduced-motion:reduce){.grd-dancer,.grd-radio-widget.is-playing .grd-speaker-core,.grd-radio-widget.is-playing .grd-needle{animation:none!important}.grd-wave-main,.grd-wave-ghost{display:none}.grd-eq i{height:8px!important}}

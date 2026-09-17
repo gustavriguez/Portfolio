@@ -1,0 +1,9 @@
+DELETE THESE LOCOMOTIVE FILES FROM THE GITHUB REPOSITORY IF THEY EXIST:
+img-025.png
+img-026.png
+img-027.png
+img-028.png
+img-029.png
+img-030.png
+
+The site code in this patch contains no references to them. img-025 and img-026 were the visible locomotive images numbered 26 and 27 in the current build. Images 28-30 were already absent from the supplied build, but are listed here so older branches can be cleaned too.

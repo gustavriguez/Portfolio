@@ -4,7 +4,7 @@ function loadSite(){try{const saved=JSON.parse(localStorage.getItem('gr-site-mul
 let SITE=loadSite();
 const q=(s,r=document)=>r.querySelector(s), qa=(s,r=document)=>[...r.querySelectorAll(s)];
 function youtubeId(raw){if(!raw)return'';raw=raw.trim();try{const u=new URL(raw);if(u.hostname.includes('youtu.be'))return u.pathname.split('/').filter(Boolean)[0]||'';if(u.pathname.startsWith('/shorts/'))return u.pathname.split('/')[2]||'';if(u.pathname.startsWith('/embed/'))return u.pathname.split('/')[2]||'';return u.searchParams.get('v')||''}catch(e){return /^[A-Za-z0-9_-]{11}$/.test(raw)?raw:''}}
-function embedUrl(u){const id=youtubeId(u);return id?'https://www.youtube-nocookie.com/embed/'+id+'?rel=0':''}
+function embedUrl(u){const id=youtubeId(u);return id?'https://www.youtube-nocookie.com/embed/'+id+'?rel=0&enablejsapi=1&playsinline=1':''}
 function safeHeadshot(img,primary,fallback){if(!img)return;let triedFallback=false;img.onerror=()=>{if(!triedFallback&&fallback&&img.src!==fallback){triedFallback=true;img.src=fallback;return}img.onerror=null;const p=img.parentElement;img.remove();if(p&&!p.querySelector('.headshot-fallback')){const f=document.createElement('div');f.className='headshot-fallback';f.textContent='GR';p.insertBefore(f,p.firstChild)}};img.src=primary||fallback||''}
 function applySite(d){SITE=d;const about=q('#aboutCopy');if(about)about.textContent=d.about||'';const st=q('#sideStatus');if(st)st.textContent=d.status||'';const cur=q('#sideCurrent');if(cur)cur.textContent=d.current||'';['gustavoHeadshot','sideHeadshot','aboutHeadshot','resumeHeadshot'].forEach(id=>safeHeadshot(document.getElementById(id),d.headshot,d.headshotFallback));for(const k of ['song','movie']){const i=d[k]||{},frame=q('#'+k+'Frame'),open=q('#'+k+'Open'),title=q('#'+k+'Title'),note=q('#'+k+'Note');const emb=embedUrl(i.url||'');if(frame&&emb)frame.src=emb;if(open)open.href=i.url||'#';if(title)title.textContent=i.title||'';if(note)note.textContent=i.note||''}const ss=q('#sideSong'),sm=q('#sideMovie');if(ss)ss.textContent=((d.song&&d.song.title)||'').split('—')[0].trim();if(sm)sm.textContent=((d.movie&&d.movie.title)||'').split('(')[0].trim()}
 applySite(SITE);
@@ -25,7 +25,7 @@ document.addEventListener('click',e=>{const b=e.target.closest('[data-lightbox]'
 const searchRoutes=[
  {t:['exo','exoskeleton','ak80','teensy','jetson','gait'],u:'work.html#exo-project'},
  {t:['xcelodose','microbalance','reliability','lonza','root cause','rca'],u:'work.html#xcelodose'},
- {t:['smurf','power apps','maintenance request','urgent request'],u:'work.html#smurf'},
+ {t:['smurf','power apps','maintenance request','urgent request','maintenance app','sharepoint','power automate'],u:'work.html#smurf'},
  {t:['carrt','vicon','imu','biomechanics','human motion'],u:'work.html#carrt'},
  {t:['mime','robot hand','mediapipe','servo'],u:'work.html#mime'},
  {t:['locomotive','cad','solidworks','steam'],u:'work.html#locomotive'},
@@ -267,7 +267,7 @@ qa('[data-gallery-open]').forEach(el=>el.addEventListener('click',e=>{e.preventD
     if(q('.beach-shark-scene'))return;
     const s=document.createElement('div');
     s.className='beach-shark-scene'; s.setAttribute('aria-hidden','true');
-    s.innerHTML='<div class="beach-sky"></div><div class="beach-ocean"><img class="beach-shark" src="bullshark-swim.gif" alt=""></div><div class="beach-sand"></div><div class="beach-palm"></div><div class="beach-palm-frond"></div>';
+    s.innerHTML='<div class="beach-sky"></div><div class="beach-ocean"></div><img class="beach-shark" src="bullshark-swim.gif" alt=""><div class="beach-water-front"></div><div class="beach-sand"></div><div class="beach-palm"></div><div class="beach-palm-frond"></div>';
     document.body.appendChild(s);
   }
 
@@ -658,9 +658,9 @@ qa('[data-gallery-open]').forEach(el=>el.addEventListener('click',e=>{e.preventD
 
 
 /* ================================================================
-   V23 — RADIO_33 + dancing Gustavo
-   Injects the radio above the existing Weekly Picks players.
-   No HTML replacement is required.
+   V25 — RADIO_33 + signal visualizer + dancing Gustavo
+   The radio and terminal monitor are separate from the real YouTube player.
+   Waveform is title-seeded/fake; play/pause state follows YouTube when available.
    ================================================================ */
 (() => {
   if (document.body?.dataset?.page !== "media") return;
@@ -671,46 +671,53 @@ qa('[data-gallery-open]').forEach(el=>el.addEventListener('click',e=>{e.preventD
   const mount = document.createElement("div");
   mount.className = "radio-dance-mount no-print";
   mount.innerHTML = `
-    <section class="grd-radio-widget" aria-label="RADIO 33 weekly broadcast visual">
-      <div class="grd-radio-label">PORTABLE RADIO UNIT / 64</div>
-      <div class="grd-radio-stage">
-        <div class="grd-antenna"></div>
-        <div class="grd-radio">
-          <div class="grd-handle"></div>
-          <div class="grd-radio-inner">
-            <div class="grd-grille"><div class="grd-speaker-core"></div></div>
-            <div class="grd-radio-right">
-              <div class="grd-tuner">
-                <div class="grd-tuner-top"><span>FM // WEEKLY BROADCAST</span><span>100.3</span></div>
-                <div class="grd-station" data-grd-station>WEEKLY PICK</div>
-                <div class="grd-freq">
-                  <div class="grd-freq-line"></div><div class="grd-needle"></div>
-                  <div class="grd-freq-labels"><span>88</span><span>92</span><span>96</span><span>100</span><span>104</span><span>108</span></div>
-                </div>
-              </div>
-              <div class="grd-lower">
-                <div class="grd-cassette-case">
-                  <div class="grd-cassette">
-                    <div class="grd-reel"></div>
-                    <div class="grd-cassette-copy"><strong data-grd-week>WEEK</strong>GUSTAVO AUDIO<br>SIDE A</div>
-                    <div class="grd-reel"></div>
-                  </div>
-                </div>
-                <div class="grd-knobs"><div class="grd-knob big"></div><div class="grd-knob small"></div></div>
+    <section class="grd-radio-widget is-signal" aria-label="RADIO 33 weekly song signal visualizer">
+      <div class="grd-radio-label"><b>RADIO_33</b><span>WEEKLY SIGNAL / 64</span></div>
+      <div class="grd-broadcast-grid">
+        <div class="grd-radio-side" aria-hidden="true">
+          <div class="grd-antenna"></div>
+          <div class="grd-radio">
+            <div class="grd-handle"></div>
+            <div class="grd-radio-inner">
+              <div class="grd-grille"><div class="grd-speaker-core"></div></div>
+              <div class="grd-radio-face">
+                <div class="grd-mini-display">FM <b>100.3</b></div>
+                <div class="grd-freq"><div class="grd-freq-line"></div><div class="grd-needle"></div></div>
+                <div class="grd-freq-labels"><span>88</span><span>96</span><span>104</span><span>108</span></div>
+                <div class="grd-knob-row"><i></i><i></i><i></i></div>
               </div>
             </div>
           </div>
+          <div class="grd-dancer" role="img" aria-label="Tiny pixel Gustavo dancing with headphones"></div>
         </div>
-        <div class="grd-dancer" role="img" aria-label="Tiny pixel Gustavo dancing with headphones"></div>
-        <div class="grd-radio-note">RADIO_33 // RECEIVING</div>
+
+        <div class="grd-signal-terminal">
+          <div class="grd-terminal-head"><span>WEEKLY AUDIO MONITOR</span><b data-grd-state>SIGNAL VISUAL</b></div>
+          <div class="grd-station" data-grd-station>WEEKLY PICK</div>
+          <div class="grd-wave-wrap">
+            <svg class="grd-wave-scope" viewBox="0 0 360 78" preserveAspectRatio="none" role="img" aria-label="Animated signal visualization">
+              <line x1="0" x2="360" y1="39" y2="39" class="grd-wave-zero"></line>
+              <path data-grd-wave-ghost class="grd-wave-ghost" d="M0 39 L360 39"></path>
+              <path data-grd-wave class="grd-wave-main" d="M0 39 L360 39"></path>
+            </svg>
+            <div class="grd-eq" data-grd-eq aria-hidden="true"></div>
+          </div>
+          <div class="grd-terminal-meta"><span data-grd-week>WEEK</span><span>FM 100.3</span><span>GUSTAVO AUDIO</span></div>
+        </div>
       </div>
+      <div class="grd-radio-note">signal follows player state when YouTube allows it · waveform is a visual simulation</div>
     </section>`;
   mediaGrid.before(mount);
 
   const radio = mount.querySelector(".grd-radio-widget");
   const station = mount.querySelector("[data-grd-station]");
   const week = mount.querySelector("[data-grd-week]");
+  const state = mount.querySelector("[data-grd-state]");
+  const wave = mount.querySelector("[data-grd-wave]");
+  const ghost = mount.querySelector("[data-grd-wave-ghost]");
+  const eq = mount.querySelector("[data-grd-eq]");
   const songTitle = document.querySelector("#songTitle");
+  const songFrame = document.querySelector("#songFrame");
 
   function isoWeek(d = new Date()) {
     const x = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
@@ -721,21 +728,99 @@ qa('[data-gallery-open]').forEach(el=>el.addEventListener('click',e=>{e.preventD
   }
   if (week) week.textContent = `WEEK_${String(isoWeek()).padStart(2,"0")}`;
 
+  function hashString(str){
+    let h=2166136261;
+    for(let i=0;i<str.length;i++){h^=str.charCodeAt(i);h=Math.imul(h,16777619)}
+    return h>>>0;
+  }
+  let titleSeed=1;
   function syncStation() {
     const title = (songTitle?.textContent || window.SITE_DATA?.song?.title || "WEEKLY PICK").trim();
     station.textContent = title.toUpperCase();
     station.title = title;
+    titleSeed=hashString(title)||1;
   }
   syncStation();
-  if (songTitle && window.MutationObserver) {
-    new MutationObserver(syncStation).observe(songTitle,{childList:true,subtree:true,characterData:true});
+  if (songTitle && window.MutationObserver) new MutationObserver(syncStation).observe(songTitle,{childList:true,subtree:true,characterData:true});
+
+  // Equalizer bars are generated once; their heights are updated with the waveform.
+  const barCount=28;
+  for(let i=0;i<barCount;i++){
+    const b=document.createElement('i');
+    b.style.setProperty('--i',i);
+    eq.appendChild(b);
   }
+  const bars=[...eq.children];
 
-  function setPlaying(value) { radio.classList.toggle("is-playing", !!value); }
-  window.addEventListener("gustavo:audio-state", e => setPlaying(Boolean(e.detail?.playing)));
+  let playing=false;
+  function setPlaying(value){
+    playing=!!value;
+    radio.classList.toggle('is-playing',playing);
+    if(state)state.textContent=playing?'PLAYING // SIGNAL':'SIGNAL VISUAL';
+  }
+  window.addEventListener("gustavo:audio-state",e=>setPlaying(Boolean(e.detail?.playing)));
 
-  // The current site uses a YouTube iframe rather than a custom audio button,
-  // so the dancer idles slowly by default. If a future player dispatches the
-  // gustavo:audio-state event, the radio/reels/dancer accelerate automatically.
+  // A deterministic pseudo-audio waveform. It changes with the current song title,
+  // and grows/faster when the YouTube player reports PLAYING.
+  let start=performance.now();
+  function drawSignal(now){
+    const t=(now-start)/1000;
+    const speed=playing?3.35:1.15;
+    const amp=playing?16:8.5;
+    const phase=(titleSeed%997)/997*Math.PI*2;
+    const pts=[]; const ghostPts=[]; const N=72;
+    for(let i=0;i<N;i++){
+      const x=360*i/(N-1);
+      const n=i/(N-1);
+      const env=.42+.58*Math.sin(Math.PI*n);
+      const y=39 + env*(
+        Math.sin(i*.57+t*speed+phase)*amp*.55 +
+        Math.sin(i*.19-t*speed*.73+phase*.7)*amp*.28 +
+        Math.sin(i*1.13+t*speed*1.37+(titleSeed%31))*amp*.14
+      );
+      const gy=39 + env*(
+        Math.sin(i*.49+t*speed*.86+phase+1.2)*amp*.42 +
+        Math.sin(i*.23-t*speed*.58+phase*.4)*amp*.20
+      );
+      pts.push(`${x.toFixed(1)},${y.toFixed(1)}`);
+      ghostPts.push(`${x.toFixed(1)},${gy.toFixed(1)}`);
+    }
+    if(wave)wave.setAttribute('d','M'+pts.join(' L'));
+    if(ghost)ghost.setAttribute('d','M'+ghostPts.join(' L'));
+    bars.forEach((b,i)=>{
+      const p=Math.abs(Math.sin(t*speed*1.7+i*.61+phase)+.55*Math.sin(t*speed*.83+i*1.17));
+      const h=4+Math.min(1,p/1.45)*(playing?34:18);
+      b.style.height=`${h.toFixed(1)}px`;
+      b.style.opacity=(.48+Math.min(1,p)*.52).toFixed(2);
+    });
+    requestAnimationFrame(drawSignal);
+  }
+  if(!matchMedia('(prefers-reduced-motion: reduce)').matches) requestAnimationFrame(drawSignal);
+
+  // Best-effort YouTube state sync. If it cannot load, the simulated signal still runs.
+  function hookYouTube(){
+    if(!songFrame)return;
+    const src=songFrame.getAttribute('src')||'';
+    if(src && !src.includes('enablejsapi=1')) songFrame.src=src+(src.includes('?')?'&':'?')+'enablejsapi=1&playsinline=1';
+    const setup=()=>{
+      try{
+        if(window.YT?.Player){
+          new YT.Player('songFrame',{events:{onStateChange:e=>{
+            const P=window.YT?.PlayerState;
+            if(!P)return;
+            if(e.data===P.PLAYING)setPlaying(true);
+            else if(e.data===P.PAUSED||e.data===P.ENDED||e.data===P.CUED)setPlaying(false);
+          }}});
+        }
+      }catch(_e){}
+    };
+    if(window.YT?.Player){setup();return}
+    const prior=window.onYouTubeIframeAPIReady;
+    window.onYouTubeIframeAPIReady=()=>{try{if(typeof prior==='function')prior()}catch(_e){}setup()};
+    if(!document.querySelector('script[data-grd-youtube-api]')){
+      const s=document.createElement('script');s.src='https://www.youtube.com/iframe_api';s.dataset.grdYoutubeApi='1';document.head.appendChild(s);
+    }
+  }
+  hookYouTube();
   setPlaying(false);
 })();

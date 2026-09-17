@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="author" content="Gustavorodriguezpc">
+<title>SMURF Maintenance App | How To</title>
+<style>
+:root{--blue:#0B5C9E;--pale:#F4F7FB;--light:#EAF3FF;--line:#C9DDF4;--text:#172033;--danger:#B42318;--white:#fff}
+*{box-sizing:border-box}body{margin:0;background:var(--pale);font-family:Arial,Helvetica,sans-serif;color:var(--text)}
+.page{max-width:1100px;margin:0 auto;padding:28px}.hero{background:var(--blue);color:#fff;border-radius:18px;padding:24px 28px;display:flex;justify-content:space-between;gap:30px;align-items:center}.brand{font-size:38px;font-weight:900;font-style:italic}.sub{font-size:16px;font-weight:700;margin-top:4px}.tag{font-size:13px;max-width:460px;line-height:1.45;text-align:right}.section-title{font-size:24px;font-weight:900;color:var(--blue);margin:26px 0 12px}.flow{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.step{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px;min-height:154px}.num{width:34px;height:34px;border-radius:50%;background:var(--blue);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:900;margin-bottom:10px}.step h3{margin:0 0 7px;font-size:16px}.step p{margin:0;font-size:13px;line-height:1.45}.status-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.status{background:#fff;border:1px solid var(--line);border-top:5px solid var(--blue);border-radius:12px;padding:13px}.status b{display:block;margin-bottom:6px}.status span{font-size:12px;line-height:1.4}.queue{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px}.queue-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.queue h3{margin:0 0 8px;color:var(--blue)}.queue ul{margin:0;padding-left:20px}.queue li{font-size:13px;line-height:1.4;margin:6px 0}.notice{margin-top:16px;border:1px solid #F4B9B2;border-left:8px solid var(--danger);background:#FFF4F2;border-radius:12px;padding:14px 16px;font-size:14px;line-height:1.45}.notice b{color:var(--danger)}.footer{margin-top:18px;border-top:2px solid var(--blue);padding-top:12px;font-size:12px;display:flex;justify-content:space-between;gap:20px}.pill{display:inline-block;border:1px solid var(--line);background:var(--light);border-radius:999px;padding:5px 9px;font-size:11px;font-weight:700;color:var(--blue)}
+@media(max-width:800px){.page{padding:16px}.hero{display:block}.tag{text-align:left;margin-top:12px}.flow,.status-grid,.queue-grid{grid-template-columns:1fr}}
+@media print{body{background:#fff}.page{max-width:none;padding:10mm}.hero{-webkit-print-color-adjust:exact;print-color-adjust:exact}.step,.status,.queue,.notice{break-inside:avoid}}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="hero">
+    <div><div class="brand">SMURF</div><div class="sub">Maintenance App</div></div>
+    <div class="tag"><b>How to review and update requests</b><br>Use the queue to triage work, then document assignment, status, work order, and maintenance follow-up.</div>
+  </div>
+
+  <div class="section-title">How to use the Maintenance App</div>
+  <div class="flow">
+    <div class="step"><div class="num">1</div><h3>Find the Request</h3><p>Use Search and the Building, Status, and Urgency filters to narrow the maintenance queue.</p></div>
+    <div class="step"><div class="num">2</div><h3>Open the Request Card</h3><p>Select the request card to load the exact SharePoint record into the Maintenance Assignment screen.</p></div>
+    <div class="step"><div class="num">3</div><h3>Review the Request</h3><p>Check requester, location, asset, urgency, issue summary, impact notes, and SMURF reported conditions.</p></div>
+    <div class="step"><div class="num">4</div><h3>Assign an Owner</h3><p>Select the responsible person in Assigned To. If the existing assignment is unchanged, preserve the saved name.</p></div>
+    <div class="step"><div class="num">5</div><h3>Set Maintenance Status</h3><p>Choose the status that matches the actual work state.</p></div>
+    <div class="step"><div class="num">6</div><h3>Enter Work Order</h3><p>Add the work-order number when applicable. Leave blank if no work order exists.</p></div>
+    <div class="step"><div class="num">7</div><h3>Document Notes</h3><p>Record findings, work performed, support needed, parts, follow-up, or closure details.</p></div>
+    <div class="step"><div class="num">8</div><h3>Submit Update</h3><p>Select Submit Maintenance Form. The app saves the maintenance fields, refreshes SharePoint, and confirms success.</p></div>
+  </div>
+
+  <div class="section-title">Status guide</div>
+  <div class="status-grid">
+    <div class="status"><b>Waiting for Assignment</b><span>No owner has been assigned yet.</span></div>
+    <div class="status"><b>In progress</b><span>An owner is actively investigating, repairing, coordinating, or otherwise working the request.</span></div>
+    <div class="status"><b>Follow-Up Required</b><span>Additional inspection, parts, scheduling, vendor support, or other follow-up remains.</span></div>
+    <div class="status"><b>Completed</b><span>Maintenance work and required documentation are complete.</span></div>
+  </div>
+
+  <div class="section-title">Queue + detail screen</div>
+  <div class="queue-grid">
+    <div class="queue"><h3>Queue card</h3><ul><li>Request number</li><li>Building / room</li><li>Concern type</li><li>Issue summary</li><li>Asset</li><li>Submitted time</li><li>Maintenance status</li><li>Assigned To</li><li>Maintenance priority</li></ul></div>
+    <div class="queue"><h3>Maintenance Action</h3><ul><li>Assigned To</li><li>Maintenance Status</li><li>Work Order No.</li><li>Maintenance Notes / Follow-Up Actions</li><li>Submit Maintenance Form</li></ul></div>
+  </div>
+
+  <div class="notice"><b>Emergency reminder:</b> SMURF is a request, documentation, and work-tracking tool. Active emergency conditions must also use the site's emergency communication process, including RelayX radio when applicable.</div>
+
+  <div class="footer"><span><b>Quick path:</b> Queue → Search/Filter → Open Request → Review → Assign → Status → Work Order → Notes → Submit</span><span class="pill">Maintenance Quick Guide</span></div>
+</div>
+</body>
+</html>

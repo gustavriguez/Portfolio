@@ -221,19 +221,8 @@ window.PROJECT_GALLERIES = {
         "src": "img-024.png",
         "alt": "Steam locomotive CAD image 25",
         "caption": "Steam locomotive CAD archive \u00b7 image 25"
-      },
-      {
-        "type": "image",
-        "src": "img-025.png",
-        "alt": "Steam locomotive CAD image 26",
-        "caption": "Steam locomotive CAD archive \u00b7 image 26"
-      },
-      {
-        "type": "image",
-        "src": "img-026.png",
-        "alt": "Steam locomotive CAD image 27",
-        "caption": "Steam locomotive CAD archive \u00b7 image 27"
-      },]
+      }
+    ]
   },
   "shape-fight": {
     "title": "Ultimate Shape Fight",
@@ -344,9 +333,94 @@ window.PROJECT_GALLERIES = {
     "items": []
   },
   "smurf": {
-    "title": "S.M.U.R.F.",
-    "items": []
-  },
+  "title": "SMURF",
+  "items": [
+    {
+      "type": "image",
+      "src": "smurf-urgency-decision-map.png",
+      "alt": "SMURF urgency decision engine flowchart",
+      "caption": "Urgency decision engine \u00b7 rules for Immediate, Same-Shift, and Not Immediate requests."
+    },
+    {
+      "type": "image",
+      "src": "smurf-general-assessment-screen.png",
+      "alt": "SMURF general assessment screen",
+      "caption": "Requester app \u00b7 General assessment screen."
+    },
+    {
+      "type": "image",
+      "src": "smurf-controls-questions-screen.png",
+      "alt": "SMURF controls and electrical automation questions screen",
+      "caption": "Requester app \u00b7 Controls / Electrical / Automation question set."
+    },
+    {
+      "type": "image",
+      "src": "smurf-request-details-screen.png",
+      "alt": "SMURF request details screen",
+      "caption": "Requester app \u00b7 Request details, room, asset, issue summary, notes, and attachments."
+    },
+    {
+      "type": "image",
+      "src": "smurf-review-submit-screen.png",
+      "alt": "SMURF review before submitting screen",
+      "caption": "Requester app \u00b7 Review and submit screen before final submission."
+    },
+    {
+      "type": "image",
+      "src": "smurf-thank-you-screen.png",
+      "alt": "SMURF thank you screen after submission",
+      "caption": "Requester app \u00b7 Submission confirmation screen."
+    },
+    {
+      "type": "image",
+      "src": "smurf-maintenance-list-screen.png",
+      "alt": "SMURF maintenance request list screen",
+      "caption": "Maintenance app \u00b7 Request list with filters and search."
+    },
+    {
+      "type": "image",
+      "src": "smurf-maintenance-detail-screen.png",
+      "alt": "SMURF maintenance request detail screen",
+      "caption": "Maintenance app \u00b7 Assignment, status, work order, notes, and attachments."
+    },
+    {
+      "type": "image",
+      "src": "smurf-email-new-request.png",
+      "alt": "SMURF new request email notification",
+      "caption": "Notification email \u00b7 New maintenance request submitted."
+    },
+    {
+      "type": "image",
+      "src": "smurf-email-reminder.png",
+      "alt": "SMURF waiting for assignment reminder email",
+      "caption": "Notification email \u00b7 Reminder for requests waiting on assignment."
+    },
+    {
+      "type": "image",
+      "src": "smurf-flow-request-created-routing.png",
+      "alt": "SMURF Power Automate flow for created requests",
+      "caption": "Automation flow \u00b7 Created request routing and urgency handling."
+    },
+    {
+      "type": "image",
+      "src": "smurf-flow-recurrence-reminders.png",
+      "alt": "SMURF recurring reminder Power Automate flow",
+      "caption": "Automation flow \u00b7 Recurring reminder checks for immediate, same-shift, and not-immediate queues."
+    },
+    {
+      "type": "image",
+      "src": "smurf-flow-same-shift-and-not-immediate-reminders.png",
+      "alt": "SMURF same-shift and not-immediate reminder branches",
+      "caption": "Automation flow \u00b7 Same-shift and not-immediate reminder branches."
+    },
+    {
+      "type": "image",
+      "src": "smurf-flow-status-sync-to-excel.png",
+      "alt": "SMURF maintenance status sync flow",
+      "caption": "Automation flow \u00b7 Maintenance status sync and downstream update logic."
+    }
+  ]
+},
   "carrt": {
     "title": "CARRT Research",
     "items": []
