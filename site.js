@@ -34,7 +34,8 @@ const searchRoutes=[
  {t:['bakery','state flour','bread','sourdough'],u:'work.html#bakery'},
  {t:['asset','image','pdf','certificate','credential','cswa','citi'],u:'assets.html'},
  {t:['song','movie','weekly','music','film'],u:'media.html'},
- {t:['resume','résumé','skill','education'],u:'resume.html'},
+ {t:['education','school','usf','hcc','coursework','academic','opensim','hemiparetic','shia'],u:'education.html'},
+ {t:['resume','résumé','skill','credential'],u:'resume.html'},
  {t:['email','linkedin','contact'],u:'contact.html'},
  {t:['about','bio','gustavo'],u:'about.html'},
  {t:['project','engineering'],u:'projects.html'},
@@ -823,4 +824,18 @@ qa('[data-gallery-open]').forEach(el=>el.addEventListener('click',e=>{e.preventD
   }
   hookYouTube();
   setPlaying(false);
+})();
+
+
+/* V26 — featured Work / Education switchboards */
+(()=>{
+  document.addEventListener('click',e=>{
+    const btn=e.target.closest('.featured-tab');
+    if(!btn)return;
+    const board=btn.closest('.featured-switchboard');
+    if(!board)return;
+    const id=btn.dataset.featureTarget;
+    board.querySelectorAll('.featured-tab').forEach(x=>x.classList.toggle('active',x===btn));
+    board.querySelectorAll('.featured-panel').forEach(x=>x.classList.toggle('active',x.id===id));
+  });
 })();

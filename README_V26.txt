@@ -1,0 +1,1 @@
+V26 Work + Education patch. Upload every file in this ZIP to the repository root and overwrite existing files. Adds education.html, splits professional/academic presentation, keeps IEEE EXO in both, and adds OpenSim gait-comparison wording. Existing media, weather, SMURF gallery, radio, shark, and project assets are not replaced by this patch.
