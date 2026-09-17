@@ -117,6 +117,8 @@ function renderGallery(){
   }
   galleryState.index=Math.min(galleryState.index,items.length-1);
   const item=items[galleryState.index], kind=mediaKind(item);
+  const isProcessFlow=(item.src||'').includes('smurf-system-process-flow.png');
+  modal.classList.toggle('gallery-process-flow',isProcessFlow);
   if(kind==='youtube'){
     stage.innerHTML='<iframe class="gallery-video" src="'+youtubeEmbed(item.src)+'" title="'+(item.alt||item.caption||'Project video').replace(/"/g,'&quot;')+'" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>';
   }else if(kind==='video'){
@@ -821,4 +823,57 @@ qa('[data-gallery-open]').forEach(el=>el.addEventListener('click',e=>{e.preventD
   }
   hookYouTube();
   setPlaying(false);
+})();
+
+
+/* V32 — restore featured switchboard buttons on Work / Education. */
+(()=>{
+  function activateFeatureTab(btn){
+    if(!btn) return;
+    const board=btn.closest('.featured-switchboard');
+    if(!board) return;
+    const targetId=btn.getAttribute('data-feature-target');
+    if(!targetId) return;
+    let target=null;
+    try{ target=board.querySelector('#'+CSS.escape(targetId)); }
+    catch(_e){ target=document.getElementById(targetId); }
+    if(!target || !board.contains(target)) return;
+    board.querySelectorAll('.featured-tab').forEach(tab=>{
+      const on=tab===btn;
+      tab.classList.toggle('active',on);
+      tab.setAttribute('aria-selected',on?'true':'false');
+      tab.setAttribute('tabindex',on?'0':'-1');
+    });
+    board.querySelectorAll('.featured-panel').forEach(panel=>{
+      const on=panel===target;
+      panel.classList.toggle('active',on);
+      panel.hidden=!on;
+    });
+  }
+  function initBoard(board){
+    const tabs=[...board.querySelectorAll('.featured-tab[data-feature-target]')];
+    tabs.forEach((tab,i)=>{
+      tab.setAttribute('role','tab');
+      tab.setAttribute('aria-controls',tab.getAttribute('data-feature-target')||'');
+      tab.addEventListener('keydown',e=>{
+        if(!['ArrowLeft','ArrowRight','Home','End'].includes(e.key)) return;
+        e.preventDefault();
+        let n=i;
+        if(e.key==='ArrowRight') n=(i+1)%tabs.length;
+        if(e.key==='ArrowLeft') n=(i-1+tabs.length)%tabs.length;
+        if(e.key==='Home') n=0;
+        if(e.key==='End') n=tabs.length-1;
+        tabs[n].focus(); activateFeatureTab(tabs[n]);
+      });
+    });
+    const active=board.querySelector('.featured-tab.active')||tabs[0];
+    if(active) activateFeatureTab(active);
+  }
+  document.querySelectorAll('.featured-switchboard').forEach(initBoard);
+  document.addEventListener('click',e=>{
+    const btn=e.target.closest?.('.featured-tab[data-feature-target]');
+    if(!btn) return;
+    e.preventDefault();
+    activateFeatureTab(btn);
+  });
 })();

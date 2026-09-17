@@ -228,6 +228,12 @@ window.PROJECT_GALLERIES = {
     "title": "Ultimate Shape Fight",
     "items": [
       {
+        "type": "youtube",
+        "src": "https://www.youtube.com/watch?v=VFJ-w2PRKS4",
+        "alt": "Ultimate Shape Fight MATLAB gameplay demonstration",
+        "caption": "Gameplay demo · Ultimate Shape Fight running in MATLAB."
+      },
+      {
         "type": "image",
         "src": "shape-fight-1.jpg",
         "alt": "Ultimate Shape Fight running in MATLAB",
@@ -333,91 +339,97 @@ window.PROJECT_GALLERIES = {
     "items": []
   },
   "smurf": {
-  "title": "SMURF",
+  "title": "SMURF — Maintenance Request System",
   "items": [
     {
       "type": "image",
-      "src": "smurf-urgency-decision-map.png",
-      "alt": "SMURF urgency decision engine flowchart",
-      "caption": "Urgency decision engine \u00b7 rules for Immediate, Same-Shift, and Not Immediate requests."
+      "src": "smurf-thank-you-screen.png",
+      "alt": "SMURF submission confirmation screen",
+      "caption": "01 · Submission confirmation — Thank you for using SMURF."
+    },
+    {
+      "type": "image",
+      "src": "smurf-system-process-flow.png",
+      "alt": "SMURF end-to-end system process flowchart",
+      "caption": "02 · System process flow — requester intake, urgency logic, maintenance workflow, and automation."
     },
     {
       "type": "image",
       "src": "smurf-general-assessment-screen.png",
       "alt": "SMURF general assessment screen",
-      "caption": "Requester app \u00b7 General assessment screen."
+      "caption": "03 · Requester app — General Assessment."
     },
     {
       "type": "image",
       "src": "smurf-controls-questions-screen.png",
-      "alt": "SMURF controls and electrical automation questions screen",
-      "caption": "Requester app \u00b7 Controls / Electrical / Automation question set."
+      "alt": "SMURF controls electrical automation questions screen",
+      "caption": "04 · Requester app — Controls / Electrical / Automation assessment."
     },
     {
       "type": "image",
       "src": "smurf-request-details-screen.png",
       "alt": "SMURF request details screen",
-      "caption": "Requester app \u00b7 Request details, room, asset, issue summary, notes, and attachments."
+      "caption": "05 · Requester app — room, asset, issue summary, impact notes, details, and attachments."
     },
     {
       "type": "image",
       "src": "smurf-review-submit-screen.png",
       "alt": "SMURF review before submitting screen",
-      "caption": "Requester app \u00b7 Review and submit screen before final submission."
+      "caption": "06 · Requester app — Review before submission."
     },
     {
       "type": "image",
-      "src": "smurf-thank-you-screen.png",
-      "alt": "SMURF thank you screen after submission",
-      "caption": "Requester app \u00b7 Submission confirmation screen."
-    },
-    {
-      "type": "image",
-      "src": "smurf-maintenance-list-screen.png",
-      "alt": "SMURF maintenance request list screen",
-      "caption": "Maintenance app \u00b7 Request list with filters and search."
-    },
-    {
-      "type": "image",
-      "src": "smurf-maintenance-detail-screen.png",
-      "alt": "SMURF maintenance request detail screen",
-      "caption": "Maintenance app \u00b7 Assignment, status, work order, notes, and attachments."
+      "src": "smurf-urgency-decision-map.png",
+      "alt": "SMURF urgency decision engine flowchart",
+      "caption": "07 · Decision engine — Immediate overrides, Same-Shift rules, and Not Immediate outcome."
     },
     {
       "type": "image",
       "src": "smurf-email-new-request.png",
-      "alt": "SMURF new request email notification",
-      "caption": "Notification email \u00b7 New maintenance request submitted."
+      "alt": "SMURF new request notification email",
+      "caption": "08 · Notification — new request email with priority and request summary."
+    },
+    {
+      "type": "image",
+      "src": "smurf-maintenance-list-screen.png",
+      "alt": "SMURF maintenance request queue",
+      "caption": "09 · Maintenance app — searchable and filterable active request queue."
+    },
+    {
+      "type": "image",
+      "src": "smurf-maintenance-detail-screen.png",
+      "alt": "SMURF maintenance assignment and detail screen",
+      "caption": "10 · Maintenance app — assignment, status, work order, notes, and attachments."
     },
     {
       "type": "image",
       "src": "smurf-email-reminder.png",
       "alt": "SMURF waiting for assignment reminder email",
-      "caption": "Notification email \u00b7 Reminder for requests waiting on assignment."
+      "caption": "11 · Reminder — request waiting for assignment."
     },
     {
       "type": "image",
       "src": "smurf-flow-request-created-routing.png",
-      "alt": "SMURF Power Automate flow for created requests",
-      "caption": "Automation flow \u00b7 Created request routing and urgency handling."
+      "alt": "SMURF request-created Power Automate routing flow",
+      "caption": "12 · Power Automate — request creation, urgency routing, and record updates."
     },
     {
       "type": "image",
       "src": "smurf-flow-recurrence-reminders.png",
       "alt": "SMURF recurring reminder Power Automate flow",
-      "caption": "Automation flow \u00b7 Recurring reminder checks for immediate, same-shift, and not-immediate queues."
+      "caption": "13 · Power Automate — recurring reminder checks by urgency class."
     },
     {
       "type": "image",
       "src": "smurf-flow-same-shift-and-not-immediate-reminders.png",
       "alt": "SMURF same-shift and not-immediate reminder branches",
-      "caption": "Automation flow \u00b7 Same-shift and not-immediate reminder branches."
+      "caption": "14 · Power Automate — Same-Shift and Not Immediate reminder branches."
     },
     {
       "type": "image",
       "src": "smurf-flow-status-sync-to-excel.png",
-      "alt": "SMURF maintenance status sync flow",
-      "caption": "Automation flow \u00b7 Maintenance status sync and downstream update logic."
+      "alt": "SMURF maintenance status synchronization flow",
+      "caption": "15 · Power Automate — maintenance status synchronization and downstream record update."
     }
   ]
 },
