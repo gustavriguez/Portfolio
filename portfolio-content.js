@@ -5,7 +5,7 @@ window.PORTFOLIO_CONTENT = {
     "tiles": [
       {
         "title": "IEEE EXO",
-        "description": "Lower-limb exoskeleton program: powered hip and knee, passive ankle, gait data, embedded controls, CAD, testing, and multidisciplinary leadership.",
+        "description": "Lower-limb exoskeleton program spanning powered hip/knee design, passive ankle development, OpenSim gait comparison, embedded controls, CAD, testing, multidisciplinary leadership, and IEEE board outreach/event responsibilities.",
         "link": "work.html#exo-project",
         "linkText": "See project",
         "badge": "EX"
@@ -126,7 +126,7 @@ window.PORTFOLIO_CONTENT = {
         "date": "Aug 2025 · Present",
         "title": "EXO Project Lead / Chair",
         "org": "IEEE at the University of South Florida",
-        "description": "Lead technical work across R&D, mechanical design, electrical, controls, testing, safety, documentation, procurement, budgets, onboarding, and design reviews."
+        "description": "Lead the lower-limb exoskeleton program across R&D, mechanical design, electrical, controls, testing, safety, documentation, procurement, budgets, onboarding, and design reviews. Chair responsibilities include board-level event planning, workshop coordination, recruitment, career-fair and employer outreach, sponsor/industry communication, meeting logistics, and cross-team scheduling."
       },
       {
         "date": "Aug 2026 · Present",
