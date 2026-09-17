@@ -34,8 +34,7 @@ const searchRoutes=[
  {t:['bakery','state flour','bread','sourdough'],u:'work.html#bakery'},
  {t:['asset','image','pdf','certificate','credential','cswa','citi'],u:'assets.html'},
  {t:['song','movie','weekly','music','film'],u:'media.html'},
- {t:['education','school','usf','hcc','coursework','academic','opensim','hemiparetic','shia'],u:'education.html'},
- {t:['resume','résumé','skill','credential'],u:'resume.html'},
+ {t:['resume','résumé','skill','education'],u:'resume.html'},
  {t:['email','linkedin','contact'],u:'contact.html'},
  {t:['about','bio','gustavo'],u:'about.html'},
  {t:['project','engineering'],u:'projects.html'},
@@ -149,9 +148,6 @@ qa('[data-gallery-open]').forEach(el=>el.addEventListener('click',e=>{e.preventD
 
   const spriteForPage={
     home:['wave','gustavo-wave.gif'],
-    about:['wave','gustavo-wave.gif'],
-    projects:['drill','gustavo-drill.gif'],
-    work:['idle','gustavo-idle.gif'],
     media:['weather','gustavo-weather.gif'],
     assets:['shark','bullshark-swim.gif'],
     resume:['idle','gustavo-idle.gif'],
@@ -204,6 +200,7 @@ qa('[data-gallery-open]').forEach(el=>el.addEventListener('click',e=>{e.preventD
   }
 
   function addSectionBadge(){
+    if(['work','projects','about'].includes(page))return;
     const title=$('.section-title'); if(!title || title.parentElement.querySelector('.section-sprite-badge'))return;
     const conf=spriteForPage[page]; if(!conf)return;
     const badge=el('span','section-sprite-badge');
@@ -824,18 +821,4 @@ qa('[data-gallery-open]').forEach(el=>el.addEventListener('click',e=>{e.preventD
   }
   hookYouTube();
   setPlaying(false);
-})();
-
-
-/* V26 — featured Work / Education switchboards */
-(()=>{
-  document.addEventListener('click',e=>{
-    const btn=e.target.closest('.featured-tab');
-    if(!btn)return;
-    const board=btn.closest('.featured-switchboard');
-    if(!board)return;
-    const id=btn.dataset.featureTarget;
-    board.querySelectorAll('.featured-tab').forEach(x=>x.classList.toggle('active',x===btn));
-    board.querySelectorAll('.featured-panel').forEach(x=>x.classList.toggle('active',x.id===id));
-  });
 })();
