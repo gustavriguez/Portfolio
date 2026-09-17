@@ -5,10 +5,10 @@ window.PORTFOLIO_CONTENT = {
     "tiles": [
       {
         "title": "IEEE EXO",
-        "description": "Lower-limb exoskeleton program spanning leadership, powered hip/knee design, passive ankle development, embedded controls, CAD, testing, and OpenSim gait comparison work across healthy, hemiparetic, and SHIA datasets.",
+        "description": "Lower-limb exoskeleton program: powered hip and knee, passive ankle, gait data, embedded controls, CAD, testing, and multidisciplinary leadership.",
         "link": "work.html#exo-project",
         "linkText": "See project",
-        "badge": "EXO"
+        "badge": "EX"
       },
       {
         "title": "Lonza",
@@ -22,21 +22,21 @@ window.PORTFOLIO_CONTENT = {
         "description": "Rule-based maintenance request system with guided intake, urgency determination, maintenance assignment, reminder emails, and searchable request history.",
         "link": "work.html#smurf",
         "linkText": "See system",
-        "badge": "SMR"
+        "badge": "S"
       },
       {
         "title": "CARRT",
-        "description": "Human-motion research using IMUs, Vicon, experimental testing, validation, data-quality review, analysis, and technical documentation.",
+        "description": "Human-motion research using IMUs and Vicon plus a modular ESP32/IMU rugby lineout sensor. The SolidWorks enclosure was reduced from 80 × 60 mm to 43 × 32 mm (71.3% smaller footprint) with ventilation, adjustable strap slots, and PCB validation/integration support.",
         "link": "work.html#carrt",
         "linkText": "See research",
-        "badge": "RRT"
+        "badge": "C"
       }
     ],
     "galleryShelfLabel": "open a mini gallery:"
   },
   "workPage": {
-    "title": "Work.",
-    "subtitle": "Engineering work, research, leadership, and systems I have built around real operations.",
+    "title": "Work + project archive.",
+    "subtitle": "Selected engineering work across reliability, robotics, embedded systems, manufacturing, CAD, and human-motion research.",
     "projects": [
       {
         "id": "exo-project",
@@ -62,8 +62,8 @@ window.PORTFOLIO_CONTENT = {
       {
         "id": "carrt",
         "title": "CARRT Research",
-        "description": "Human-motion work using IMUs and Vicon through experimental setup, data collection, validation, data-quality checking, post-processing, motion analysis, literature review, and technical documentation.",
-        "tag": "Biomechanics",
+        "description": "Human-motion work using IMUs and Vicon plus development of a modular ESP32/IMU rugby lineout sensor. Designed a SolidWorks ankle/thigh enclosure reduced from 80 × 60 mm to 43 × 32 mm (71.3% smaller footprint), with ventilation, integrated adjustable strap slots, and PCB validation/integration support.",
+        "tag": "Biomechanics / Embedded Systems",
         "galleryKey": ""
       },
       {
@@ -132,7 +132,7 @@ window.PORTFOLIO_CONTENT = {
         "date": "Aug 2026 · Present",
         "title": "REU Research Assistant",
         "org": "CARRT Lab · University of South Florida",
-        "description": "Human-motion measurement and validation using IMUs and Vicon, with experimental setup, data collection, data-quality review, analysis, and research documentation."
+        "description": "Human-motion research using IMUs and Vicon, plus development of a modular ESP32-based IMU sensor for rugby lineout analysis. I designed a SolidWorks enclosure system for repeatable ankle and thigh placement, reducing the enclosure footprint from 80 × 60 mm to 43 × 32 mm, a 71.3% reduction. The modular case adds ventilation and onboard adjustable strap slots so the sensor can mount directly without relying on athletic tape or an athletic sleeve. I also helped validate the PCB and supported PCB/layout decisions used to package the electronics into the smaller housing."
       }
     ]
   },
