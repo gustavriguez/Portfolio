@@ -370,3 +370,231 @@ body[data-page="about"] .daily-dock.right .site-photo{display:none}
  .gallery-modal.gallery-process-flow .gallery-stage{min-height:62vh;padding:4px}
  .gallery-modal.gallery-process-flow .gallery-image{max-height:72vh}
 }
+
+/* =========================================================
+   V37 — Bootstrap mobile nav + reduced Aqua tabs + glow IDs
+   ========================================================= */
+
+/* Bootstrap is loaded before this stylesheet by site.js, so the original
+   Apple/Aqua look stays authoritative while Bootstrap handles collapse/dropdown. */
+.tabs.bootstrap-nav{
+  display:block;
+  height:auto;
+  min-height:35px;
+  margin-top:-1px;
+  padding:0;
+  overflow:visible;
+  white-space:normal;
+  background:transparent;
+  z-index:60;
+}
+.tabs.bootstrap-nav .container-fluid{
+  width:auto;
+  max-width:100%;
+  padding:0;
+  justify-content:center;
+  align-items:flex-end;
+}
+.tabs.bootstrap-nav .navbar-brand{
+  margin:0 -1px 0 0;
+}
+.tabs.bootstrap-nav .navbar-collapse{
+  flex-grow:0;
+}
+.tabs.bootstrap-nav .navbar-nav{
+  align-items:flex-end;
+  margin:0;
+}
+.tabs.bootstrap-nav .nav-item{
+  margin:0;
+}
+.tabs.bootstrap-nav .nav-glow-tab{
+  --tab-glow-rgb:47,108,179;
+  position:relative;
+  display:block;
+  height:29px;
+  min-width:103px;
+  padding:6px 15px 0!important;
+  margin:0 -1px 0 0;
+  text-align:center;
+  text-decoration:none;
+  color:#111!important;
+  font:14px Georgia,'Times New Roman',serif;
+  line-height:18px;
+  border:1px solid #8f8f8f;
+  border-bottom-color:#6d6d6d;
+  border-radius:8px 8px 0 0;
+  background:linear-gradient(#fefefe,#dedede 52%,#c6c6c6 53%,#f2f2f2);
+  box-shadow:inset 0 1px #fff,0 1px 1px #bbb;
+  text-shadow:0 1px #fff;
+  transition:box-shadow .16s ease,filter .16s ease,transform .16s ease;
+}
+.tabs.bootstrap-nav .nav-glow-tab:hover,
+.tabs.bootstrap-nav .nav-glow-tab:focus-visible{
+  z-index:4;
+  filter:brightness(1.035);
+  box-shadow:
+    inset 0 1px #fff,
+    0 1px 1px #bbb,
+    0 0 8px rgba(var(--tab-glow-rgb),.65),
+    0 0 17px rgba(var(--tab-glow-rgb),.28);
+  outline:none;
+}
+.tabs.bootstrap-nav .nav-glow-tab.active,
+.tabs.bootstrap-nav .nav-glow-tab.more-active{
+  z-index:5;
+  background:linear-gradient(#fff,#f4faff 47%,#c9dced 52%,#fff);
+  color:#111!important;
+  box-shadow:
+    inset 0 1px #fff,
+    0 1px 1px #aaa,
+    0 0 9px rgba(var(--tab-glow-rgb),.82),
+    0 0 20px rgba(var(--tab-glow-rgb),.34);
+}
+.tabs.bootstrap-nav .nav-glow-home{
+  --tab-glow-rgb:39,190,225;
+  font-family:Arial,sans-serif;
+  font-weight:bold;
+  color:#245f8d!important;
+}
+.tabs.bootstrap-nav .nav-glow-work{--tab-glow-rgb:244,170,58;}
+.tabs.bootstrap-nav .nav-glow-education{--tab-glow-rgb:161,105,218;}
+.tabs.bootstrap-nav .nav-glow-projects{--tab-glow-rgb:65,185,125;}
+.tabs.bootstrap-nav .nav-glow-more{--tab-glow-rgb:218,88,148;}
+.tabs.bootstrap-nav .dropdown-toggle::after{
+  margin-left:6px;
+  vertical-align:2px;
+}
+.tabs.bootstrap-nav .dropdown-menu{
+  min-width:148px;
+  margin-top:1px!important;
+  padding:4px;
+  border:1px solid #8d8d8d;
+  border-radius:2px 2px 7px 7px;
+  background:#f7f7f7;
+  box-shadow:0 4px 12px rgba(0,0,0,.17);
+  font:12px Arial,sans-serif;
+  z-index:1000;
+}
+.tabs.bootstrap-nav .dropdown-item{
+  padding:6px 8px;
+  color:#111;
+  border-radius:3px;
+}
+.tabs.bootstrap-nav .dropdown-item:hover,
+.tabs.bootstrap-nav .dropdown-item:focus,
+.tabs.bootstrap-nav .dropdown-item.active{
+  color:#111;
+  background:#e7f1fb;
+}
+.tabs.bootstrap-nav .navbar-toggler{
+  display:none;
+  width:39px;
+  height:27px;
+  margin:3px 6px 3px auto;
+  padding:3px 7px;
+  border:1px solid #858585;
+  border-radius:6px;
+  background:linear-gradient(#fff,#d5d5d5 52%,#c2c2c2 53%,#f6f6f6);
+  box-shadow:inset 0 1px #fff,0 1px 2px #bbb;
+}
+.tabs.bootstrap-nav .navbar-toggler:focus{
+  box-shadow:0 0 0 2px rgba(62,135,204,.24);
+}
+.tabs.bootstrap-nav .navbar-toggler-icon{
+  width:17px;
+  height:17px;
+}
+
+/* trim the second row: utility links only; mobile hides it entirely */
+.subnav.v37-subnav{
+  gap:28px;
+}
+
+/* Bootstrap helpers used by the patch without changing desktop composition. */
+.page-main.container-fluid{
+  --bs-gutter-x:0;
+}
+.page-main img.img-fluid{
+  max-width:100%;
+  height:auto;
+}
+
+@media(max-width:767.98px){
+  html,body{overflow-x:hidden;}
+  .top-lines{height:10px;}
+  .tabs.bootstrap-nav{
+    min-height:36px;
+    padding:0 4px;
+    border-bottom:1px solid #888;
+    background:linear-gradient(#f8f8f8,#dedede);
+  }
+  .tabs.bootstrap-nav .container-fluid{
+    width:100%;
+    justify-content:space-between;
+    align-items:center;
+  }
+  .tabs.bootstrap-nav .navbar-brand.nav-glow-tab{
+    width:auto;
+    min-width:122px;
+    margin:3px 0;
+    border-radius:7px;
+  }
+  .tabs.bootstrap-nav .navbar-toggler{display:block;}
+  .tabs.bootstrap-nav .navbar-collapse{
+    width:100%;
+    flex-basis:100%;
+    padding:5px 5px 8px;
+  }
+  .tabs.bootstrap-nav .navbar-nav{
+    width:100%;
+    align-items:stretch;
+    gap:5px;
+  }
+  .tabs.bootstrap-nav .nav-glow-tab{
+    width:100%;
+    min-width:0;
+    height:auto;
+    min-height:33px;
+    margin:0;
+    padding:7px 11px!important;
+    border-radius:6px;
+    text-align:left;
+    font-size:14px;
+    line-height:18px;
+  }
+  .tabs.bootstrap-nav .nav-glow-tab:hover,
+  .tabs.bootstrap-nav .nav-glow-tab.active,
+  .tabs.bootstrap-nav .nav-glow-tab.more-active{
+    transform:none;
+  }
+  .tabs.bootstrap-nav .dropdown-menu{
+    position:static!important;
+    width:100%;
+    margin:3px 0 0!important;
+    transform:none!important;
+    border-radius:5px;
+    box-shadow:none;
+  }
+  .subnav.v37-subnav{display:none!important;}
+
+  /* practical mobile cleanup while preserving the Apple desktop layout */
+  .wrap{width:100%;max-width:100%;}
+  .page-main.container-fluid{padding-left:7px!important;padding-right:7px!important;}
+  .hero,.section-box,.featured-switchboard{max-width:100%;}
+  .featured-tabs{display:flex;flex-wrap:wrap;gap:4px;overflow:visible;}
+  .featured-tab{flex:1 1 calc(50% - 4px);min-width:120px;}
+  .featured-panel.active{grid-template-columns:1fr!important;}
+  .featured-panel img,.featured-placeholder{width:100%;max-width:100%;height:auto;}
+  .experience-grid,.education-grid,.project-assets,.tiles,.media-grid,.doc-grid,.contact-grid{
+    grid-template-columns:1fr!important;
+  }
+  .quick-links{grid-template-columns:1fr!important;}
+  .footer{padding-left:10px;padding-right:10px;}
+  .footer .map{line-height:1.7;}
+  object,embed,iframe{max-width:100%;}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .tabs.bootstrap-nav .nav-glow-tab{transition:none;}
+}

@@ -877,3 +877,115 @@ qa('[data-gallery-open]').forEach(el=>el.addEventListener('click',e=>{e.preventD
     activateFeatureTab(btn);
   });
 })();
+
+/* =========================================================
+   V37 — Bootstrap responsive navigation + reduced glow tabs
+   ========================================================= */
+(()=>{
+  const BOOTSTRAP_CSS='bootstrap.min.css';
+  const BOOTSTRAP_JS='bootstrap.bundle.min.js';
+  const MORE_PAGES=new Set(['media','about','resume','contact','assets']);
+
+  function ensureBootstrap(){
+    if(!document.querySelector('link[data-v37-bootstrap]')){
+      const link=document.createElement('link');
+      link.rel='stylesheet';
+      link.href=BOOTSTRAP_CSS;
+      link.dataset.v37Bootstrap='css';
+      const custom=[...document.querySelectorAll('link[rel="stylesheet"]')].find(el=>/styles\.css(?:\?|$)/.test(el.getAttribute('href')||''));
+      if(custom && custom.parentNode) custom.parentNode.insertBefore(link,custom);
+      else document.head.appendChild(link);
+    }
+    if(!document.querySelector('script[data-v37-bootstrap]')){
+      const script=document.createElement('script');
+      script.src=BOOTSTRAP_JS;
+      script.defer=true;
+      script.dataset.v37Bootstrap='js';
+      document.head.appendChild(script);
+    }
+  }
+
+  function resolvePage(){
+    const bodyPage=(document.body?.dataset?.page||'').toLowerCase();
+    if(bodyPage) return bodyPage;
+    const file=(location.pathname.split('/').pop()||'index.html').toLowerCase();
+    if(file==='index.html'||!file) return 'home';
+    return file.replace(/\.html?$/,'');
+  }
+
+  function reducedNav(){
+    const nav=document.querySelector('nav.tabs');
+    if(!nav || nav.dataset.v37Nav==='1') return;
+    const page=resolvePage();
+    const moreActive=MORE_PAGES.has(page);
+    const active=(name)=>page===name?' active':'';
+    const moreClass=moreActive?' more-active':'';
+    const moreChild=(name)=>page===name?' active':'';
+
+    nav.dataset.v37Nav='1';
+    nav.className='tabs bootstrap-nav navbar navbar-expand-md';
+    nav.innerHTML=`
+      <div class="container-fluid">
+        <a class="navbar-brand nav-glow-tab nav-glow-home${active('home')}" href="index.html">◎ Gustavo</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#portfolioMainNav" aria-controls="portfolioMainNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="portfolioMainNav">
+          <ul class="navbar-nav">
+            <li class="nav-item"><a class="nav-link nav-glow-tab nav-glow-work${active('work')}" href="work.html">Work</a></li>
+            <li class="nav-item"><a class="nav-link nav-glow-tab nav-glow-education${active('education')}" href="education.html">Education</a></li>
+            <li class="nav-item"><a class="nav-link nav-glow-tab nav-glow-projects${active('projects')}" href="projects.html">Projects</a></li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle nav-glow-tab nav-glow-more${moreClass}" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">More</a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item${moreChild('media')}" href="media.html">Media / Weekly Picks</a></li>
+                <li><a class="dropdown-item${moreChild('about')}" href="about.html">About</a></li>
+                <li><a class="dropdown-item${moreChild('resume')}" href="resume.html">Résumé</a></li>
+                <li><a class="dropdown-item${moreChild('contact')}" href="contact.html">Contact</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item${moreChild('assets')}" href="assets.html">Project Assets</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>`;
+  }
+
+  function trimUtilityNav(){
+    const nav=document.querySelector('nav.subnav');
+    if(!nav || nav.dataset.v37Nav==='1') return;
+    const page=resolvePage();
+    nav.dataset.v37Nav='1';
+    nav.classList.add('v37-subnav');
+    const items=[
+      ['projects','projects.html','Engineering'],
+      ['assets','assets.html','Assets'],
+      ['media','media.html','Weekly Picks'],
+      ['resume','resume.html','Credentials']
+    ];
+    nav.innerHTML=items.map(([key,href,label])=>`<a${page===key?' class="active"':''} href="${href}">${label}</a>`).join('');
+  }
+
+  function bootstrapMobileHelpers(){
+    const main=document.querySelector('main.page-main');
+    if(main) main.classList.add('container-fluid','px-0','px-md-0');
+    document.querySelectorAll('.page-main img').forEach(img=>img.classList.add('img-fluid'));
+    document.querySelectorAll('.page-main table').forEach(table=>{
+      if(table.parentElement?.classList.contains('table-responsive')) return;
+      const wrap=document.createElement('div');
+      wrap.className='table-responsive';
+      table.parentNode.insertBefore(wrap,table);
+      wrap.appendChild(table);
+    });
+  }
+
+  function init(){
+    ensureBootstrap();
+    reducedNav();
+    trimUtilityNav();
+    bootstrapMobileHelpers();
+  }
+
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init,{once:true});
+  else init();
+})();
