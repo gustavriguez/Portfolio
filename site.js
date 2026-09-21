@@ -47,6 +47,7 @@ const words=[{w:'liminal',p:'LIM-uh-nuhl',pos:'adjective',d:'Occupying a positio
 
 // Project gallery mini windows
 const GALLERIES=window.PROJECT_GALLERIES||{};
+function mediaSrc(item){return item?.dataSrc||item?.src||''}
 function mediaKind(item){if(!item)return'image';if(item.type)return item.type;if(/youtube\.com|youtu\.be/.test(item.src||''))return'youtube';if(/\.(mp4|webm|mov)(\?|$)/i.test(item.src||''))return'video';return'image'}
 function ensureGalleryModal(){
   let modal=q('#projectGalleryModal');
@@ -122,9 +123,9 @@ function renderGallery(){
   if(kind==='youtube'){
     stage.innerHTML='<iframe class="gallery-video" src="'+youtubeEmbed(item.src)+'" title="'+(item.alt||item.caption||'Project video').replace(/"/g,'&quot;')+'" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>';
   }else if(kind==='video'){
-    stage.innerHTML='<video class="gallery-video" src="'+item.src+'" controls playsinline preload="metadata"></video>';
+    stage.innerHTML='<video class="gallery-video" src="'+mediaSrc(item)+'" controls playsinline preload="metadata"></video>';
   }else{
-    stage.innerHTML='<img class="gallery-image" src="'+item.src+'" alt="'+(item.alt||'Project image').replace(/"/g,'&quot;')+'">';
+    stage.innerHTML='<img class="gallery-image" src="'+mediaSrc(item)+'" alt="'+(item.alt||'Project image').replace(/"/g,'&quot;')+'">';
   }
   cap.textContent=item.caption||item.alt||'';
   count.textContent=(galleryState.index+1)+' / '+items.length;
@@ -132,7 +133,7 @@ function renderGallery(){
   items.forEach((it,i)=>{
     const b=document.createElement('button'); b.type='button'; b.className='gallery-thumb'+(i===galleryState.index?' active':'');
     const k=mediaKind(it);
-    if(k==='image')b.innerHTML='<img src="'+it.src+'" alt="">';
+    if(k==='image')b.innerHTML='<img src="'+mediaSrc(it)+'" alt="">';
     else b.innerHTML='<span class="gallery-video-thumb">▶</span><small>'+(k==='youtube'?'YouTube':'Video')+'</small>';
     b.title=it.caption||it.alt||'Open media';
     b.onclick=()=>{galleryState.index=i;renderGallery()};
