@@ -26,7 +26,7 @@ window.PORTFOLIO_CONTENT = {
       },
       {
         "title": "CARRT",
-        "description": "Human-motion research using IMUs and Vicon plus a modular ESP32/IMU rugby lineout sensor. The SolidWorks enclosure was reduced from 80 × 60 mm to 43 × 32 mm (71.3% smaller footprint) with ventilation, adjustable strap slots, and PCB validation/integration support.",
+        "description": "Human-motion research using IMUs and Vicon plus a modular ESP32/IMU rugby lineout sensor. The SolidWorks enclosure was reduced from 80 × 60 mm to 48 × 36 mm (64.0% smaller footprint) with ventilation, adjustable strap slots, and PCB validation/integration support.",
         "link": "work.html#carrt",
         "linkText": "See research",
         "badge": "C"
@@ -62,7 +62,7 @@ window.PORTFOLIO_CONTENT = {
       {
         "id": "carrt",
         "title": "CARRT Research",
-        "description": "Human-motion work using IMUs and Vicon plus development of a modular ESP32/IMU rugby lineout sensor. Designed a SolidWorks ankle/thigh enclosure reduced from 80 × 60 mm to 43 × 32 mm (71.3% smaller footprint), with ventilation, integrated adjustable strap slots, and PCB validation/integration support.",
+        "description": "Human-motion work using IMUs and Vicon plus development of a modular ESP32/IMU rugby lineout sensor. Designed a SolidWorks ankle/thigh enclosure reduced from 80 × 60 mm to 48 × 36 mm (64.0% smaller footprint), with ventilation, integrated adjustable strap slots, and PCB validation/integration support.",
         "tag": "Biomechanics / Embedded Systems",
         "galleryKey": ""
       },
@@ -132,7 +132,7 @@ window.PORTFOLIO_CONTENT = {
         "date": "Aug 2026 · Present",
         "title": "REU Research Assistant",
         "org": "CARRT Lab · University of South Florida",
-        "description": "Human-motion research using IMUs and Vicon, plus development of a modular ESP32-based IMU sensor for rugby lineout analysis. I designed a SolidWorks enclosure system for repeatable ankle and thigh placement, reducing the enclosure footprint from 80 × 60 mm to 43 × 32 mm, a 71.3% reduction. The modular case adds ventilation and onboard adjustable strap slots so the sensor can mount directly without relying on athletic tape or an athletic sleeve. I also helped validate the PCB and supported PCB/layout decisions used to package the electronics into the smaller housing."
+        "description": "Human-motion research using IMUs and Vicon, plus development of a modular ESP32-based IMU sensor for rugby lineout analysis. I designed a SolidWorks enclosure system for repeatable ankle and thigh placement, reducing the enclosure footprint from 80 × 60 mm to 48 × 36 mm, a 64.0% reduction. The modular case adds ventilation and onboard adjustable strap slots so the sensor can mount directly without relying on athletic tape or an athletic sleeve. I also helped validate the PCB and supported PCB/layout decisions used to package the electronics into the smaller housing."
       }
     ]
   },

@@ -986,138 +986,46 @@ qa('[data-gallery-open]').forEach(el=>el.addEventListener('click',e=>{e.preventD
 })();
 
 /* =========================================================
-   V42 — Skiper14-inspired ASCII Motion Lab
-   Native static implementation for GitHub Pages.
+   V43 — ASCII bull easter egg
    ========================================================= */
-(function initAsciiMotionLabs(){
-  const labs = document.querySelectorAll('[data-ascii-motion]');
-  if(!labs.length) return;
+(function initAsciiBulls(){
+  const bulls=document.querySelectorAll('[data-ascii-bull]');
+  if(!bulls.length) return;
+  const reduced=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  const CHARS = ' .,:;irsXA253hMHGS#9B&@';
-  const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  bulls.forEach((bull)=>{
+    const status=bull.querySelector('[data-bull-status]');
+    let chargeTimer=0;
 
-  function makePointCloud(){
-    const pts=[];
-    const ring=(cy,r,tilt=0)=>{
-      for(let a=0;a<Math.PI*2;a+=Math.PI/30){
-        const x=Math.cos(a)*r;
-        const z=Math.sin(a)*r;
-        pts.push([x,cy+Math.sin(a)*tilt,z,1.1]);
-      }
-    };
-    const rod=(a,b,steps=34,w=.13)=>{
-      for(let i=0;i<=steps;i++){
-        const t=i/steps;
-        const x=a[0]+(b[0]-a[0])*t;
-        const y=a[1]+(b[1]-a[1])*t;
-        const z=a[2]+(b[2]-a[2])*t;
-        pts.push([x,y,z,0.84],[x+w,y,z,0.58],[x-w,y,z,0.58]);
-      }
-    };
-    ring(1.45,.64,.08);      // hip
-    ring(.05,.58,-.06);      // knee
-    ring(-1.45,.42,.04);     // ankle
-    rod([-.42,1.32,0],[.36,.18,.08],42,.11);
-    rod([.34,-.12,.08],[-.2,-1.34,0],42,.10);
-    rod([.48,1.38,-.05],[.48,.16,-.04],30,.07);
-    rod([.42,-.14,-.04],[.18,-1.35,-.02],30,.06);
-    // small actuator clusters
-    for(let y of [1.45,.05]){
-      for(let a=0;a<Math.PI*2;a+=Math.PI/18){
-        pts.push([Math.cos(a)*.28,y,Math.sin(a)*.28,1.35]);
-      }
-    }
-    return pts;
-  }
-  const cloud = makePointCloud();
-
-  labs.forEach((lab,index)=>{
-    const pre=lab.querySelector('.ascii-motion-canvas');
-    if(!pre) return;
-    let rotY = .72 + index*.28;
-    let rotX = -.18;
-    let dragging=false, px=0, py=0;
-    let inView=true;
-    let raf=0;
-
-    const observer = 'IntersectionObserver' in window ? new IntersectionObserver(entries=>{
-      inView=!!entries[0]?.isIntersecting;
-      if(inView && !raf) raf=requestAnimationFrame(frame);
-    },{rootMargin:'120px'}) : null;
-    observer?.observe(lab);
-
-    function rotatePoint(p){
-      let [x,y,z,l]=p;
-      const cy=Math.cos(rotY), sy=Math.sin(rotY);
-      const x1=x*cy-z*sy, z1=x*sy+z*cy;
-      const cx=Math.cos(rotX), sx=Math.sin(rotX);
-      const y1=y*cx-z1*sx, z2=y*sx+z1*cx;
-      return [x1,y1,z2,l];
+    function charge(){
+      window.clearTimeout(chargeTimer);
+      bull.classList.remove('bull-charge');
+      void bull.offsetWidth;
+      bull.classList.add('bull-charge');
+      if(status) status.textContent='CHARGE!';
+      chargeTimer=window.setTimeout(()=>{
+        bull.classList.remove('bull-charge');
+        if(status) status.textContent='GO BULLS';
+      },780);
     }
 
-    function render(){
-      const compact=lab.classList.contains('ascii-motion-compact');
-      const cols=Math.max(compact?44:56, Math.min(compact?62:78, Math.floor(lab.clientWidth/(compact?6.2:7.6))));
-      const rows=compact?18:24;
-      const zbuf=new Float32Array(cols*rows); zbuf.fill(-999);
-      const bbuf=new Float32Array(cols*rows);
-      for(const p of cloud){
-        const [x,y,z,l]=rotatePoint(p);
-        const d=5.5-z;
-        const scale=(compact?14.5:17.5)/d;
-        const sx=Math.round(cols/2+x*scale*1.6);
-        const sy=Math.round(rows/2-y*scale*.93);
-        if(sx<0||sy<0||sx>=cols||sy>=rows) continue;
-        const q=sy*cols+sx;
-        if(z>zbuf[q]){
-          zbuf[q]=z;
-          bbuf[q]=Math.max(.05,Math.min(1,(z+2.3)/4.8*l));
-        }
-      }
-      let out='';
-      for(let y=0;y<rows;y++){
-        for(let x=0;x<cols;x++){
-          const b=bbuf[y*cols+x];
-          out += b ? CHARS[Math.min(CHARS.length-1,Math.floor(b*(CHARS.length-1)))] : ' ';
-        }
-        if(y<rows-1) out+='\n';
-      }
-      pre.textContent=out;
-    }
+    bull.addEventListener('click',charge);
+    bull.addEventListener('keydown',(e)=>{
+      if(e.key==='Enter'||e.key===' '){e.preventDefault();charge();}
+    });
 
-    function frame(){
-      raf=0;
-      if(!inView) return;
-      if(!dragging && !reduced) rotY += .0065;
-      render();
-      if(!reduced || dragging) raf=requestAnimationFrame(frame);
+    if(!reduced){
+      bull.addEventListener('pointermove',(e)=>{
+        const r=bull.getBoundingClientRect();
+        const nx=(e.clientX-r.left)/Math.max(1,r.width)-.5;
+        const ny=(e.clientY-r.top)/Math.max(1,r.height)-.5;
+        bull.style.setProperty('--bull-x',`${(nx*5).toFixed(2)}px`);
+        bull.style.setProperty('--bull-y',`${(ny*3).toFixed(2)}px`);
+      });
+      bull.addEventListener('pointerleave',()=>{
+        bull.style.setProperty('--bull-x','0px');
+        bull.style.setProperty('--bull-y','0px');
+      });
     }
-
-    function start(e){
-      dragging=true;
-      lab.classList.add('ascii-active');
-      const p=e.touches?e.touches[0]:e;
-      px=p.clientX; py=p.clientY;
-      if(e.pointerId!=null && lab.setPointerCapture) try{lab.setPointerCapture(e.pointerId)}catch(_e){}
-      if(!raf) raf=requestAnimationFrame(frame);
-    }
-    function move(e){
-      if(!dragging) return;
-      const p=e.touches?e.touches[0]:e;
-      const dx=p.clientX-px, dy=p.clientY-py;
-      rotY += dx*.012;
-      rotX = Math.max(-1.15,Math.min(1.15,rotX+dy*.009));
-      px=p.clientX; py=p.clientY;
-      e.preventDefault?.();
-    }
-    function end(){ dragging=false; lab.classList.remove('ascii-active'); }
-
-    lab.addEventListener('pointerdown',start);
-    lab.addEventListener('pointermove',move);
-    lab.addEventListener('pointerup',end);
-    lab.addEventListener('pointercancel',end);
-    window.addEventListener('resize',()=>render(),{passive:true});
-    render();
-    if(!reduced) raf=requestAnimationFrame(frame);
   });
 })();

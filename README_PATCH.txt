@@ -1,21 +1,12 @@
-V42 — ASCII MOTION LAB PATCH
+V43 — GREEN + GOLD ASCII BULL + CARRT DIMENSION CORRECTION
 
-Based on the current V40 site + V41 Frutiger bubble styles.
+Apply on top of V42/V41 by uploading these files to the GitHub repository root and replacing matching files.
 
-Adds a native static-site interaction inspired by Skiper UI's skiper14 ASCII Simulation:
-- interactive ASCII lower-limb linkage / exoskeleton visual
-- pointer drag rotation
-- automatic slow rotation when idle
-- reduced-motion support
-- viewport pausing for lower CPU use
-- responsive mobile sizing
-- no React / Tailwind / Three.js / build step required
-- works on GitHub Pages
+Changes:
+- Replaces the V42 ASCII Motion Lab with a green-and-gold ASCII bull easter egg.
+- Bull responds to hover/pointer movement and click/keyboard activation with a short "charge" animation.
+- Updates rugby lineout enclosure dimensions from 43 x 32 mm to 48 x 36 mm.
+- Corrects footprint reduction from 71.3% to 64.0% versus the original 80 x 60 mm enclosure.
+- Updates Projects, Work, Education, Resume page copy, editable portfolio content, and the one-page resume PDF/source.
 
-Files to replace in repo root:
-- projects.html
-- work.html
-- styles.css
-- site.js
-
-No content data, project galleries, SMURF assets, TRACE, or resume files are changed.
+Author/creator metadata remains Gustavorodriguezpc where supported.
