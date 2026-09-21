@@ -1,14 +1,21 @@
-V41 FRUTIGER AERO PROJECT BUBBLE PATCH
+V42 — ASCII MOTION LAB PATCH
 
-Replace styles.css in the repository root with this file.
+Based on the current V40 site + V41 Frutiger bubble styles.
 
-Changes only the Projects page styling:
-- centers EXO/LNZ/SMR/RRT lettering inside their bubbles
-- nudges orbs slightly inward from the card edge
-- stronger Frutiger Aero glass/water highlights
-- brighter blue/gold/green/purple orb colors
-- additional bubble rings and glow
-- more translucent aqua project cards
-- bubblier mini-gallery tray/buttons
+Adds a native static-site interaction inspired by Skiper UI's skiper14 ASCII Simulation:
+- interactive ASCII lower-limb linkage / exoskeleton visual
+- pointer drag rotation
+- automatic slow rotation when idle
+- reduced-motion support
+- viewport pausing for lower CPU use
+- responsive mobile sizing
+- no React / Tailwind / Three.js / build step required
+- works on GitHub Pages
 
-No HTML, JS, project copy, SMURF assets, TRACE, resume, or other pages are changed.
+Files to replace in repo root:
+- projects.html
+- work.html
+- styles.css
+- site.js
+
+No content data, project galleries, SMURF assets, TRACE, or resume files are changed.
