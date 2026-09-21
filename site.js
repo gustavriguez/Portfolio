@@ -361,12 +361,12 @@ qa('[data-gallery-open]').forEach(el=>el.addEventListener('click',e=>{e.preventD
   }
 
   const pokemonParty=[
-    {name:'Jirachi',dex:'0385',type:'Steel / Psychic',sprite:'https://raw.githubusercontent.com/PokeAPI/master/pokemon/385.png'},
-    {name:'Gible',dex:'0443',type:'Dragon / Ground',sprite:'https://raw.githubusercontent.com/PokeAPI/master/pokemon/443.png'},
-    {name:'Eevee',dex:'0133',type:'Normal',sprite:'https://raw.githubusercontent.com/PokeAPI/master/pokemon/133.png'},
-    {name:'Dragapult',dex:'0887',type:'Dragon / Ghost',sprite:'https://raw.githubusercontent.com/PokeAPI/master/pokemon/887.png'},
-    {name:'Orbeetle',dex:'0826',type:'Bug / Psychic',sprite:'https://raw.githubusercontent.com/PokeAPI/master/pokemon/826.png'},
-    {name:'Masquerain',dex:'0284',type:'Bug / Flying',sprite:'https://raw.githubusercontent.com/PokeAPI/master/pokemon/284.png'}
+    {name:'Jirachi',dex:'0385',type:'Steel / Psychic',sprite:'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/385.png'},
+    {name:'Gible',dex:'0443',type:'Dragon / Ground',sprite:'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/443.png'},
+    {name:'Eevee',dex:'0133',type:'Normal',sprite:'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/133.png'},
+    {name:'Dragapult',dex:'0887',type:'Dragon / Ghost',sprite:'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/887.png'},
+    {name:'Orbeetle',dex:'0826',type:'Bug / Psychic',sprite:'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/826.png'},
+    {name:'Masquerain',dex:'0284',type:'Bug / Flying',sprite:'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/284.png'}
   ];
 
   function ensurePokemonWindow(){
@@ -386,7 +386,7 @@ qa('[data-gallery-open]').forEach(el=>el.addEventListener('click',e=>{e.preventD
         <div class="pokemon-party-subbar"><span>ACTIVE PARTY</span><span>6 / 6</span></div>
         <div class="pokemon-party-grid">
           ${pokemonParty.map((p,i)=>`<article class="pokemon-slot">
-            <div class="pokemon-sprite-frame"><img src="${p.sprite}" alt="${p.name} sprite" loading="lazy"></div>
+            <div class="pokemon-sprite-frame"><img src="${p.sprite}" alt="${p.name} sprite" loading="lazy" decoding="async" data-pokemon-sprite="${p.name}"><span class="pokemon-fallback" aria-hidden="true">${p.name.slice(0,2).toUpperCase()}</span></div>
             <div class="pokemon-slot-copy"><b>${p.name}</b><small>#${p.dex}</small><span>${p.type}</span></div>
           </article>`).join('')}
         </div>
@@ -395,6 +395,14 @@ qa('[data-gallery-open]').forEach(el=>el.addEventListener('click',e=>{e.preventD
     document.body.appendChild(win);
     const close=()=>win.classList.remove('open');
     q('.pokemon-party-close',win).addEventListener('click',close);
+    qa('[data-pokemon-sprite]',win).forEach(img=>{
+      const frame=img.closest('.pokemon-sprite-frame');
+      const ok=()=>frame?.classList.add('sprite-loaded');
+      const bad=()=>frame?.classList.add('sprite-failed');
+      if(img.complete && img.naturalWidth>0) ok();
+      img.addEventListener('load',ok,{once:true});
+      img.addEventListener('error',bad,{once:true});
+    });
     win.addEventListener('click',e=>{if(e.target===win)close()});
     document.addEventListener('keydown',e=>{if(e.key==='Escape'&&win.classList.contains('open'))close()});
     return win;
@@ -884,10 +892,10 @@ qa('[data-gallery-open]').forEach(el=>el.addEventListener('click',e=>{e.preventD
 (()=>{
   const BOOTSTRAP_CSS='bootstrap.min.css';
   const BOOTSTRAP_JS='bootstrap.bundle.min.js';
-  const MORE_PAGES=new Set(['media','about','resume','contact','assets']);
+  const MAIN_PAGES=new Set(['home','work','education','projects','about','resume','contact']);
 
   function ensureBootstrap(){
-    if(!document.querySelector('link[data-v37-bootstrap]')){
+    if(!document.querySelector('link[data-v37-bootstrap], link[href="bootstrap.min.css"]')){
       const link=document.createElement('link');
       link.rel='stylesheet';
       link.href=BOOTSTRAP_CSS;
@@ -896,7 +904,7 @@ qa('[data-gallery-open]').forEach(el=>el.addEventListener('click',e=>{e.preventD
       if(custom && custom.parentNode) custom.parentNode.insertBefore(link,custom);
       else document.head.appendChild(link);
     }
-    if(!document.querySelector('script[data-v37-bootstrap]')){
+    if(!document.querySelector('script[data-v37-bootstrap], script[src="bootstrap.bundle.min.js"]')){
       const script=document.createElement('script');
       script.src=BOOTSTRAP_JS;
       script.defer=true;
@@ -915,14 +923,10 @@ qa('[data-gallery-open]').forEach(el=>el.addEventListener('click',e=>{e.preventD
 
   function reducedNav(){
     const nav=document.querySelector('nav.tabs');
-    if(!nav || nav.dataset.v37Nav==='1') return;
+    if(!nav || nav.dataset.v38Nav==='1') return;
     const page=resolvePage();
-    const moreActive=MORE_PAGES.has(page);
     const active=(name)=>page===name?' active':'';
-    const moreClass=moreActive?' more-active':'';
-    const moreChild=(name)=>page===name?' active':'';
-
-    nav.dataset.v37Nav='1';
+    nav.dataset.v38Nav='1';
     nav.className='tabs bootstrap-nav navbar navbar-expand-md';
     nav.innerHTML=`
       <div class="container-fluid">
@@ -935,17 +939,9 @@ qa('[data-gallery-open]').forEach(el=>el.addEventListener('click',e=>{e.preventD
             <li class="nav-item"><a class="nav-link nav-glow-tab nav-glow-work${active('work')}" href="work.html">Work</a></li>
             <li class="nav-item"><a class="nav-link nav-glow-tab nav-glow-education${active('education')}" href="education.html">Education</a></li>
             <li class="nav-item"><a class="nav-link nav-glow-tab nav-glow-projects${active('projects')}" href="projects.html">Projects</a></li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle nav-glow-tab nav-glow-more${moreClass}" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">More</a>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item${moreChild('media')}" href="media.html">Media / Weekly Picks</a></li>
-                <li><a class="dropdown-item${moreChild('about')}" href="about.html">About</a></li>
-                <li><a class="dropdown-item${moreChild('resume')}" href="resume.html">Résumé</a></li>
-                <li><a class="dropdown-item${moreChild('contact')}" href="contact.html">Contact</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item${moreChild('assets')}" href="assets.html">Project Assets</a></li>
-              </ul>
-            </li>
+            <li class="nav-item"><a class="nav-link nav-glow-tab nav-glow-about${active('about')}" href="about.html">About</a></li>
+            <li class="nav-item"><a class="nav-link nav-glow-tab nav-glow-resume${active('resume')}" href="resume.html">Résumé</a></li>
+            <li class="nav-item"><a class="nav-link nav-glow-tab nav-glow-contact${active('contact')}" href="contact.html">Contact</a></li>
           </ul>
         </div>
       </div>`;
@@ -953,15 +949,13 @@ qa('[data-gallery-open]').forEach(el=>el.addEventListener('click',e=>{e.preventD
 
   function trimUtilityNav(){
     const nav=document.querySelector('nav.subnav');
-    if(!nav || nav.dataset.v37Nav==='1') return;
+    if(!nav || nav.dataset.v38Nav==='1') return;
     const page=resolvePage();
-    nav.dataset.v37Nav='1';
-    nav.classList.add('v37-subnav');
+    nav.dataset.v38Nav='1';
+    nav.classList.add('v37-subnav','v38-subnav');
     const items=[
-      ['projects','projects.html','Engineering'],
-      ['assets','assets.html','Assets'],
-      ['media','media.html','Weekly Picks'],
-      ['resume','resume.html','Credentials']
+      ['assets','assets.html','Project Assets'],
+      ['media','media.html','Weekly Picks']
     ];
     nav.innerHTML=items.map(([key,href,label])=>`<a${page===key?' class="active"':''} href="${href}">${label}</a>`).join('');
   }
