@@ -1319,3 +1319,67 @@ body[data-page="projects"] .project-media-shelf button:hover{
   .ascii-bull-spark{animation:none!important}
   .ascii-bull-stage{transition:none}
 }
+
+/* =========================================================
+   V44 — robust single-layer ASCII bull
+   Removes the two stacked PRE layers that could render as duplicates.
+   ========================================================= */
+.ascii-bull-stage{
+  height:auto!important;
+  min-height:178px;
+  display:grid!important;
+  place-items:center!important;
+  position:relative!important;
+  overflow:hidden!important;
+  transform:translate(var(--bull-x,0px),var(--bull-y,0px));
+}
+.ascii-bull-layer{display:none!important;}
+.ascii-bull-art{
+  position:relative!important;
+  inset:auto!important;
+  margin:0!important;
+  padding:18px 8px 16px!important;
+  width:max-content!important;
+  max-width:100%!important;
+  white-space:pre!important;
+  overflow:visible!important;
+  background:transparent!important;
+  border:0!important;
+  color:#006747!important;
+  font:900 11px/.92 "Courier New",Courier,monospace!important;
+  letter-spacing:.04em!important;
+  text-align:left!important;
+  text-shadow:
+    1px 0 #cfc493,-1px 0 #cfc493,0 1px #cfc493,0 -1px #cfc493,
+    2px 2px 0 rgba(207,196,147,.55),
+    0 0 8px rgba(0,103,71,.18)!important;
+  filter:drop-shadow(0 5px 7px rgba(0,72,50,.15));
+  transition:transform .18s ease,color .18s ease,text-shadow .18s ease;
+}
+.ascii-bull:hover .ascii-bull-art,
+.ascii-bull:focus-visible .ascii-bull-art{
+  color:#008d62!important;
+  transform:scale(1.035) rotate(-.25deg);
+  text-shadow:
+    1px 0 #f2d45c,-1px 0 #f2d45c,0 1px #f2d45c,0 -1px #f2d45c,
+    3px 3px 0 rgba(207,196,147,.58),
+    0 0 13px rgba(0,141,98,.34)!important;
+}
+.ascii-bull.bull-charge .ascii-bull-art{
+  animation:v44BullCharge .72s cubic-bezier(.2,.75,.2,1);
+  color:#00a46f!important;
+}
+.ascii-bull-compact .ascii-bull-stage{min-height:126px!important;height:auto!important;}
+.ascii-bull-compact .ascii-bull-art{font-size:8.2px!important;padding:11px 4px!important;}
+@keyframes v44BullCharge{
+  0%,100%{transform:translateX(0) scale(1)}
+  20%{transform:translateX(-7px) rotate(-1deg) scale(1.02)}
+  45%{transform:translateX(10px) rotate(.7deg) scale(1.06)}
+  70%{transform:translateX(-2px) scale(1.03)}
+}
+@media(max-width:767.98px){
+  .ascii-bull-stage{min-height:150px!important;}
+  .ascii-bull-art{font-size:9px!important;letter-spacing:0!important;}
+  .ascii-bull-compact .ascii-bull-stage{min-height:112px!important;}
+  .ascii-bull-compact .ascii-bull-art{font-size:6.8px!important;}
+}

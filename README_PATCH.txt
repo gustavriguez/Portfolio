@@ -1,12 +1,6 @@
-V43 — GREEN + GOLD ASCII BULL + CARRT DIMENSION CORRECTION
-
-Apply on top of V42/V41 by uploading these files to the GitHub repository root and replacing matching files.
-
-Changes:
-- Replaces the V42 ASCII Motion Lab with a green-and-gold ASCII bull easter egg.
-- Bull responds to hover/pointer movement and click/keyboard activation with a short "charge" animation.
-- Updates rugby lineout enclosure dimensions from 43 x 32 mm to 48 x 36 mm.
-- Corrects footprint reduction from 71.3% to 64.0% versus the original 80 x 60 mm enclosure.
-- Updates Projects, Work, Education, Resume page copy, editable portfolio content, and the one-page resume PDF/source.
-
-Author/creator metadata remains Gustavorodriguezpc where supported.
+V44 patch
+- Fixes ASCII bull duplicate/plain rendering by replacing the two layered PRE elements with one robust green bull using a gold text-shadow outline.
+- Keeps hover/click charge behavior and spark/snort effects.
+- Includes project-media.js explicitly so the Ultimate Shape Fight YouTube gameplay demo is present as the FIRST gallery item.
+- Shape Fight video: https://www.youtube.com/watch?v=VFJ-w2PRKS4
+Upload all files in this ZIP to the GitHub repository root and overwrite matching files.
