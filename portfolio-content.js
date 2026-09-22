@@ -5,7 +5,7 @@ window.PORTFOLIO_CONTENT = {
     "tiles": [
       {
         "title": "IEEE EXO",
-        "description": "Lower-limb exoskeleton program spanning powered hip/knee design, passive ankle development, embedded controls, CAD, testing, and OpenSim gait comparison across healthy, hemiparetic, and SHIA datasets. As EXO Chair, I also coordinate IEEE board events, workshops, recruitment, career-fair/employer outreach, sponsor communication, budgets, and cross-team planning.",
+        "description": "Lower-limb exoskeleton program spanning powered hip/knee design, passive ankle development, embedded controls, CAD, testing, and OpenSim gait comparison across health and hemiparetic. As EXO Chair, I also coordinate IEEE board events, workshops, recruitment, career-fair/employer outreach, sponsor communication, budgets, and cross-team planning.",
         "link": "education.html#edu-exo",
         "linkText": "See project",
         "badge": "EXO"
