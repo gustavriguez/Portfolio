@@ -1117,269 +1117,37 @@ body[data-page="projects"] .project-media-shelf button:hover{
   }
 }
 
-/* =========================================================
-   V43 — green + gold ASCII bull easter egg
-   ========================================================= */
-.ascii-bull{
-  --bull-green:#006747;
-  --bull-green-bright:#0b8f64;
-  --bull-gold:#cfc493;
-  --bull-gold-bright:#f1e6a9;
-  --bull-x:0px;
-  --bull-y:0px;
-  position:relative;
-  margin:12px 0 15px;
-  overflow:hidden;
-  border:1px solid rgba(0,103,71,.48);
-  border-radius:22px;
-  background:
-    radial-gradient(circle at 14% 10%,rgba(255,255,255,.96) 0 7px,rgba(255,255,255,.28) 8px 24px,transparent 25px),
-    radial-gradient(circle at 88% 18%,rgba(207,196,147,.30),transparent 31%),
-    linear-gradient(145deg,#fbfffd 0%,#e7f4ed 55%,#fff9db 100%);
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.98),
-    inset 0 -18px 36px rgba(0,103,71,.07),
-    0 6px 15px rgba(30,74,58,.14);
-  user-select:none;
-  isolation:isolate;
-  cursor:pointer;
-}
-.ascii-bull::before,
-.ascii-bull::after{
-  content:"";
-  position:absolute;
-  z-index:0;
-  border-radius:50%;
-  pointer-events:none;
-}
-.ascii-bull::before{
-  width:86px;height:86px;right:-28px;top:-31px;
-  border:1px solid rgba(207,196,147,.46);
-  box-shadow:-105px 45px 0 -28px rgba(255,255,255,.8),-168px 12px 0 -34px rgba(0,103,71,.12);
-}
-.ascii-bull::after{
-  width:30px;height:30px;left:22px;bottom:-10px;
-  border:1px solid rgba(0,103,71,.2);
-  box-shadow:42px -15px 0 -9px rgba(207,196,147,.32),78px 2px 0 -11px rgba(255,255,255,.82);
-}
-.ascii-bull-bar{
-  position:relative;
-  z-index:4;
-  min-height:27px;
-  padding:0 12px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  border-bottom:1px solid rgba(0,72,50,.36);
-  background:linear-gradient(180deg,#0a7e5a 0%,#006747 57%,#07563f 100%);
-  color:#fffdf0;
-  text-shadow:0 1px rgba(0,0,0,.22);
-  font:700 8px/1 Arial,sans-serif;
-  letter-spacing:.13em;
-  text-transform:uppercase;
-}
-.ascii-bull-bar span:last-child{
-  color:var(--bull-gold-bright);
-  font-weight:600;
-  letter-spacing:.09em;
-}
-.ascii-bull-stage{
-  position:relative;
-  z-index:2;
-  height:188px;
-  overflow:hidden;
-  background:
-    repeating-linear-gradient(0deg,transparent 0 3px,rgba(0,103,71,.024) 3px 4px),
-    radial-gradient(circle at 50% 46%,rgba(255,255,255,.92),rgba(255,255,255,.18) 50%,transparent 71%);
-  transition:transform .18s ease;
-  transform:translate(var(--bull-x),var(--bull-y));
-}
-.ascii-bull-layer{
-  position:absolute;
-  left:50%;
-  top:49%;
-  margin:0;
-  padding:0;
-  white-space:pre;
-  text-align:left;
-  font:900 12px/.95 "Courier New",monospace;
-  letter-spacing:.055em;
-  transform:translate(-50%,-50%);
-  pointer-events:none;
-}
-.ascii-bull-gold{
-  z-index:1;
-  color:var(--bull-gold);
-  transform:translate(calc(-50% + 3px),calc(-50% + 3px));
-  text-shadow:0 0 7px rgba(207,196,147,.35),0 2px 0 rgba(255,255,255,.72);
-}
-.ascii-bull-green{
-  z-index:2;
-  color:var(--bull-green);
-  text-shadow:
-    0 0 1px #fff,
-    0 0 8px rgba(0,103,71,.16),
-    1px 1px 0 rgba(255,255,255,.42);
-}
-.ascii-bull-spark,
-.ascii-bull-snort{
-  position:absolute;
-  z-index:3;
-  font-family:"Courier New",monospace;
-  font-weight:900;
-  pointer-events:none;
-}
-.ascii-bull-spark{color:var(--bull-gold);opacity:.64;text-shadow:0 0 5px rgba(207,196,147,.7)}
-.ascii-bull-spark.s1{left:15%;top:23%;font-size:13px;animation:bullSpark 2.3s ease-in-out infinite}
-.ascii-bull-spark.s2{right:14%;top:29%;font-size:16px;animation:bullSpark 2.9s ease-in-out .35s infinite}
-.ascii-bull-spark.s3{left:19%;bottom:24%;font-size:9px;animation:bullSpark 2.5s ease-in-out .9s infinite}
-.ascii-bull-spark.s4{right:22%;bottom:18%;font-size:17px;animation:bullSpark 3.1s ease-in-out 1.3s infinite}
-.ascii-bull-snort{
-  top:53%;
-  color:var(--bull-green-bright);
-  opacity:0;
-  font-size:20px;
-}
-.ascii-bull-snort.left{left:28%}.ascii-bull-snort.right{right:28%;transform:scaleX(-1)}
-.ascii-bull:hover .ascii-bull-green,
-.ascii-bull:focus-visible .ascii-bull-green{
-  color:#008a5f;
-  text-shadow:0 0 1px #fff,0 0 11px rgba(0,137,95,.26),1px 1px 0 rgba(255,255,255,.5);
-}
-.ascii-bull:hover .ascii-bull-gold,
-.ascii-bull:focus-visible .ascii-bull-gold{color:#ddcd81}
-.ascii-bull:hover .ascii-bull-snort,
-.ascii-bull.bull-charge .ascii-bull-snort{animation:bullSnort .78s ease-out}
-.ascii-bull.bull-charge .ascii-bull-stage{animation:bullCharge .72s cubic-bezier(.2,.75,.2,1)}
-.ascii-bull.bull-charge .ascii-bull-green{color:#008d62}
-.ascii-bull-meta{
-  position:relative;
-  z-index:4;
-  min-height:29px;
-  display:flex;
-  align-items:center;
-  gap:7px;
-  padding:0 11px;
-  border-top:1px solid rgba(0,103,71,.22);
-  background:rgba(255,255,255,.68);
-  color:#005a3e;
-  font:700 7px/1 Arial,sans-serif;
-  letter-spacing:.11em;
-}
-.ascii-bull-meta i{
-  flex:0 0 17px;
-  height:2px;
-  border-radius:2px;
-  background:linear-gradient(90deg,var(--bull-green),var(--bull-gold));
-  box-shadow:0 0 5px rgba(0,103,71,.18);
-}
-.ascii-bull-meta b{
-  margin-left:auto;
-  color:#736a42;
-  font-weight:700;
-  letter-spacing:.12em;
-}
-.ascii-bull-compact{
-  margin:10px 0 2px;
-  border-radius:16px;
-}
-.ascii-bull-compact .ascii-bull-stage{height:122px}
-.ascii-bull-compact .ascii-bull-layer{font-size:8.3px;line-height:.92}
-.ascii-bull-compact .ascii-bull-bar{min-height:23px;padding:0 9px;font-size:7px}
-.ascii-bull-compact .ascii-bull-meta{min-height:24px;padding:0 8px;font-size:6px}
-.ascii-bull-compact .ascii-bull-spark.s1{left:11%;top:18%}
-.ascii-bull-compact .ascii-bull-spark.s2{right:11%;top:22%}
-@keyframes bullSpark{
-  0%,100%{opacity:.2;transform:translateY(0) scale(.8)}
-  45%{opacity:.9;transform:translateY(-4px) scale(1.18)}
-  60%{opacity:.5}
-}
-@keyframes bullSnort{
-  0%{opacity:0;transform:translateX(0) scale(.75)}
-  25%{opacity:.78}
-  100%{opacity:0;transform:translateX(var(--snort-shift,16px)) scale(1.4)}
-}
-.ascii-bull-snort.right{--snort-shift:-16px}
-@keyframes bullCharge{
-  0%,100%{transform:translate(var(--bull-x),var(--bull-y))}
-  18%{transform:translate(calc(var(--bull-x) - 7px),var(--bull-y)) rotate(-.5deg)}
-  35%{transform:translate(calc(var(--bull-x) + 4px),calc(var(--bull-y) - 2px)) scale(1.015)}
-  55%{transform:translate(calc(var(--bull-x) + 9px),var(--bull-y)) scale(1.03)}
-  78%{transform:translate(calc(var(--bull-x) - 2px),var(--bull-y))}
-}
-@media(max-width:767.98px){
-  .ascii-bull{margin-left:6px;margin-right:6px;border-radius:17px}
-  .ascii-bull-stage{height:160px}
-  .ascii-bull-layer{font-size:9.3px;line-height:.94}
-  .ascii-bull-meta b{font-size:6px}
-  .ascii-bull-compact .ascii-bull-stage{height:108px}
-  .ascii-bull-compact .ascii-bull-layer{font-size:7px}
-}
-@media(prefers-reduced-motion:reduce){
-  .ascii-bull-spark{animation:none!important}
-  .ascii-bull-stage{transition:none}
-}
 
 /* =========================================================
-   V44 — robust single-layer ASCII bull
-   Removes the two stacked PRE layers that could render as duplicates.
+   V45 — exact USF bull logo, replacing ASCII approximation
    ========================================================= */
-.ascii-bull-stage{
-  height:auto!important;
-  min-height:178px;
-  display:grid!important;
-  place-items:center!important;
-  position:relative!important;
-  overflow:hidden!important;
-  transform:translate(var(--bull-x,0px),var(--bull-y,0px));
+.usf-bull-logo-showcase{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:min(310px,72%);
+  margin:12px auto 18px;
+  padding:6px 12px;
+  background:transparent;
 }
-.ascii-bull-layer{display:none!important;}
-.ascii-bull-art{
-  position:relative!important;
-  inset:auto!important;
-  margin:0!important;
-  padding:18px 8px 16px!important;
-  width:max-content!important;
-  max-width:100%!important;
-  white-space:pre!important;
-  overflow:visible!important;
-  background:transparent!important;
-  border:0!important;
-  color:#006747!important;
-  font:900 11px/.92 "Courier New",Courier,monospace!important;
-  letter-spacing:.04em!important;
-  text-align:left!important;
-  text-shadow:
-    1px 0 #cfc493,-1px 0 #cfc493,0 1px #cfc493,0 -1px #cfc493,
-    2px 2px 0 rgba(207,196,147,.55),
-    0 0 8px rgba(0,103,71,.18)!important;
-  filter:drop-shadow(0 5px 7px rgba(0,72,50,.15));
-  transition:transform .18s ease,color .18s ease,text-shadow .18s ease;
+.usf-bull-logo-showcase img{
+  display:block;
+  width:100%;
+  max-width:250px;
+  height:auto;
+  object-fit:contain;
+  filter:drop-shadow(0 6px 7px rgba(0,103,71,.16));
 }
-.ascii-bull:hover .ascii-bull-art,
-.ascii-bull:focus-visible .ascii-bull-art{
-  color:#008d62!important;
-  transform:scale(1.035) rotate(-.25deg);
-  text-shadow:
-    1px 0 #f2d45c,-1px 0 #f2d45c,0 1px #f2d45c,0 -1px #f2d45c,
-    3px 3px 0 rgba(207,196,147,.58),
-    0 0 13px rgba(0,141,98,.34)!important;
+.usf-bull-logo-showcase.compact{
+  width:min(180px,58%);
+  margin:10px auto 2px;
+  padding:2px 8px;
 }
-.ascii-bull.bull-charge .ascii-bull-art{
-  animation:v44BullCharge .72s cubic-bezier(.2,.75,.2,1);
-  color:#00a46f!important;
-}
-.ascii-bull-compact .ascii-bull-stage{min-height:126px!important;height:auto!important;}
-.ascii-bull-compact .ascii-bull-art{font-size:8.2px!important;padding:11px 4px!important;}
-@keyframes v44BullCharge{
-  0%,100%{transform:translateX(0) scale(1)}
-  20%{transform:translateX(-7px) rotate(-1deg) scale(1.02)}
-  45%{transform:translateX(10px) rotate(.7deg) scale(1.06)}
-  70%{transform:translateX(-2px) scale(1.03)}
+.usf-bull-logo-showcase.compact img{
+  max-width:150px;
+  filter:drop-shadow(0 4px 5px rgba(0,103,71,.14));
 }
 @media(max-width:767.98px){
-  .ascii-bull-stage{min-height:150px!important;}
-  .ascii-bull-art{font-size:9px!important;letter-spacing:0!important;}
-  .ascii-bull-compact .ascii-bull-stage{min-height:112px!important;}
-  .ascii-bull-compact .ascii-bull-art{font-size:6.8px!important;}
+  .usf-bull-logo-showcase{width:min(235px,62%);margin:10px auto 14px;}
+  .usf-bull-logo-showcase.compact{width:min(150px,48%);}
 }

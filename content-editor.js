@@ -5,12 +5,36 @@ const DEFAULT_CONTENT=deep(window.PORTFOLIO_CONTENT||{});
 const DEFAULT_GALLERIES=deep(window.PROJECT_GALLERIES||{});
 const DEFAULT_SITE=deep(window.SITE_DATA||{});
 const CONTENT_KEY='gr-portfolio-content-v1';
-const GALLERY_KEY='gr-project-galleries-v1';
+const OLD_GALLERY_KEY='gr-project-galleries-v1';
+const GALLERY_KEY='gr-project-galleries-v2';
 const SITE_KEY='gr-site-multipage-v1';
 const q=(s,r=document)=>r.querySelector(s), qa=(s,r=document)=>[...r.querySelectorAll(s)];
 function readStore(key,fallback){try{const v=JSON.parse(localStorage.getItem(key)||'null');return v&&typeof v==='object'?v:deep(fallback)}catch(e){return deep(fallback)}}
 let CONTENT=readStore(CONTENT_KEY,DEFAULT_CONTENT);
 let GALLERIES=readStore(GALLERY_KEY,DEFAULT_GALLERIES);
+if(!localStorage.getItem(GALLERY_KEY)){
+  const legacy=readStore(OLD_GALLERY_KEY,{});
+  GALLERIES=deep(DEFAULT_GALLERIES);
+  Object.keys(legacy||{}).forEach(k=>{
+    const old=legacy[k];
+    if(!GALLERIES[k]){GALLERIES[k]=deep(old);return;}
+    if(old&&Array.isArray(old.items)&&old.items.length){GALLERIES[k]=deep(old);}
+  });
+  // Published gallery media is authoritative for these two repaired galleries.
+  if(DEFAULT_GALLERIES.smurf)GALLERIES.smurf=deep(DEFAULT_GALLERIES.smurf);
+  if(DEFAULT_GALLERIES['shape-fight']){
+    const published=deep(DEFAULT_GALLERIES['shape-fight']);
+    const current=GALLERIES['shape-fight']||{title:published.title,items:[]};
+    const hasVideo=(current.items||[]).some(x=>x&&x.type==='youtube'&&String(x.src||'').includes('VFJ-w2PRKS4'));
+    if(!hasVideo){
+      const yt=(published.items||[]).find(x=>x&&x.type==='youtube');
+      if(yt)current.items=[deep(yt),...(current.items||[])];
+    }
+    current.title=published.title||current.title;
+    GALLERIES['shape-fight']=current;
+  }
+  try{localStorage.setItem(GALLERY_KEY,JSON.stringify(GALLERIES))}catch(e){}
+}
 let SITE=readStore(SITE_KEY,DEFAULT_SITE);
 window.PROJECT_GALLERIES=GALLERIES;
 window.PORTFOLIO_CONTENT_ACTIVE=CONTENT;
