@@ -1151,3 +1151,14 @@ body[data-page="projects"] .project-media-shelf button:hover{
   .usf-bull-logo-showcase{width:min(235px,62%);margin:10px auto 14px;}
   .usf-bull-logo-showcase.compact{width:min(150px,48%);}
 }
+
+
+/* V48 — Education & Research routes + simplified sprite policy */
+.tile-title-link,.tile-badge-link{color:inherit;text-decoration:none}
+.tile-title-link:hover{color:#174f80;text-decoration:none}
+a.tile-badge-link{display:flex!important;color:#fff!important;text-decoration:none!important}
+.tabs.bootstrap-nav .nav-glow-education{min-width:145px}
+.beach-shark-scene,.pixel-sprite.shark,.daily-sprite-strip.shark-strip,.grd-dancer{display:none!important}
+body:not([data-page="about"]):not([data-page="contact"]) .pixel-sprite-layer,
+body:not([data-page="about"]):not([data-page="contact"]) .section-sprite-badge{display:none!important}
+@media(max-width:767.98px){.tabs.bootstrap-nav .nav-glow-education{min-width:0}}

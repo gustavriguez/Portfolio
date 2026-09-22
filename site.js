@@ -23,10 +23,10 @@ document.addEventListener('click',e=>{const b=e.target.closest('[data-lightbox]'
 
 // Site search redirects to the most relevant page or project anchor.
 const searchRoutes=[
- {t:['exo','exoskeleton','ak80','teensy','jetson','gait'],u:'work.html#exo-project'},
+ {t:['exo','exoskeleton','ak80','teensy','jetson','gait'],u:'education.html#edu-exo'},
  {t:['xcelodose','microbalance','reliability','lonza','root cause','rca'],u:'work.html#xcelodose'},
  {t:['smurf','power apps','maintenance request','urgent request','maintenance app','sharepoint','power automate'],u:'work.html#smurf'},
- {t:['carrt','vicon','imu','biomechanics','human motion'],u:'work.html#carrt'},
+ {t:['carrt','vicon','imu','biomechanics','human motion'],u:'education.html#edu-carrt-sensor'},
  {t:['mime','robot hand','mediapipe','servo'],u:'work.html#mime'},
  {t:['locomotive','cad','solidworks','steam'],u:'work.html#locomotive'},
  {t:['shape fight','matlab','game'],u:'work.html#shape-fight'},
@@ -150,32 +150,21 @@ qa('[data-gallery-open]').forEach(el=>el.addEventListener('click',e=>{e.preventD
   const el=(tag,cls)=>{const n=document.createElement(tag);if(cls)n.className=cls;return n};
 
   const spriteForPage={
-    home:['wave','gustavo-wave.gif'],
-    media:['weather','gustavo-weather.gif'],
-    assets:['shark','bullshark-swim.gif'],
-    resume:['idle','gustavo-idle.gif'],
+    about:['idle','gustavo-idle.gif'],
     contact:['wave','gustavo-wave.gif']
   };
 
   function addFloatingSprite(){
-    if(page!=='home')return;
+    if(!['about','contact'].includes(page))return;
     const conf=spriteForPage[page]; if(!conf)return;
     const layer=el('div','pixel-sprite-layer');
     const s=el('div','pixel-sprite '+conf[0]);
     const i=new Image(); i.src=conf[1]; i.alt=''; i.setAttribute('aria-hidden','true');
     s.appendChild(i); layer.appendChild(s);
-    const sh=el('div','pixel-sprite shark'); const si=new Image(); si.src='bullshark-swim.gif';si.alt='';si.setAttribute('aria-hidden','true');sh.appendChild(si);layer.appendChild(sh);
     document.body.appendChild(layer);
   }
 
   function decorateDailyCards(){
-    const left=$('.daily-dock.left .daily-card');
-    if(left && !left.querySelector('.daily-sprite-strip')){
-      const strip=el('div','daily-sprite-strip shark-strip');
-      strip.innerHTML='<img src="bullshark-swim.gif" alt="" aria-hidden="true">';
-      const status=left.querySelector('.daily-status');
-      left.insertBefore(strip,status||null);
-    }
     const right=$('.daily-dock.right .daily-card');
     if(right && !right.querySelector('.tampa-mini')){
       const w=el('div','tampa-mini');
@@ -202,14 +191,7 @@ qa('[data-gallery-open]').forEach(el=>el.addEventListener('click',e=>{e.preventD
     }catch(e){out.textContent='Tampa, FL';}
   }
 
-  function addSectionBadge(){
-    if(['work','projects','about'].includes(page))return;
-    const title=$('.section-title'); if(!title || title.parentElement.querySelector('.section-sprite-badge'))return;
-    const conf=spriteForPage[page]; if(!conf)return;
-    const badge=el('span','section-sprite-badge');
-    badge.innerHTML='<img src="'+conf[1]+'" alt="" aria-hidden="true">';
-    title.parentElement.insertBefore(badge,title);
-  }
+  function addSectionBadge(){ /* decorative section sprites intentionally disabled */ }
 
   function addButtonJunk(){
     if($('.button-junk-wrap'))return;
@@ -264,13 +246,7 @@ qa('[data-gallery-open]').forEach(el=>el.addEventListener('click',e=>{e.preventD
     anchor.insertAdjacentElement('afterend',shelf);
   }
 
-  function addBeachShark(){
-    if(q('.beach-shark-scene'))return;
-    const s=document.createElement('div');
-    s.className='beach-shark-scene'; s.setAttribute('aria-hidden','true');
-    s.innerHTML='<div class="beach-sky"></div><div class="beach-ocean"></div><img class="beach-shark" src="bullshark-swim.gif" alt=""><div class="beach-water-front"></div><div class="beach-sand"></div><div class="beach-palm"></div><div class="beach-palm-frond"></div>';
-    document.body.appendChild(s);
-  }
+  function addBeachShark(){ document.querySelectorAll('.beach-shark-scene,.pixel-sprite.shark,.daily-sprite-strip.shark-strip').forEach(el=>el.remove()); }
 
   function weatherLabel(code){
     const m={0:'Clear',1:'Mostly clear',2:'Partly cloudy',3:'Overcast',45:'Fog',48:'Fog',51:'Light drizzle',53:'Drizzle',55:'Heavy drizzle',61:'Light rain',63:'Rain',65:'Heavy rain',71:'Light snow',80:'Rain showers',81:'Showers',82:'Heavy showers',95:'Thunderstorms',96:'Storms + hail',99:'Storms + hail'};
@@ -697,7 +673,6 @@ qa('[data-gallery-open]').forEach(el=>el.addEventListener('click',e=>{e.preventD
               </div>
             </div>
           </div>
-          <div class="grd-dancer" role="img" aria-label="Tiny pixel Gustavo dancing with headphones"></div>
         </div>
 
         <div class="grd-signal-terminal">
@@ -938,7 +913,7 @@ qa('[data-gallery-open]').forEach(el=>el.addEventListener('click',e=>{e.preventD
         <div class="collapse navbar-collapse" id="portfolioMainNav">
           <ul class="navbar-nav">
             <li class="nav-item"><a class="nav-link nav-glow-tab nav-glow-work${active('work')}" href="work.html">Work</a></li>
-            <li class="nav-item"><a class="nav-link nav-glow-tab nav-glow-education${active('education')}" href="education.html">Education</a></li>
+            <li class="nav-item"><a class="nav-link nav-glow-tab nav-glow-education${active('education')}" href="education.html">Education &amp; Research</a></li>
             <li class="nav-item"><a class="nav-link nav-glow-tab nav-glow-projects${active('projects')}" href="projects.html">Projects</a></li>
             <li class="nav-item"><a class="nav-link nav-glow-tab nav-glow-about${active('about')}" href="about.html">About</a></li>
             <li class="nav-item"><a class="nav-link nav-glow-tab nav-glow-resume${active('resume')}" href="resume.html">Résumé</a></li>
@@ -983,4 +958,36 @@ qa('[data-gallery-open]').forEach(el=>el.addEventListener('click',e=>{e.preventD
 
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init,{once:true});
   else init();
+})();
+
+
+/* V48 — Education & Research routing + decorative sprite cleanup. */
+(()=>{
+  function renameEducationLinks(){
+    document.querySelectorAll('a[href^="education.html"]').forEach(a=>{
+      const txt=(a.textContent||'').trim();
+      if(txt==='Education') a.textContent='Education & Research';
+    });
+  }
+  function activateEducationHash(){
+    if((document.body?.dataset?.page||'')!=='education')return;
+    const raw=(location.hash||'').slice(1);
+    const aliases={'exo-project':'edu-exo','carrt':'edu-carrt-sensor'};
+    const id=aliases[raw]||raw;
+    if(!id)return;
+    const btn=document.querySelector(`.featured-tab[data-feature-target="${CSS.escape(id)}"]`);
+    const panel=document.getElementById(id);
+    if(btn){btn.click();}
+    if(panel){requestAnimationFrame(()=>panel.scrollIntoView({behavior:'smooth',block:'center'}));}
+  }
+  function enforceSpritePolicy(){
+    const page=document.body?.dataset?.page||'';
+    document.querySelectorAll('.beach-shark-scene,.pixel-sprite.shark,.daily-sprite-strip.shark-strip,.grd-dancer').forEach(el=>el.remove());
+    if(!['about','contact'].includes(page)){
+      document.querySelectorAll('.pixel-sprite-layer,.section-sprite-badge').forEach(el=>el.remove());
+    }
+  }
+  function initV48(){renameEducationLinks();enforceSpritePolicy();activateEducationHash();}
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initV48,{once:true}); else initV48();
+  window.addEventListener('hashchange',activateEducationHash);
 })();

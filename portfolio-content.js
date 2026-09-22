@@ -5,10 +5,10 @@ window.PORTFOLIO_CONTENT = {
     "tiles": [
       {
         "title": "IEEE EXO",
-        "description": "Lower-limb exoskeleton program spanning powered hip/knee design, passive ankle development, OpenSim gait comparison, embedded controls, CAD, testing, multidisciplinary leadership, and IEEE board outreach/event responsibilities.",
-        "link": "work.html#exo-project",
+        "description": "Lower-limb exoskeleton program spanning powered hip/knee design, passive ankle development, embedded controls, CAD, testing, and OpenSim gait comparison across healthy, hemiparetic, and SHIA datasets. As EXO Chair, I also coordinate IEEE board events, workshops, recruitment, career-fair/employer outreach, sponsor communication, budgets, and cross-team planning.",
+        "link": "education.html#edu-exo",
         "linkText": "See project",
-        "badge": "EX"
+        "badge": "EXO"
       },
       {
         "title": "Lonza",
@@ -22,14 +22,14 @@ window.PORTFOLIO_CONTENT = {
         "description": "Rule-based maintenance request system with guided intake, urgency determination, maintenance assignment, reminder emails, and searchable request history.",
         "link": "work.html#smurf",
         "linkText": "See system",
-        "badge": "S"
+        "badge": "SMR"
       },
       {
         "title": "CARRT",
         "description": "Human-motion research using IMUs and Vicon plus a modular ESP32/IMU rugby lineout sensor. The SolidWorks enclosure was reduced from 80 × 60 mm to 48 × 36 mm (64.0% smaller footprint) with ventilation, adjustable strap slots, and PCB validation/integration support.",
-        "link": "work.html#carrt",
+        "link": "education.html#edu-carrt-sensor",
         "linkText": "See research",
-        "badge": "C"
+        "badge": "RRT"
       }
     ],
     "galleryShelfLabel": "open a mini gallery:"
