@@ -9,3 +9,10 @@ V48 cumulative patch
 - Removes the radio dancing sprite.
 - Pokémon party sprites remain intentionally untouched.
 - CARRT remains 48 x 36 mm / 64.0% footprint reduction.
+
+V49 mobile layout update
+- Fluid mobile home hero using clamp()/min()/max() instead of desktop fixed heights.
+- Locomotive image capped by viewport width and height and placed in its own row.
+- Hero title/copy/headshot can no longer overlap the image.
+- News ticker, cards, search controls, footer, and generic page sections get safe mobile gutters.
+- Extra narrow-phone pass below 390 px.
