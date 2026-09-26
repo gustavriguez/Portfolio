@@ -11,23 +11,6 @@ const SITE_KEY='gr-site-multipage-v1';
 const q=(s,r=document)=>r.querySelector(s), qa=(s,r=document)=>[...r.querySelectorAll(s)];
 function readStore(key,fallback){try{const v=JSON.parse(localStorage.getItem(key)||'null');return v&&typeof v==='object'?v:deep(fallback)}catch(e){return deep(fallback)}}
 let CONTENT=readStore(CONTENT_KEY,DEFAULT_CONTENT);
-// Published routing and current CARRT dimensions are authoritative even if older browser edits exist.
-(function repairPublishedProjectRouting(){
-  const pubTiles=DEFAULT_CONTENT?.projectsPage?.tiles||[];
-  const curTiles=CONTENT?.projectsPage?.tiles||[];
-  ['IEEE EXO','CARRT'].forEach(title=>{
-    const pub=pubTiles.find(x=>x?.title===title), cur=curTiles.find(x=>x?.title===title);
-    if(pub&&cur){cur.link=pub.link;cur.linkText=pub.linkText;cur.description=pub.description;cur.badge=pub.badge;}
-  });
-  const pubWork=DEFAULT_CONTENT?.workPage||{};
-  const curWork=CONTENT?.workPage||{};
-  const pubCarrt=(pubWork.projects||[]).find(x=>x?.id==='carrt');
-  const curCarrt=(curWork.projects||[]).find(x=>x?.id==='carrt');
-  if(pubCarrt&&curCarrt)curCarrt.description=pubCarrt.description;
-  const pubRole=(pubWork.experience||[]).find(x=>String(x?.org||'').includes('CARRT'));
-  const curRole=(curWork.experience||[]).find(x=>String(x?.org||'').includes('CARRT'));
-  if(pubRole&&curRole)curRole.description=pubRole.description;
-})();
 let GALLERIES=readStore(GALLERY_KEY,DEFAULT_GALLERIES);
 if(!localStorage.getItem(GALLERY_KEY)){
   const legacy=readStore(OLD_GALLERY_KEY,{});
@@ -73,7 +56,7 @@ function renderWork(){
 function renderProjects(){
  const s=q('#projects'); if(!s||!CONTENT.projectsPage)return; const d=CONTENT.projectsPage;
  const title=q('.section-title',s), sub=q('.section-sub',s); if(title)title.textContent=d.title||''; if(sub)sub.textContent=d.subtitle||'';
- const tiles=q('.tiles',s); if(tiles){tiles.innerHTML=(d.tiles||[]).map(t=>{const href=esc(t.link||'#');return `<div class="tile"><div class="tile-layout"><div class="tile-copy"><h3><a class="tile-title-link" href="${href}">${esc(t.title)}</a></h3><p>${esc(t.description)}</p><a class="more" href="${href}">${esc(t.linkText||'Open')}</a></div><a class="badge tile-badge-link" href="${href}" aria-label="Open ${esc(t.title)}">${esc(t.badge)}</a></div></div>`}).join('')}
+ const tiles=q('.tiles',s); if(tiles){tiles.innerHTML=(d.tiles||[]).map(t=>`<div class="tile"><div class="tile-layout"><div class="tile-copy"><h3>${esc(t.title)}</h3><p>${esc(t.description)}</p><a class="more" href="${esc(t.link||'#')}">${esc(t.linkText||'Open')}</a></div><div class="badge">${esc(t.badge)}</div></div></div>`).join('')}
  const shelf=q('.project-media-shelf',s); if(shelf){const order=['exo-project','mime','locomotive','shape-fight','bulls','gbm','bakery'];const keys=[...order.filter(k=>GALLERIES[k]),...Object.keys(GALLERIES).filter(k=>!order.includes(k))];shelf.innerHTML=`<span>${esc(d.galleryShelfLabel||'open a mini gallery:')}</span>`+keys.map(k=>`<button type="button" data-gallery-open="${esc(k)}">${esc(GALLERIES[k].title||k)}</button>`).join('')}
 }
 function renderAssets(){
