@@ -1196,3 +1196,162 @@ qa('[data-gallery-open]').forEach(el=>el.addEventListener('click',e=>{e.preventD
   function install(){addButton($('#xcelodose .prow-meta'),'View Lonza gallery · 5');addButton($('.project-media-shelf'),'Lonza equipment');}
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',install,{once:true});else install();
 })();
+
+/* =========================================================
+   V53 — public cleanup + editor feature toggles + deck preview
+   - before/after lab hidden by default
+   - Featured Work selector hidden by default
+   - achievement cabinet replaced with compact stylized list
+   - Xcelodose deck exposed as browser-viewable PDF + PPTX download
+   ========================================================= */
+(()=>{
+  'use strict';
+  const q=(s,r=document)=>r.querySelector(s), qa=(s,r=document)=>[...r.querySelectorAll(s)];
+  const FLAG_KEY='gr-v53-feature-flags';
+  const DEFAULT_FLAGS={showBeforeAfter:false,showFeaturedWork:false};
+
+  function readFlags(){
+    try{return {...DEFAULT_FLAGS,...JSON.parse(localStorage.getItem(FLAG_KEY)||'{}')}}catch(_e){return {...DEFAULT_FLAGS}}
+  }
+  function writeFlags(next){
+    const flags={...readFlags(),...next};
+    try{localStorage.setItem(FLAG_KEY,JSON.stringify(flags))}catch(_e){}
+    applyFeatureFlags();
+    syncEditorToggles();
+    return flags;
+  }
+
+  function directText(el){
+    return [...el.childNodes].filter(n=>n.nodeType===3).map(n=>n.textContent).join(' ').trim();
+  }
+
+  function featuredWorkBlocks(){
+    const out=new Set();
+    qa('[data-featured-work],.featured-work,.featured-work-window,.featured-work-selector,.work-featured').forEach(x=>out.add(x));
+    qa('div,section,header,strong,b,span').forEach(label=>{
+      const own=directText(label);
+      if(!/^FEATURED\s+WORK$/i.test(own) && !/^FEATURED\s+WORK\b/i.test((label.textContent||'').trim())) return;
+      let node=label;
+      const stop=q('#work')||q('main');
+      while(node&&node.parentElement&&node.parentElement!==stop){
+        node=node.parentElement;
+        const txt=(node.textContent||'').replace(/\s+/g,' ').toUpperCase();
+        const controls=node.querySelectorAll('button,a').length;
+        if(txt.includes('SELECT A SYSTEM')&&controls>=4){out.add(node);break}
+      }
+    });
+    return [...out];
+  }
+
+  function applyFeatureFlags(){
+    const flags=readFlags();
+    qa('.v49-compare-lab').forEach(el=>{
+      el.hidden=!flags.showBeforeAfter;
+      el.classList.toggle('v53-feature-hidden',!flags.showBeforeAfter);
+    });
+    featuredWorkBlocks().forEach(el=>{
+      el.hidden=!flags.showFeaturedWork;
+      el.classList.toggle('v53-feature-hidden',!flags.showFeaturedWork);
+    });
+  }
+
+  function removeAchievementCabinet(){
+    qa('.v49-achievement-cabinet,.achievement-cabinet').forEach(el=>el.remove());
+  }
+
+  function addCredentialList(){
+    if((document.body.dataset.page||'')!=='about')return;
+    removeAchievementCabinet();
+    if(q('.v53-credential-list'))return;
+    const about=q('#about'); if(!about)return;
+    const section=document.createElement('section');
+    section.className='v53-credential-list';
+    section.setAttribute('aria-label','Credentials and technical training');
+    section.innerHTML=`
+      <div class="v53-credential-heading"><span>CREDENTIALS + TRAINING</span><small>selected certifications</small></div>
+      <div class="v53-credential-items">
+        <a class="v53-credential cad" href="cswa-cad-design.pdf" target="_blank" rel="noopener"><i>CAD</i><span><b>CSWA CAD Design</b><small>SolidWorks</small></span></a>
+        <a class="v53-credential sus" href="cswa-sustainability.pdf" target="_blank" rel="noopener"><i>SUS</i><span><b>CSWA Sustainability</b><small>design + sustainability</small></span></a>
+        <button class="v53-credential six" type="button" data-v53-note="Lean Six Sigma Yellow Belt certified"><i>6σ</i><span><b>Six Sigma Yellow Belt</b><small>continuous improvement</small></span></button>
+        <a class="v53-credential elec" href="electronics-foundations.pdf" target="_blank" rel="noopener"><i>EE</i><span><b>Electronics Foundations</b><small>fundamentals</small></span></a>
+        <a class="v53-credential bio" href="citi-biomedical-investigators.pdf" target="_blank" rel="noopener"><i>BIO</i><span><b>Biomedical Investigators</b><small>CITI training</small></span></a>
+        <a class="v53-credential pi" href="citi-biomedical-pi.pdf" target="_blank" rel="noopener"><i>PI</i><span><b>Biomedical PI</b><small>CITI training</small></span></a>
+        <a class="v53-credential rcr" href="citi-research-integrity.pdf" target="_blank" rel="noopener"><i>RCR</i><span><b>Research Integrity</b><small>CITI training</small></span></a>
+      </div>`;
+    about.insertAdjacentElement('afterend',section);
+    section.querySelectorAll('[data-v53-note]').forEach(btn=>btn.addEventListener('click',()=>{
+      const msg=btn.dataset.v53Note;
+      if(typeof window.GRPlaySound==='function')window.GRPlaySound('click');
+      const toast=document.createElement('div');toast.className='v53-mini-toast';toast.textContent=msg;document.body.appendChild(toast);
+      requestAnimationFrame(()=>toast.classList.add('show'));setTimeout(()=>{toast.classList.remove('show');setTimeout(()=>toast.remove(),180)},1700);
+    }));
+  }
+
+  function syncEditorToggles(){
+    const flags=readFlags();
+    const a=q('#v53ToggleBeforeAfter'), b=q('#v53ToggleFeaturedWork');
+    if(a)a.checked=!!flags.showBeforeAfter;
+    if(b)b.checked=!!flags.showFeaturedWork;
+    const sa=q('[data-v53-state="beforeAfter"]'), sb=q('[data-v53-state="featuredWork"]');
+    if(sa)sa.textContent=flags.showBeforeAfter?'visible':'hidden';
+    if(sb)sb.textContent=flags.showFeaturedWork?'visible':'hidden';
+  }
+
+  function installEditorToggles(){
+    const win=q('.cm-window'); if(!win||q('.v53-editor-features',win))return false;
+    const tabs=q('.cm-tabs',win), body=q('.cm-body',win);
+    const panel=document.createElement('section');
+    panel.className='v53-editor-features';
+    panel.innerHTML=`<div class="v53-editor-features-title"><b>DISPLAY MODULES</b><span>public portfolio visibility</span></div>
+      <label><input id="v53ToggleBeforeAfter" type="checkbox"><span><b>Before / After engineering</b><small>CARRT enclosure + electrical comparison</small></span><em data-v53-state="beforeAfter"></em></label>
+      <label><input id="v53ToggleFeaturedWork" type="checkbox"><span><b>Featured Work selector</b><small>large system-selection panel on Work</small></span><em data-v53-state="featuredWork"></em></label>`;
+    if(tabs)tabs.insertAdjacentElement('afterend',panel); else if(body)body.insertAdjacentElement('beforebegin',panel); else win.appendChild(panel);
+    q('#v53ToggleBeforeAfter',panel).addEventListener('change',e=>writeFlags({showBeforeAfter:e.target.checked}));
+    q('#v53ToggleFeaturedWork',panel).addEventListener('change',e=>writeFlags({showFeaturedWork:e.target.checked}));
+    syncEditorToggles();
+    return true;
+  }
+
+  function hookEditor(){
+    installEditorToggles();
+    const observer=new MutationObserver(()=>{installEditorToggles();applyFeatureFlags()});
+    observer.observe(document.documentElement,{childList:true,subtree:true});
+    if(typeof window.openPortfolioEditor==='function'&&!window.openPortfolioEditor.__v53){
+      const original=window.openPortfolioEditor;
+      const wrapped=function(...args){const r=original.apply(this,args);setTimeout(installEditorToggles,0);return r};
+      wrapped.__v53=true; window.openPortfolioEditor=wrapped;
+    }
+  }
+
+  function deckActions(){
+    const PDF='XD600s_Asset_Numbers_Only_Redacted.pdf';
+    const PPTX='XD600s_Asset_Numbers_Only_Redacted.pptx';
+    const host=q('#xcelodose .prow-meta');
+    if(host&&!q('[data-v53-deck]',host)){
+      const view=document.createElement('a');view.className='gallery-chip';view.dataset.v53Deck='';view.href=PDF;view.target='_blank';view.rel='noopener';view.textContent='View investigation deck';host.appendChild(view);
+      const dl=document.createElement('a');dl.className='gallery-chip v53-deck-download';dl.href=PPTX;dl.setAttribute('download','');dl.textContent='Download PPTX';host.appendChild(dl);
+    }
+  }
+
+  function patchLonzaGalleryDeckLinks(){
+    const fix=()=>{
+      const m=q('#lonzaEquipmentGallery'); if(!m)return;
+      const tabs=q('.gallery-tabs',m); if(!tabs||q('[data-v53-pdf]',tabs))return;
+      const old=qa('a',tabs).find(a=>/investigation deck/i.test(a.textContent||''));
+      if(old)old.remove();
+      const pdf=document.createElement('a');pdf.className='gallery-chip';pdf.dataset.v53Pdf='';pdf.href='XD600s_Asset_Numbers_Only_Redacted.pdf';pdf.target='_blank';pdf.rel='noopener';pdf.textContent='View presentation';tabs.appendChild(pdf);
+      const ppt=document.createElement('a');ppt.className='gallery-chip';ppt.href='XD600s_Asset_Numbers_Only_Redacted.pptx';ppt.setAttribute('download','');ppt.textContent='Download PPTX';tabs.appendChild(ppt);
+    };
+    const observer=new MutationObserver(fix);observer.observe(document.body,{childList:true,subtree:true});fix();
+  }
+
+  function init(){
+    addCredentialList();
+    applyFeatureFlags();
+    deckActions();
+    hookEditor();
+    patchLonzaGalleryDeckLinks();
+    setTimeout(()=>{removeAchievementCabinet();addCredentialList();applyFeatureFlags();deckActions()},180);
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
+})();
