@@ -47,6 +47,11 @@ const words=[{w:'liminal',p:'LIM-uh-nuhl',pos:'adjective',d:'Occupying a positio
 
 // Project gallery mini windows
 const GALLERIES=window.PROJECT_GALLERIES||{};
+// V52 fallback media: preserve existing galleries, only fill missing requested items.
+GALLERIES['shape-fight']=GALLERIES['shape-fight']||{title:'Ultimate Shape Fight',items:[]};
+if(!GALLERIES['shape-fight'].items.some(i=>String(i.src||'').includes('VFJ-w2PRKS4'))) GALLERIES['shape-fight'].items.push({type:'youtube',src:'https://www.youtube.com/watch?v=VFJ-w2PRKS4',caption:'Ultimate Shape Fight · MATLAB project video'});
+GALLERIES['smurf']=GALLERIES['smurf']||{title:'S.M.U.R.F.',items:[]};
+if(!GALLERIES['smurf'].items.some(i=>String(i.src||'').includes('smurf-system-process-flow.png'))) GALLERIES['smurf'].items.unshift({type:'image',src:'smurf-system-process-flow.png',caption:'SMURF request and urgency decision process flow'});
 function mediaSrc(item){return item?.dataSrc||item?.src||''}
 function mediaKind(item){if(!item)return'image';if(item.type)return item.type;if(/youtube\.com|youtu\.be/.test(item.src||''))return'youtube';if(/\.(mp4|webm|mov)(\?|$)/i.test(item.src||''))return'video';return'image'}
 function ensureGalleryModal(){
@@ -985,99 +990,209 @@ qa('[data-gallery-open]').forEach(el=>el.addEventListener('click',e=>{e.preventD
   else init();
 })();
 
-
-/* V49 CURRENTLY BUILDING + SOUND + COMPARE */
-(function(){
+/* =========================================================
+   V49 — live feature patch
+   ========================================================= */
+(()=>{
   'use strict';
-  const q=(s,r=document)=>r.querySelector(s), qa=(s,r=document)=>[...r.querySelectorAll(s)];
+  const PAGE_BUILD_ITEMS={
+    index:['IEEE EXO // actuator, controls + prototype integration','Reliability // Xcelodose RCA + recurrence prevention','Portfolio // project archive + build notes'],
+    work:['Lonza // Xcelodose reliability + equipment RCA','SMURF // maintenance request + assignment workflow','TRACE // run / pause / handoff process tracker'],
+    education:['IEEE EXO // mechanical + controls + test integration','CARRT // IMU sensor packaging + biomechanics','Altium // PCB coursework + IEEE workshops'],
+    projects:['IEEE EXO // powered hip + knee prototype','CARRT // 48 × 36 mm modular IMU enclosure','MATLAB // gait models + Ultimate Shape Fight'],
+    about:['NOW // mechanical engineering + reliability','LAB // robotics + biomechanics + embedded work','SITE // portfolio notes + weekly media'],
+    resume:['SEARCH // Spring / Summer 2027 engineering roles','FOCUS // reliability + robotics + human motion','CV // engineering experience + project record'],
+    contact:['OPEN // Spring / Summer 2027 opportunities','BASE // Tampa, Florida','WORK // reliability + robotics + biomechanics']
+  };
+  const pageKey=()=>{const raw=(location.pathname.split('/').pop()||'index.html').toLowerCase();return raw==='index.html'||raw===''?'index':raw.replace(/\.html?$/,'')};
+  const BUILD_ITEMS=PAGE_BUILD_ITEMS[pageKey()]||PAGE_BUILD_ITEMS.index;
+  let buildIndex=0;
+  let audioCtx=null;
+  const SOUND_KEY='gr-v49-sound-enabled';
 
-  function removeSharks(){
-    qa('.beach-shark-scene,.pixel-sprite.shark').forEach(n=>n.remove());
-    qa('img[src*="bullshark"]').forEach(img=>{
-      const wrap=img.closest('.section-sprite-badge');
-      if(wrap) wrap.remove(); else img.remove();
-    });
-  }
-
-  function mountCurrentlyBuilding(){
-    if(q('#currentlyBuildingExe')) return;
-    const box=document.createElement('aside');
-    box.id='currentlyBuildingExe';
-    box.className='currently-building-exe';
-    box.innerHTML=`
-      <div class="cb-titlebar"><span><i></i>CURRENTLY BUILDING.EXE</span><button type="button" class="cb-collapse" aria-label="Collapse Currently Building">−</button></div>
-      <div class="cb-screen">
-        <div class="cb-line"><b>EXO</b><span>controls + mechanical integration</span><em>ACTIVE</em></div>
-        <div class="cb-line"><b>CARRT</b><span>sensor packaging + motion research</span><em>BUILD</em></div>
-        <div class="cb-line"><b>RELIABILITY</b><span>equipment RCA + recurrence prevention</span><em>RUN</em></div>
-        <div class="cb-cursor">C:\\GUSTAVO\\WORK&gt;<span>_</span></div>
-      </div>`;
-    document.body.appendChild(box);
-    q('.cb-collapse',box)?.addEventListener('click',()=>{
-      box.classList.toggle('collapsed');
-      q('.cb-collapse',box).textContent=box.classList.contains('collapsed')?'+':'−';
-      playSound('window');
-    });
-  }
-
-  let audioCtx=null, soundOn=false;
-  function ctx(){
-    if(!audioCtx) audioCtx=new (window.AudioContext||window.webkitAudioContext)();
+  function soundOn(){return localStorage.getItem(SOUND_KEY)==='1'}
+  function ensureAudio(){
+    if(!audioCtx){
+      const AC=window.AudioContext||window.webkitAudioContext;
+      if(AC) audioCtx=new AC();
+    }
+    if(audioCtx&&audioCtx.state==='suspended') audioCtx.resume().catch(()=>{});
     return audioCtx;
   }
-  function tone(freq,dur=.045,type='sine',vol=.025,delay=0){
-    if(!soundOn) return;
-    try{
-      const c=ctx(), o=c.createOscillator(), g=c.createGain(), t=c.currentTime+delay;
-      o.type=type; o.frequency.setValueAtTime(freq,t);
-      g.gain.setValueAtTime(0.0001,t); g.gain.exponentialRampToValueAtTime(vol,t+.008); g.gain.exponentialRampToValueAtTime(0.0001,t+dur);
-      o.connect(g); g.connect(c.destination); o.start(t); o.stop(t+dur+.02);
-    }catch(_e){}
+  function tone(freq=560,dur=.045,type='sine',gain=.035,delay=0){
+    if(!soundOn()) return;
+    const ctx=ensureAudio(); if(!ctx) return;
+    const o=ctx.createOscillator(), g=ctx.createGain();
+    o.type=type;o.frequency.value=freq;g.gain.value=gain;
+    o.connect(g);g.connect(ctx.destination);
+    const t=ctx.currentTime+delay;
+    g.gain.setValueAtTime(gain,t);g.gain.exponentialRampToValueAtTime(.0001,t+dur);
+    o.start(t);o.stop(t+dur+.01);
   }
-  function playSound(kind='click'){
-    if(!soundOn) return;
-    if(kind==='window'){tone(520,.05,'triangle',.025);tone(740,.06,'triangle',.018,.045);}
-    else if(kind==='toggle'){tone(310,.035,'square',.014);tone(620,.04,'sine',.018,.03);}
-    else tone(430,.028,'triangle',.018);
-  }
-  window.GRPlaySound=playSound;
-
-  function mountSoundToggle(){
-    if(q('#siteSoundToggle')) return;
-    const b=document.createElement('button');
-    b.id='siteSoundToggle'; b.className='site-sound-toggle'; b.type='button';
-    b.innerHTML='<span aria-hidden="true">◖))</span><b>SOUND</b><em>OFF</em>';
-    b.setAttribute('aria-pressed','false');
-    b.addEventListener('click',async()=>{
-      soundOn=!soundOn;
-      b.classList.toggle('on',soundOn); b.setAttribute('aria-pressed',String(soundOn)); q('em',b).textContent=soundOn?'ON':'OFF';
-      if(soundOn){try{await ctx().resume()}catch(_e){}; playSound('toggle');}
-      localStorage.setItem('gr-sound-v49',soundOn?'1':'0');
+  function clickSound(){tone(640,.035,'triangle',.024)}
+  function openSound(){tone(430,.06,'sine',.026);tone(690,.075,'sine',.021,.055)}
+  function syncSoundButtons(){
+    document.querySelectorAll('.v49-sound-toggle').forEach(btn=>{
+      const on=soundOn();
+      btn.setAttribute('aria-pressed',String(on));
+      btn.textContent=on?'sound: on':'sound: off';
     });
-    document.body.appendChild(b);
+  }
+  function toggleSound(){
+    const next=!soundOn();
+    localStorage.setItem(SOUND_KEY,next?'1':'0');
+    if(soundChannel) try{soundChannel.postMessage({sound:next})}catch(_e){}
+    if(next) ensureAudio();
+    syncSoundButtons();
+    if(next){tone(520,.05,'triangle',.03);tone(780,.07,'triangle',.024,.05)}
+  }
+  // V52: keep sound state synchronized across page navigation and open portfolio tabs.
+  let soundChannel=null;
+  try{soundChannel=new BroadcastChannel('gr-portfolio-sound-v52')}catch(_e){}
+  window.addEventListener('storage',e=>{if(e.key===SOUND_KEY){syncSoundButtons();if(soundOn())ensureAudio()}});
+  if(soundChannel) soundChannel.onmessage=e=>{if(e.data&&typeof e.data.sound==='boolean'){localStorage.setItem(SOUND_KEY,e.data.sound?'1':'0');syncSoundButtons();if(e.data.sound)ensureAudio()}};
+  document.addEventListener('pointerdown',()=>{if(soundOn())ensureAudio()},{capture:true});
+
+  function toast(msg){
+    let t=document.querySelector('.v49-toast');
+    if(!t){t=document.createElement('div');t.className='v49-toast';document.body.appendChild(t)}
+    t.textContent=msg;t.classList.add('show');
+    clearTimeout(t._hide);t._hide=setTimeout(()=>t.classList.remove('show'),1700);
+  }
+
+  function removeShark(){
+    document.querySelectorAll('.beach-shark-scene,.pixel-sprite.shark,.daily-sprite-strip.shark-strip').forEach(n=>n.remove());
+  }
+
+  function setBuildLine(panel,index,withSound=false){
+    const line=panel.querySelector('.v49-building-line'); if(!line) return;
+    buildIndex=(index+BUILD_ITEMS.length)%BUILD_ITEMS.length;
+    line.innerHTML=`${BUILD_ITEMS[buildIndex]} <span class="v49-building-cursor">█</span>`;
+    const count=panel.querySelector('.v49-build-count');
+    if(count) count.textContent=String(buildIndex+1).padStart(2,'0')+'/'+String(BUILD_ITEMS.length).padStart(2,'0');
+    if(withSound) clickSound();
+  }
+
+  function addCurrentlyBuilding(){
+    if(document.querySelector('.v49-building-exe')) return;
+    const panel=document.createElement('aside');
+    panel.className='v49-building-exe no-print';
+    panel.setAttribute('aria-label','Currently building');
+    panel.innerHTML=`<div class="v49-building-titlebar"><span class="v49-window-dot"></span><b>Currently Building.exe</b><span class="v49-live-led">LIVE</span></div>
+      <div class="v49-building-body"><div class="v49-building-command">C:\\GUSTAVO&gt; build --now</div><div class="v49-building-line"></div>
+      <div class="v49-building-controls"><button class="v49-next-build" type="button">next</button><button class="v49-sound-toggle" type="button" aria-pressed="false">sound: off</button><span class="v49-build-count"></span></div></div>`;
+    document.body.appendChild(panel);
+    setBuildLine(panel,0,false);syncSoundButtons();
+    panel.querySelector('.v49-next-build').addEventListener('click',()=>setBuildLine(panel,buildIndex+1,true));
+    panel.querySelector('.v49-sound-toggle').addEventListener('click',toggleSound);
+    panel.querySelector('.v49-building-titlebar').addEventListener('click',()=>{openSound();setBuildLine(panel,buildIndex+1,false)});
+    setInterval(()=>setBuildLine(panel,buildIndex+1,false),4800);
+  }
+
+  function addAchievementCabinet(){
+    if((document.body.dataset.page||'')!=='about'||document.querySelector('.v49-achievement-cabinet')) return;
+    const target=document.querySelector('#about'); if(!target) return;
+    const section=document.createElement('section');
+    section.className='v49-achievement-cabinet';
+    section.innerHTML=`<div class="v49-cabinet-title"><b>ACHIEVEMENT CABINET</b><span>click a credential to open it</span></div>
+      <div class="v49-badge-cabinet">
+        <a class="v49-achievement" href="cswa-cad-design.pdf" target="_blank" rel="noopener"><i>CAD</i><b>CSWA CAD Design</b><small>credential</small></a>
+        <a class="v49-achievement" href="cswa-sustainability.pdf" target="_blank" rel="noopener"><i>SUS</i><b>CSWA Sustainability</b><small>credential</small></a>
+        <button class="v49-achievement" type="button" data-v49-note="Lean Six Sigma Yellow Belt certified"><i>6σ</i><b>Lean Six Sigma Yellow Belt</b><small>certified</small></button>
+        <a class="v49-achievement" href="electronics-foundations.pdf" target="_blank" rel="noopener"><i>ELEC</i><b>Electronics Foundations</b><small>credential</small></a>
+        <a class="v49-achievement" href="citi-biomedical-investigators.pdf" target="_blank" rel="noopener"><i>CITI</i><b>Biomedical Investigators</b><small>research training</small></a>
+        <a class="v49-achievement" href="citi-biomedical-pi.pdf" target="_blank" rel="noopener"><i>PI</i><b>Biomedical PI</b><small>research training</small></a>
+        <a class="v49-achievement" href="citi-research-integrity.pdf" target="_blank" rel="noopener"><i>RCR</i><b>Research Integrity</b><small>research training</small></a>
+      </div>`;
+    target.insertAdjacentElement('afterend',section);
+    section.querySelectorAll('a.v49-achievement').forEach(a=>a.addEventListener('click',openSound));
+    section.querySelectorAll('[data-v49-note]').forEach(btn=>btn.addEventListener('click',()=>{openSound();toast(btn.dataset.v49Note)}));
+  }
+
+  function addCompareLab(){
+    if((document.body.dataset.page||'')!=='projects'||document.querySelector('.v49-compare-lab')) return;
+    const section=document.querySelector('#projects'); if(!section) return;
+    const shelf=section.querySelector('.project-media-shelf');
+    const lab=document.createElement('div');
+    lab.className='v49-compare-lab';
+    lab.innerHTML=`
+      <section class="v49-compare-window"><div class="v49-compare-title"><b>BEFORE / AFTER // CARRT ENCLOSURE</b><span>80×60 → 48×36 mm</span></div>
+        <div class="v49-compare-copy"><b>Rugby lineout sensor enclosure</b><span>4800 mm² → 1728 mm² planar footprint</span><strong>64.0% reduction</strong></div>
+        <div class="v49-comparison"><div class="v49-compare-half">
+          <div class="v49-compare-cell"><div class="v49-case old"><span>80 mm</span><em>60 mm</em><b>V1</b></div><p>larger enclosure<br>earlier mounting approach</p></div>
+          <div class="v49-compare-cell"><div class="v49-case new"><span>48 mm</span><em>36 mm</em><b>V2</b></div><p>modular case<br>ventilation + adjustable strap slots</p></div>
+        </div><input class="v49-compare-range" type="range" min="0" max="100" value="50" aria-label="CARRT before and after comparison"></div>
+      </section>
+      <section class="v49-compare-window"><div class="v49-compare-title"><b>BEFORE / AFTER // ELECTRICAL WORK</b><span>asset slots reserved</span></div>
+        <div class="v49-compare-copy"><b>Electrical build comparison</b><span>Reserved for your real before/after wiring, PCB, or enclosure photos.</span></div>
+        <div class="v49-electrical-reserved"><div class="v49-electrical-slot"><b>BEFORE</b><span>drop original electrical-work image here later</span></div><div class="v49-electrical-slot"><b>AFTER</b><span>drop revised electrical-work image here later</span></div></div>
+      </section>`;
+    if(shelf) shelf.insertAdjacentElement('beforebegin',lab); else section.appendChild(lab);
+    const range=lab.querySelector('.v49-compare-range');
+    range?.addEventListener('input',e=>{
+      const v=Number(e.target.value);
+      if(soundOn()&&v%10===0) tone(280+v*3,.018,'square',.008);
+    });
+  }
+
+  function addHiddenCadViewer(){
+    if((document.body.dataset.page||'')!=='projects'||document.querySelector('.v49-cad-viewer-prototype')) return;
+    const el=document.createElement('section');
+    el.className='v49-cad-viewer-prototype';
+    el.hidden=true;
+    el.innerHTML='<div class="v49-cad-tree">Case_Base · Vent_Pattern · Strap_Slots · PCB_Clearance</div><div class="v49-cad-viewport">CAD VIEWER RESERVED</div>';
+    document.querySelector('#projects')?.appendChild(el);
+  }
+
+  function globalSfx(){
     document.addEventListener('click',e=>{
-      if(!soundOn || e.target.closest('#siteSoundToggle')) return;
-      if(e.target.closest('a,button,.tile,.achievement-badge,[data-gallery-open]')) playSound('click');
+      if(!soundOn()) return;
+      const hit=e.target.closest('a,button,.tab,.nav-link');
+      if(hit&&!hit.classList.contains('v49-sound-toggle')&&!hit.classList.contains('v49-next-build')&&!hit.classList.contains('v49-achievement')) clickSound();
     },true);
   }
 
-  function initCompare(){
-    qa('[data-compare]').forEach(card=>{
-      const r=q('.compare-range',card), after=q('.compare-after',card), divider=q('.compare-divider',card);
-      if(!r||!after) return;
-      const sync=()=>{const v=+r.value; after.style.clipPath=`inset(0 0 0 ${v}%)`; if(divider) divider.style.left=v+'%';};
-      r.addEventListener('input',sync); sync();
-    });
+  function initV49(){
+    removeShark();
+    addCurrentlyBuilding();
+    addAchievementCabinet();
+    addCompareLab();
+    addHiddenCadViewer();
+    globalSfx();
+    setTimeout(()=>{removeShark();if(!document.querySelector('.v49-building-exe'))addCurrentlyBuilding()},120);
   }
 
-  function init(){
-    removeSharks();
-    // Existing legacy code can create the old shark after initial parsing, so remove once more after mount.
-    setTimeout(removeSharks,250);
-    setTimeout(removeSharks,900);
-    mountCurrentlyBuilding();
-    mountSoundToggle();
-    initCompare();
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initV49,{once:true});
+  else initV49();
+})();
+
+
+/* V52 Lonza equipment gallery — asset-number-only sanitized media */
+(()=>{
+  'use strict';
+  const $=(s,r=document)=>r.querySelector(s);
+  const items=[
+    {src:'lonza-equipment-01.jpg',caption:'Weigh-pan / flexure interface close-up.'},
+    {src:'lonza-equipment-02.jpg',caption:'Microbalance spring and mechanical load-path assembly.'},
+    {src:'lonza-equipment-03.jpg',caption:'Full microbalance assembly during inspection.'},
+    {src:'lonza-equipment-04.jpg',caption:'Localized support / contact interface.'},
+    {src:'lonza-equipment-05.jpg',caption:'Microbalance inspection context. Asset number covered.'}
+  ];
+  let index=0;
+  function modal(){
+    let m=$('#lonzaEquipmentGallery'); if(m)return m;
+    m=document.createElement('div');m.id='lonzaEquipmentGallery';m.className='gallery-modal';m.setAttribute('aria-hidden','true');
+    m.innerHTML=`<div class="gallery-window" role="dialog" aria-modal="true" aria-labelledby="lonzaGalleryTitle"><div class="gallery-bar"><div class="gallery-lights" aria-hidden="true"><i></i><i></i><i></i></div><strong id="lonzaGalleryTitle">Lonza · Equipment Investigation</strong><button class="gallery-close" type="button" aria-label="Close gallery">×</button></div><div class="gallery-tabs"><button type="button" class="active">Equipment photos</button><a class="gallery-chip" href="XD600s_Asset_Numbers_Only_Redacted.pptx" target="_blank" rel="noopener">Open investigation deck</a></div><div class="gallery-stage" id="lonzaGalleryStage"></div><div class="gallery-caption" id="lonzaGalleryCaption"></div><div class="gallery-thumbs" id="lonzaGalleryThumbs"></div><div class="gallery-nav"><button type="button" data-lonza-prev>‹ previous</button><span id="lonzaGalleryCount"></span><button type="button" data-lonza-next>next ›</button></div></div>`;
+    document.body.appendChild(m); $('.gallery-close',m).onclick=close; $('[data-lonza-prev]',m).onclick=()=>step(-1); $('[data-lonza-next]',m).onclick=()=>step(1);
+    m.addEventListener('click',e=>{if(e.target===m)close()});
+    document.addEventListener('keydown',e=>{if(m.getAttribute('aria-hidden')!=='false')return;if(e.key==='Escape')close();if(e.key==='ArrowLeft')step(-1);if(e.key==='ArrowRight')step(1)});
+    return m;
   }
-  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init,{once:true}); else init();
+  function render(){const m=modal(),it=items[index];$('#lonzaGalleryStage',m).innerHTML=`<img class="gallery-image" src="${it.src}" alt="${it.caption.replace(/"/g,'&quot;')}">`;$('#lonzaGalleryCaption',m).textContent=it.caption;$('#lonzaGalleryCount',m).textContent=`${index+1} / ${items.length}`;const t=$('#lonzaGalleryThumbs',m);t.innerHTML='';items.forEach((x,i)=>{const b=document.createElement('button');b.type='button';b.className='gallery-thumb'+(i===index?' active':'');b.innerHTML=`<img src="${x.src}" alt="">`;b.title=x.caption;b.onclick=()=>{index=i;render()};t.appendChild(b)})}
+  function open(){index=0;const m=modal();m.setAttribute('aria-hidden','false');document.documentElement.classList.add('gallery-open');render()}
+  function close(){const m=$('#lonzaEquipmentGallery');if(!m)return;m.setAttribute('aria-hidden','true');document.documentElement.classList.remove('gallery-open')}
+  function step(d){index=(index+d+items.length)%items.length;render()}
+  function addButton(host,label){if(!host||host.querySelector('[data-lonza-equipment-gallery]'))return;const b=document.createElement('button');b.type='button';b.className='gallery-chip';b.dataset.lonzaEquipmentGallery='';b.textContent=label;b.onclick=open;host.appendChild(b)}
+  function install(){addButton($('#xcelodose .prow-meta'),'View Lonza gallery · 5');addButton($('.project-media-shelf'),'Lonza equipment');}
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',install,{once:true});else install();
 })();
