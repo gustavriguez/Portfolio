@@ -1475,3 +1475,14 @@ body[data-page="work"] .v54-project-list .prow:target{border-color:#d3a650;box-s
 .v54-media-card img[src*="work-mime-v57"]{object-fit:cover;background:#eef4f6;}
 .v54-selected-work .v54-card-media img[src*="work-smurf-request-v57"],
 .v54-media-card img[src*="work-smurf-request-v57"]{object-fit:cover;object-position:center top;}
+
+/* V58 actual gallery media: one GBM EXO photo + one Mime photo */
+.v54-selected-work .v54-card-media img[src*="work-exo-gbm-v58"],
+.v54-media-card img[src*="work-exo-gbm-v58"],
+.v54-media-card img[src*="work-mime-one-v58"]{
+  object-fit:cover;
+  object-position:center;
+  background:#eef4f6;
+}
+.v54-selected-work .v54-card-media img[src*="work-exo-gbm-v58"]{object-position:center 45%;}
+.v54-media-card img[src*="work-mime-one-v58"]{object-position:center 38%;}
