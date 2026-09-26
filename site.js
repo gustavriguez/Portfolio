@@ -1355,3 +1355,29 @@ qa('[data-gallery-open]').forEach(el=>el.addEventListener('click',e=>{e.preventD
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
 })();
+
+/* =========================================================
+   V54 — Work page media helpers
+   ========================================================= */
+(()=>{
+  'use strict';
+  const q=(s,r=document)=>r.querySelector(s), qa=(s,r=document)=>[...r.querySelectorAll(s)];
+  function openLonza(){
+    const existing=q('[data-lonza-equipment-gallery]');
+    if(existing){ existing.click(); return; }
+    const x=q('#xcelodose .prow-meta');
+    if(x){
+      const fallback=x.querySelector('button');
+      if(fallback) fallback.click();
+    }
+  }
+  function init(){
+    if((document.body.dataset.page||'')!=='work')return;
+    qa('[data-v54-lonza]').forEach(el=>el.addEventListener('click',e=>{e.preventDefault();openLonza()}));
+    if(location.hash){
+      const target=q(location.hash);
+      if(target)setTimeout(()=>target.scrollIntoView({block:'center'}),90);
+    }
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
+})();
