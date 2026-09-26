@@ -1486,3 +1486,11 @@ body[data-page="work"] .v54-project-list .prow:target{border-color:#d3a650;box-s
 }
 .v54-selected-work .v54-card-media img[src*="work-exo-gbm-v58"]{object-position:center 45%;}
 .v54-media-card img[src*="work-mime-one-v58"]{object-position:center 38%;}
+
+/* V59: force real gallery images for Work previews */
+.v54-selected-work .v54-card-media img[src*="work-exo-gbm-photo-v59"],
+.v54-media-card img[src*="work-exo-gbm-photo-v59"],
+.v54-media-card img[src*="work-mime-preview-v59"]{display:block;width:100%;height:100%;object-fit:cover;padding:0;background:none;}
+.v54-selected-work .v54-card-media img[src*="work-exo-gbm-photo-v59"]{object-position:center 48%;}
+.v54-media-card img[src*="work-exo-gbm-photo-v59"]{object-position:center 48%;}
+.v54-media-card img[src*="work-mime-preview-v59"]{object-position:center 48%;}
