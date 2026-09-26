@@ -1468,3 +1468,10 @@ body[data-page="work"] .v54-project-list .prow:target{border-color:#d3a650;box-s
 .v54-card-poster .v54-poster-kicker{font:700 8px/1 Arial,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#6e7e8b;}
 .v54-card-poster .v54-poster-title{font:700 34px/1 Georgia,"Times New Roman",serif;letter-spacing:.16em;color:#27415a;}
 .v54-card-poster .v54-poster-sub{font:700 12px/1.05 Georgia,"Times New Roman",serif;color:#496177;}
+
+/* V57 versioned Work media assets */
+.v54-selected-work .v54-card-media img[src*="work-gbm-v57"],
+.v54-media-card img[src*="work-gbm-v57"],
+.v54-media-card img[src*="work-mime-v57"]{object-fit:cover;background:#eef4f6;}
+.v54-selected-work .v54-card-media img[src*="work-smurf-request-v57"],
+.v54-media-card img[src*="work-smurf-request-v57"]{object-fit:cover;object-position:center top;}
