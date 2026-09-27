@@ -47,11 +47,6 @@ const words=[{w:'liminal',p:'LIM-uh-nuhl',pos:'adjective',d:'Occupying a positio
 
 // Project gallery mini windows
 const GALLERIES=window.PROJECT_GALLERIES||{};
-// V52 fallback media: preserve existing galleries, only fill missing requested items.
-GALLERIES['shape-fight']=GALLERIES['shape-fight']||{title:'Ultimate Shape Fight',items:[]};
-if(!GALLERIES['shape-fight'].items.some(i=>String(i.src||'').includes('VFJ-w2PRKS4'))) GALLERIES['shape-fight'].items.push({type:'youtube',src:'https://www.youtube.com/watch?v=VFJ-w2PRKS4',caption:'Ultimate Shape Fight · MATLAB project video'});
-GALLERIES['smurf']=GALLERIES['smurf']||{title:'S.M.U.R.F.',items:[]};
-if(!GALLERIES['smurf'].items.some(i=>String(i.src||'').includes('smurf-system-process-flow.png'))) GALLERIES['smurf'].items.unshift({type:'image',src:'smurf-system-process-flow.png',caption:'SMURF request and urgency decision process flow'});
 function mediaSrc(item){return item?.dataSrc||item?.src||''}
 function mediaKind(item){if(!item)return'image';if(item.type)return item.type;if(/youtube\.com|youtu\.be/.test(item.src||''))return'youtube';if(/\.(mp4|webm|mov)(\?|$)/i.test(item.src||''))return'video';return'image'}
 function ensureGalleryModal(){
@@ -995,17 +990,13 @@ qa('[data-gallery-open]').forEach(el=>el.addEventListener('click',e=>{e.preventD
    ========================================================= */
 (()=>{
   'use strict';
-  const PAGE_BUILD_ITEMS={
-    index:['IEEE EXO // actuator, controls + prototype integration','Reliability // Xcelodose RCA + recurrence prevention','Portfolio // project archive + build notes'],
-    work:['Lonza // Xcelodose reliability + equipment RCA','SMURF // maintenance request + assignment workflow','TRACE // run / pause / handoff process tracker'],
-    education:['IEEE EXO // mechanical + controls + test integration','CARRT // IMU sensor packaging + biomechanics','Altium // PCB coursework + IEEE workshops'],
-    projects:['IEEE EXO // powered hip + knee prototype','CARRT // 48 × 36 mm modular IMU enclosure','MATLAB // gait models + Ultimate Shape Fight'],
-    about:['NOW // mechanical engineering + reliability','LAB // robotics + biomechanics + embedded work','SITE // portfolio notes + weekly media'],
-    resume:['SEARCH // Spring / Summer 2027 engineering roles','FOCUS // reliability + robotics + human motion','CV // engineering experience + project record'],
-    contact:['OPEN // Spring / Summer 2027 opportunities','BASE // Tampa, Florida','WORK // reliability + robotics + biomechanics']
-  };
-  const pageKey=()=>{const raw=(location.pathname.split('/').pop()||'index.html').toLowerCase();return raw==='index.html'||raw===''?'index':raw.replace(/\.html?$/,'')};
-  const BUILD_ITEMS=PAGE_BUILD_ITEMS[pageKey()]||PAGE_BUILD_ITEMS.index;
+  const BUILD_ITEMS=[
+    'IEEE EXO // actuator, controls + prototype integration',
+    'CARRT // modular ESP32 + IMU sensor enclosure',
+    'Reliability // Xcelodose failure investigation + corrective actions',
+    'Electrical // PCB + embedded hardware practice',
+    'Portfolio // V49 live feature build'
+  ];
   let buildIndex=0;
   let audioCtx=null;
   const SOUND_KEY='gr-v49-sound-enabled';
@@ -1041,18 +1032,10 @@ qa('[data-gallery-open]').forEach(el=>el.addEventListener('click',e=>{e.preventD
   function toggleSound(){
     const next=!soundOn();
     localStorage.setItem(SOUND_KEY,next?'1':'0');
-    if(soundChannel) try{soundChannel.postMessage({sound:next})}catch(_e){}
     if(next) ensureAudio();
     syncSoundButtons();
     if(next){tone(520,.05,'triangle',.03);tone(780,.07,'triangle',.024,.05)}
   }
-  // V52: keep sound state synchronized across page navigation and open portfolio tabs.
-  let soundChannel=null;
-  try{soundChannel=new BroadcastChannel('gr-portfolio-sound-v52')}catch(_e){}
-  window.addEventListener('storage',e=>{if(e.key===SOUND_KEY){syncSoundButtons();if(soundOn())ensureAudio()}});
-  if(soundChannel) soundChannel.onmessage=e=>{if(e.data&&typeof e.data.sound==='boolean'){localStorage.setItem(SOUND_KEY,e.data.sound?'1':'0');syncSoundButtons();if(e.data.sound)ensureAudio()}};
-  document.addEventListener('pointerdown',()=>{if(soundOn())ensureAudio()},{capture:true});
-
   function toast(msg){
     let t=document.querySelector('.v49-toast');
     if(!t){t=document.createElement('div');t.className='v49-toast';document.body.appendChild(t)}
@@ -1165,219 +1148,233 @@ qa('[data-gallery-open]').forEach(el=>el.addEventListener('click',e=>{e.preventD
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initV49,{once:true});
   else initV49();
 })();
-
-
-/* V52 Lonza equipment gallery — asset-number-only sanitized media */
-(()=>{
-  'use strict';
-  const $=(s,r=document)=>r.querySelector(s);
-  const items=[
-    {src:'lonza-equipment-01.jpg',caption:'Weigh-pan / flexure interface close-up.'},
-    {src:'lonza-equipment-02.jpg',caption:'Microbalance spring and mechanical load-path assembly.'},
-    {src:'lonza-equipment-03.jpg',caption:'Full microbalance assembly during inspection.'},
-    {src:'lonza-equipment-04.jpg',caption:'Localized support / contact interface.'},
-    {src:'lonza-equipment-05.jpg',caption:'Microbalance inspection context. Asset number covered.'}
-  ];
-  let index=0;
-  function modal(){
-    let m=$('#lonzaEquipmentGallery'); if(m)return m;
-    m=document.createElement('div');m.id='lonzaEquipmentGallery';m.className='gallery-modal';m.setAttribute('aria-hidden','true');
-    m.innerHTML=`<div class="gallery-window" role="dialog" aria-modal="true" aria-labelledby="lonzaGalleryTitle"><div class="gallery-bar"><div class="gallery-lights" aria-hidden="true"><i></i><i></i><i></i></div><strong id="lonzaGalleryTitle">Lonza · Equipment Investigation</strong><button class="gallery-close" type="button" aria-label="Close gallery">×</button></div><div class="gallery-tabs"><button type="button" class="active">Equipment photos</button><a class="gallery-chip" href="XD600s_Asset_Numbers_Only_Redacted.pptx" target="_blank" rel="noopener">Open investigation deck</a></div><div class="gallery-stage" id="lonzaGalleryStage"></div><div class="gallery-caption" id="lonzaGalleryCaption"></div><div class="gallery-thumbs" id="lonzaGalleryThumbs"></div><div class="gallery-nav"><button type="button" data-lonza-prev>‹ previous</button><span id="lonzaGalleryCount"></span><button type="button" data-lonza-next>next ›</button></div></div>`;
-    document.body.appendChild(m); $('.gallery-close',m).onclick=close; $('[data-lonza-prev]',m).onclick=()=>step(-1); $('[data-lonza-next]',m).onclick=()=>step(1);
-    m.addEventListener('click',e=>{if(e.target===m)close()});
-    document.addEventListener('keydown',e=>{if(m.getAttribute('aria-hidden')!=='false')return;if(e.key==='Escape')close();if(e.key==='ArrowLeft')step(-1);if(e.key==='ArrowRight')step(1)});
-    return m;
-  }
-  function render(){const m=modal(),it=items[index];$('#lonzaGalleryStage',m).innerHTML=`<img class="gallery-image" src="${it.src}" alt="${it.caption.replace(/"/g,'&quot;')}">`;$('#lonzaGalleryCaption',m).textContent=it.caption;$('#lonzaGalleryCount',m).textContent=`${index+1} / ${items.length}`;const t=$('#lonzaGalleryThumbs',m);t.innerHTML='';items.forEach((x,i)=>{const b=document.createElement('button');b.type='button';b.className='gallery-thumb'+(i===index?' active':'');b.innerHTML=`<img src="${x.src}" alt="">`;b.title=x.caption;b.onclick=()=>{index=i;render()};t.appendChild(b)})}
-  function open(){index=0;const m=modal();m.setAttribute('aria-hidden','false');document.documentElement.classList.add('gallery-open');render()}
-  function close(){const m=$('#lonzaEquipmentGallery');if(!m)return;m.setAttribute('aria-hidden','true');document.documentElement.classList.remove('gallery-open')}
-  function step(d){index=(index+d+items.length)%items.length;render()}
-  function addButton(host,label){if(!host||host.querySelector('[data-lonza-equipment-gallery]'))return;const b=document.createElement('button');b.type='button';b.className='gallery-chip';b.dataset.lonzaEquipmentGallery='';b.textContent=label;b.onclick=open;host.appendChild(b)}
-  function install(){addButton($('#xcelodose .prow-meta'),'View Lonza gallery · 5');addButton($('.project-media-shelf'),'Lonza equipment');}
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',install,{once:true});else install();
-})();
-
 /* =========================================================
-   V53 — public cleanup + editor feature toggles + deck preview
-   - before/after lab hidden by default
-   - Featured Work selector hidden by default
-   - achievement cabinet replaced with compact stylized list
-   - Xcelodose deck exposed as browser-viewable PDF + PPTX download
+   V60 — Projects + Work unified hub
    ========================================================= */
 (()=>{
   'use strict';
   const q=(s,r=document)=>r.querySelector(s), qa=(s,r=document)=>[...r.querySelectorAll(s)];
-  const FLAG_KEY='gr-v53-feature-flags';
-  const DEFAULT_FLAGS={showBeforeAfter:false,showFeaturedWork:false};
+  const page=()=>((document.body?.dataset?.page)||((location.pathname.split('/').pop()||'index.html').replace(/\.html?$/,''))).toLowerCase();
 
-  function readFlags(){
-    try{return {...DEFAULT_FLAGS,...JSON.parse(localStorage.getItem(FLAG_KEY)||'{}')}}catch(_e){return {...DEFAULT_FLAGS}}
-  }
-  function writeFlags(next){
-    const flags={...readFlags(),...next};
-    try{localStorage.setItem(FLAG_KEY,JSON.stringify(flags))}catch(_e){}
-    applyFeatureFlags();
-    syncEditorToggles();
-    return flags;
+  const PROJECTS={
+    exo:{
+      title:'IEEE EXO', kicker:'ROBOTICS / LEADERSHIP', gallery:'exo-project', accent:'exo',
+      summary:'Lower-limb exoskeleton program using powered hip and knee actuation, a passive ankle, embedded controls, CAD, testing, and gait-driven design decisions.',
+      overview:[
+        'Program lead / chair for a multidisciplinary lower-limb exoskeleton effort.',
+        'Current hardware direction uses powered hip and knee actuation with a passive ankle concept.',
+        'Mechanical, controls, electrical, testing, safety, documentation, procurement, and research planning all meet in the same program.'
+      ],
+      experience:[
+        ['Role','EXO Project Lead / Chair'],['Organization','IEEE at the University of South Florida'],['Focus','Robotics, controls, biomechanics, CAD, program leadership'],['Board work','Events, workshops, recruitment, career-fair/employer outreach, sponsors, budgets, meeting logistics']
+      ],
+      media:[
+        {src:'work-exo-gbm-photo-v59.png',label:'GBM EXO demonstration'},
+        {src:'usf-bull-logo.png',label:'IEEE / USF project identity',contain:true}
+      ],
+      tools:['SolidWorks','OpenSim','MATLAB','Teensy / embedded controls','CAN','IMUs / FSRs'],
+      links:[['Open EXO gallery','gallery'],['Education + research','education.html#exo'],['Résumé','resume.html']]
+    },
+    lonza:{
+      title:'Lonza', kicker:'RELIABILITY / MANUFACTURING', gallery:null, accent:'lonza',
+      summary:'Reliability engineering and facilities work across Xcelodose equipment RCA, maintenance systems, asset visibility, documentation, and regulated manufacturing support.',
+      overview:[
+        'Led a root-cause investigation after 3 of 4 Xcelodose microbalance units became unavailable.',
+        'Used physical inspection, Gemba observation, failure-mode analysis, alignment checks, maintenance history, and cross-unit comparison.',
+        'Earlier FEM work included 5S asset labeling, maintenance workflow development, cleaning readiness tracking, capital planning support, and maintenance documentation.'
+      ],
+      experience:[
+        ['Reliability','Aug–Dec 2026'],['FEM','May–Aug 2026'],['Measured impact','~83% reduction in asset search time from 5S / labeling work'],['RCA scale','3 of 4 Xcelodose microbalance units unavailable during investigation']
+      ],
+      media:[
+        {src:'lonza-equipment-02.jpg',label:'Microbalance mechanism'},
+        {src:'lonza-equipment-04.jpg',label:'Mechanical inspection detail'},
+        {src:'lonza-equipment-05.jpg',label:'Equipment inspection context'}
+      ],
+      tools:['6M / FMEA','Gemba','Power Apps','SharePoint','Power Automate','Excel / Power BI'],
+      links:[['Equipment gallery','gallery'],['View investigation deck','XD600s_Asset_Numbers_Only_Redacted.pdf'],['Download PPTX','XD600s_Asset_Numbers_Only_Redacted.pptx'],['Résumé','resume.html']]
+    },
+    smurf:{
+      title:'S.M.U.R.F.', kicker:'POWER PLATFORM / MAINTENANCE', gallery:'smurf', accent:'smurf',
+      summary:'Smart maintenance request system with guided intake, rule-based urgency assignment, maintenance review, reminders, attachments, and searchable history.',
+      overview:[
+        'Requester answers facts about the condition rather than selecting urgency directly.',
+        'Power Apps assigns Immediate, Same-Shift, or Not Immediate using hard overrides and condition combinations.',
+        'Maintenance receives a separate review experience with assignment, status, work-order, notes, attachments, and reminder automation.'
+      ],
+      experience:[
+        ['Platform','Power Apps + SharePoint Lists + Power Automate'],['Decision model','Immediate override → Same-Shift rules → Not Immediate'],['Maintenance side','Assignment, status, notes, work order, attachments'],['Emergency rule','Submission documents the request; emergency communication still uses RelayX radio']
+      ],
+      media:[
+        {src:'SMURFFinal.png',label:'Request details screen'},
+        {src:'smurf-system-process-flow.png',label:'Process / urgency flow'}
+      ],
+      tools:['Power Apps','SharePoint','Power Automate','Excel','Power BI'],
+      links:[['Open SMURF gallery','gallery'],['Project files','projects.html#project-media']]
+    },
+    carrt:{
+      title:'CARRT', kicker:'HUMAN MOTION / EMBEDDED', gallery:'carrt', accent:'carrt',
+      summary:'Human-motion research using IMUs and Vicon plus a modular ESP32 sensor package for rugby lineout motion capture.',
+      overview:[
+        'Support experimental setup, validation, collection, analysis, and technical documentation for human-motion research.',
+        'Designed a SolidWorks enclosure for repeatable ankle and thigh placement around the validated PCB.',
+        'Reduced enclosure footprint from 80 × 60 mm to 48 × 36 mm. The revised case adds ventilation and adjustable strap slots.'
+      ],
+      experience:[
+        ['Role','REU Research Assistant'],['Lab','CARRT · University of South Florida'],['Enclosure','80 × 60 mm → 48 × 36 mm'],['Change','64.0% smaller planar footprint'],['Mounting','Adjustable onboard strap slots instead of tape / sleeve dependence']
+      ],
+      media:[],
+      tools:['Vicon','IMUs','ESP32','SolidWorks','PCB validation support','Human-motion analysis'],
+      links:[['Education + research','education.html'],['Résumé','resume.html']]
+    }
+  };
+
+  function cleanNav(){
+    const nav=q('nav.tabs'); if(!nav) return;
+    const p=page();
+    const projActive=(p==='projects'||p==='work')?' active':'';
+    const active=k=>p===k?' active':'';
+    nav.className='tabs bootstrap-nav navbar navbar-expand-md v60-main-nav';
+    nav.innerHTML=`<div class="container-fluid">
+      <a class="navbar-brand nav-glow-tab nav-glow-home${active('home')}" href="index.html">◎ Gustavo</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#portfolioMainNav" aria-controls="portfolioMainNav" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+      <div class="collapse navbar-collapse" id="portfolioMainNav"><ul class="navbar-nav">
+        <li class="nav-item"><a class="nav-link nav-glow-tab nav-glow-projects${projActive}" href="projects.html">Projects + Work</a></li>
+        <li class="nav-item"><a class="nav-link nav-glow-tab nav-glow-education${active('education')}" href="education.html">Education + Research</a></li>
+        <li class="nav-item"><a class="nav-link nav-glow-tab nav-glow-about${active('about')}" href="about.html">About</a></li>
+        <li class="nav-item"><a class="nav-link nav-glow-tab nav-glow-resume${active('resume')}" href="resume.html">Résumé</a></li>
+        <li class="nav-item"><a class="nav-link nav-glow-tab nav-glow-contact${active('contact')}" href="contact.html">Contact</a></li>
+      </ul></div></div>`;
+
+    const sub=q('nav.subnav'); if(!sub) return;
+    if(p==='projects'||p==='work'){
+      sub.className='subnav v60-subnav';
+      sub.innerHTML='<a href="projects.html#project-hub">Project hub</a><a href="projects.html#featured-experience">Experience</a><a href="projects.html#project-media">Media</a>';
+    }else if(p==='education'){
+      sub.className='subnav v60-subnav';
+      sub.innerHTML='<a href="education.html">Education + research</a><a href="projects.html">Projects + work</a>';
+    }else{
+      sub.className='subnav v60-subnav';
+      sub.innerHTML='<a href="projects.html">Projects + work</a><a href="media.html">Weekly picks</a>';
+    }
   }
 
-  function directText(el){
-    return [...el.childNodes].filter(n=>n.nodeType===3).map(n=>n.textContent).join(' ').trim();
-  }
-
-  function featuredWorkBlocks(){
-    const out=new Set();
-    qa('[data-featured-work],.featured-work,.featured-work-window,.featured-work-selector,.work-featured').forEach(x=>out.add(x));
-    qa('div,section,header,strong,b,span').forEach(label=>{
-      const own=directText(label);
-      if(!/^FEATURED\s+WORK$/i.test(own) && !/^FEATURED\s+WORK\b/i.test((label.textContent||'').trim())) return;
-      let node=label;
-      const stop=q('#work')||q('main');
-      while(node&&node.parentElement&&node.parentElement!==stop){
-        node=node.parentElement;
-        const txt=(node.textContent||'').replace(/\s+/g,' ').toUpperCase();
-        const controls=node.querySelectorAll('button,a').length;
-        if(txt.includes('SELECT A SYSTEM')&&controls>=4){out.add(node);break}
-      }
+  function cleanFooter(){
+    qa('.footer .map').forEach(map=>{
+      map.innerHTML='<a href="index.html">Home</a> | <a href="projects.html">Projects + Work</a> | <a href="education.html">Education + Research</a> | <a href="about.html">About</a> | <a href="resume.html">Résumé</a> | <a href="contact.html">Contact</a> | <a href="media.html">Weekly Picks</a>';
     });
-    return [...out];
   }
 
-  function applyFeatureFlags(){
-    const flags=readFlags();
-    qa('.v49-compare-lab').forEach(el=>{
-      el.hidden=!flags.showBeforeAfter;
-      el.classList.toggle('v53-feature-hidden',!flags.showBeforeAfter);
-    });
-    featuredWorkBlocks().forEach(el=>{
-      el.hidden=!flags.showFeaturedWork;
-      el.classList.toggle('v53-feature-hidden',!flags.showFeaturedWork);
+  function removeDecorativeSprites(){
+    qa('.pixel-sprite-layer,.section-sprite-badge,.daily-sprite-strip,.beach-shark-scene,.pixel-sprite.shark').forEach(n=>n.remove());
+  }
+
+  function removeRetiredModules(){
+    qa('.v49-achievement-cabinet,.achievement-cabinet,.v49-compare-lab,.before-after-lab,.v53-credentials,.v54-selected-work,.v54-experience,.v54-media-rail,.v54-archive').forEach(n=>{
+      if(page()==='work' && n.closest('.v60-work-compact')) return;
+      n.remove();
     });
   }
 
-  function removeAchievementCabinet(){
-    qa('.v49-achievement-cabinet,.achievement-cabinet').forEach(el=>el.remove());
+  function ensureHubModal(){
+    let modal=q('#v60ProjectWindow'); if(modal) return modal;
+    modal=document.createElement('div'); modal.id='v60ProjectWindow'; modal.className='v60-project-modal'; modal.setAttribute('aria-hidden','true');
+    modal.innerHTML=`<div class="v60-project-window" role="dialog" aria-modal="true" aria-labelledby="v60ProjectTitle">
+      <div class="v60-window-bar"><div class="v60-window-lights"><i></i><i></i><i></i></div><strong id="v60ProjectTitle">Project file</strong><button type="button" class="v60-window-close" aria-label="Close project file">×</button></div>
+      <div class="v60-window-tabs"><button type="button" data-v60-tab="overview" class="active">Overview</button><button type="button" data-v60-tab="experience">Experience</button><button type="button" data-v60-tab="media">Media</button><button type="button" data-v60-tab="links">Links</button></div>
+      <div class="v60-window-body" id="v60ProjectBody"></div>
+      <div class="v60-window-foot"><span>PROJECT_FILE.APP</span><b>GUSTAVO / 2026</b></div>
+    </div>`;
+    document.body.appendChild(modal);
+    q('.v60-window-close',modal).onclick=closeHub;
+    modal.addEventListener('click',e=>{if(e.target===modal)closeHub()});
+    qa('[data-v60-tab]',modal).forEach(b=>b.onclick=()=>renderHubTab(b.dataset.v60Tab));
+    document.addEventListener('keydown',e=>{if(e.key==='Escape'&&modal.getAttribute('aria-hidden')==='false')closeHub()});
+    return modal;
   }
-
-  function addCredentialList(){
-    if((document.body.dataset.page||'')!=='about')return;
-    removeAchievementCabinet();
-    if(q('.v53-credential-list'))return;
-    const about=q('#about'); if(!about)return;
-    const section=document.createElement('section');
-    section.className='v53-credential-list';
-    section.setAttribute('aria-label','Credentials and technical training');
-    section.innerHTML=`
-      <div class="v53-credential-heading"><span>CREDENTIALS + TRAINING</span><small>selected certifications</small></div>
-      <div class="v53-credential-items">
-        <a class="v53-credential cad" href="cswa-cad-design.pdf" target="_blank" rel="noopener"><i>CAD</i><span><b>CSWA CAD Design</b><small>SolidWorks</small></span></a>
-        <a class="v53-credential sus" href="cswa-sustainability.pdf" target="_blank" rel="noopener"><i>SUS</i><span><b>CSWA Sustainability</b><small>design + sustainability</small></span></a>
-        <button class="v53-credential six" type="button" data-v53-note="Lean Six Sigma Yellow Belt certified"><i>6σ</i><span><b>Six Sigma Yellow Belt</b><small>continuous improvement</small></span></button>
-        <a class="v53-credential elec" href="electronics-foundations.pdf" target="_blank" rel="noopener"><i>EE</i><span><b>Electronics Foundations</b><small>fundamentals</small></span></a>
-        <a class="v53-credential bio" href="citi-biomedical-investigators.pdf" target="_blank" rel="noopener"><i>BIO</i><span><b>Biomedical Investigators</b><small>CITI training</small></span></a>
-        <a class="v53-credential pi" href="citi-biomedical-pi.pdf" target="_blank" rel="noopener"><i>PI</i><span><b>Biomedical PI</b><small>CITI training</small></span></a>
-        <a class="v53-credential rcr" href="citi-research-integrity.pdf" target="_blank" rel="noopener"><i>RCR</i><span><b>Research Integrity</b><small>CITI training</small></span></a>
-      </div>`;
-    about.insertAdjacentElement('afterend',section);
-    section.querySelectorAll('[data-v53-note]').forEach(btn=>btn.addEventListener('click',()=>{
-      const msg=btn.dataset.v53Note;
-      if(typeof window.GRPlaySound==='function')window.GRPlaySound('click');
-      const toast=document.createElement('div');toast.className='v53-mini-toast';toast.textContent=msg;document.body.appendChild(toast);
-      requestAnimationFrame(()=>toast.classList.add('show'));setTimeout(()=>{toast.classList.remove('show');setTimeout(()=>toast.remove(),180)},1700);
-    }));
+  let hubState={key:'exo',tab:'overview'};
+  function openHub(key,tab='overview'){
+    if(!PROJECTS[key]) return;
+    hubState={key,tab};
+    const modal=ensureHubModal();
+    q('#v60ProjectTitle',modal).textContent=PROJECTS[key].title;
+    modal.dataset.accent=PROJECTS[key].accent;
+    modal.setAttribute('aria-hidden','false');
+    document.documentElement.classList.add('v60-project-open');
+    renderHubTab(tab);
   }
-
-  function syncEditorToggles(){
-    const flags=readFlags();
-    const a=q('#v53ToggleBeforeAfter'), b=q('#v53ToggleFeaturedWork');
-    if(a)a.checked=!!flags.showBeforeAfter;
-    if(b)b.checked=!!flags.showFeaturedWork;
-    const sa=q('[data-v53-state="beforeAfter"]'), sb=q('[data-v53-state="featuredWork"]');
-    if(sa)sa.textContent=flags.showBeforeAfter?'visible':'hidden';
-    if(sb)sb.textContent=flags.showFeaturedWork?'visible':'hidden';
-  }
-
-  function installEditorToggles(){
-    const win=q('.cm-window'); if(!win||q('.v53-editor-features',win))return false;
-    const tabs=q('.cm-tabs',win), body=q('.cm-body',win);
-    const panel=document.createElement('section');
-    panel.className='v53-editor-features';
-    panel.innerHTML=`<div class="v53-editor-features-title"><b>DISPLAY MODULES</b><span>public portfolio visibility</span></div>
-      <label><input id="v53ToggleBeforeAfter" type="checkbox"><span><b>Before / After engineering</b><small>CARRT enclosure + electrical comparison</small></span><em data-v53-state="beforeAfter"></em></label>
-      <label><input id="v53ToggleFeaturedWork" type="checkbox"><span><b>Featured Work selector</b><small>large system-selection panel on Work</small></span><em data-v53-state="featuredWork"></em></label>`;
-    if(tabs)tabs.insertAdjacentElement('afterend',panel); else if(body)body.insertAdjacentElement('beforebegin',panel); else win.appendChild(panel);
-    q('#v53ToggleBeforeAfter',panel).addEventListener('change',e=>writeFlags({showBeforeAfter:e.target.checked}));
-    q('#v53ToggleFeaturedWork',panel).addEventListener('change',e=>writeFlags({showFeaturedWork:e.target.checked}));
-    syncEditorToggles();
-    return true;
-  }
-
-  function hookEditor(){
-    installEditorToggles();
-    const observer=new MutationObserver(()=>{installEditorToggles();applyFeatureFlags()});
-    observer.observe(document.documentElement,{childList:true,subtree:true});
-    if(typeof window.openPortfolioEditor==='function'&&!window.openPortfolioEditor.__v53){
-      const original=window.openPortfolioEditor;
-      const wrapped=function(...args){const r=original.apply(this,args);setTimeout(installEditorToggles,0);return r};
-      wrapped.__v53=true; window.openPortfolioEditor=wrapped;
+  function closeHub(){const m=q('#v60ProjectWindow');if(!m)return;m.setAttribute('aria-hidden','true');document.documentElement.classList.remove('v60-project-open')}
+  function renderHubTab(tab){
+    hubState.tab=tab;
+    const modal=ensureHubModal(), d=PROJECTS[hubState.key], body=q('#v60ProjectBody',modal);
+    qa('[data-v60-tab]',modal).forEach(b=>b.classList.toggle('active',b.dataset.v60Tab===tab));
+    if(tab==='overview'){
+      body.innerHTML=`<div class="v60-file-heading"><small>${d.kicker}</small><h2>${d.title}</h2><p>${d.summary}</p></div><div class="v60-file-grid"><div class="v60-file-panel"><b>PROJECT NOTES</b>${d.overview.map(x=>`<p>${x}</p>`).join('')}</div><div class="v60-tool-panel"><b>TOOLS / METHODS</b><div>${d.tools.map(x=>`<span>${x}</span>`).join('')}</div></div></div>`;
+    }else if(tab==='experience'){
+      body.innerHTML=`<div class="v60-file-heading"><small>${d.kicker}</small><h2>${d.title} / experience</h2></div><div class="v60-spec-list">${d.experience.map(([a,b])=>`<div><small>${a}</small><strong>${b}</strong></div>`).join('')}</div>`;
+    }else if(tab==='media'){
+      const media=d.media.length?d.media.map((m,i)=>`<button type="button" class="v60-media-preview${m.contain?' contain':''}" data-v60-media-index="${i}"><img src="${m.src}" alt="${m.label}"><span>${m.label}</span></button>`).join(''):`<div class="v60-media-empty"><b>No standalone photo set here yet.</b><span>Research details and technical notes are still available in the other tabs.</span></div>`;
+      body.innerHTML=`<div class="v60-file-heading"><small>${d.kicker}</small><h2>${d.title} / media</h2></div><div class="v60-media-grid">${media}</div>${d.gallery?'<button type="button" class="v60-open-gallery">open full mini gallery ›</button>':''}`;
+      q('.v60-open-gallery',body)?.addEventListener('click',()=>{
+        closeHub();
+        const trigger=q(`[data-gallery-open="${d.gallery}"]`);
+        if(trigger) trigger.click();
+      });
+      qa('[data-v60-media-index]',body).forEach(btn=>btn.addEventListener('click',()=>{
+        if(d.gallery){closeHub();const trigger=q(`[data-gallery-open="${d.gallery}"]`);if(trigger)trigger.click();}
+      }));
+    }else{
+      body.innerHTML=`<div class="v60-file-heading"><small>${d.kicker}</small><h2>${d.title} / links</h2></div><div class="v60-link-list">${d.links.map(([label,href])=>href==='gallery'?`<button type="button" data-v60-gallery>${label}</button>`:`<a href="${href}" ${/\.pdf$|\.pptx$/i.test(href)?'target="_blank" rel="noopener"':''}>${label}</a>`).join('')}</div>`;
+      q('[data-v60-gallery]',body)?.addEventListener('click',()=>{if(d.gallery){closeHub();const trigger=q(`[data-gallery-open="${d.gallery}"]`);if(trigger)trigger.click();}else{renderHubTab('media');}});
     }
   }
 
-  function deckActions(){
-    const PDF='XD600s_Asset_Numbers_Only_Redacted.pdf';
-    const PPTX='XD600s_Asset_Numbers_Only_Redacted.pptx';
-    const host=q('#xcelodose .prow-meta');
-    if(host&&!q('[data-v53-deck]',host)){
-      const view=document.createElement('a');view.className='gallery-chip';view.dataset.v53Deck='';view.href=PDF;view.target='_blank';view.rel='noopener';view.textContent='View investigation deck';host.appendChild(view);
-      const dl=document.createElement('a');dl.className='gallery-chip v53-deck-download';dl.href=PPTX;dl.setAttribute('download','');dl.textContent='Download PPTX';host.appendChild(dl);
+  function wireHub(){
+    qa('[data-project-hub]').forEach(el=>el.addEventListener('click',e=>{e.preventDefault();openHub(el.dataset.projectHub)}));
+    if(page()==='projects' && location.hash){
+      const key=location.hash.replace('#','');
+      if(PROJECTS[key]) setTimeout(()=>openHub(key),90);
     }
   }
 
-  function patchLonzaGalleryDeckLinks(){
-    const fix=()=>{
-      const m=q('#lonzaEquipmentGallery'); if(!m)return;
-      const tabs=q('.gallery-tabs',m); if(!tabs||q('[data-v53-pdf]',tabs))return;
-      const old=qa('a',tabs).find(a=>/investigation deck/i.test(a.textContent||''));
-      if(old)old.remove();
-      const pdf=document.createElement('a');pdf.className='gallery-chip';pdf.dataset.v53Pdf='';pdf.href='XD600s_Asset_Numbers_Only_Redacted.pdf';pdf.target='_blank';pdf.rel='noopener';pdf.textContent='View presentation';tabs.appendChild(pdf);
-      const ppt=document.createElement('a');ppt.className='gallery-chip';ppt.href='XD600s_Asset_Numbers_Only_Redacted.pptx';ppt.setAttribute('download','');ppt.textContent='Download PPTX';tabs.appendChild(ppt);
-    };
-    const observer=new MutationObserver(fix);observer.observe(document.body,{childList:true,subtree:true});fix();
+  function rewriteSearch(){
+    const input=q('#siteSearch'), btn=q('#searchBtn'); if(!input||!btn) return;
+    const routes=[
+      [['exo','exoskeleton','ak80','teensy','gait'],'projects.html#exo'],
+      [['xcelodose','microbalance','reliability','lonza','root cause','rca'],'projects.html#lonza'],
+      [['smurf','power apps','maintenance request','sharepoint'],'projects.html#smurf'],
+      [['carrt','vicon','imu','biomechanics','human motion'],'projects.html#carrt'],
+      [['mime','robot hand','mediapipe','servo'],'projects.html#project-media'],
+      [['project','engineering','work','experience'],'projects.html'],
+      [['resume','résumé','skill'],'resume.html'],[['education','research'],'education.html'],[['about','bio'],'about.html'],[['contact','email','linkedin'],'contact.html']
+    ];
+    const go=()=>{const s=input.value.trim().toLowerCase();if(!s)return;const hit=routes.find(([terms])=>terms.some(t=>s.includes(t)||t.includes(s)));location.href=hit?hit[1]:'projects.html';};
+    const newBtn=btn.cloneNode(true);btn.replaceWith(newBtn);newBtn.addEventListener('click',go);
+    input.addEventListener('keydown',e=>{if(e.key==='Enter'){e.stopImmediatePropagation();e.preventDefault();go();}},true);
   }
 
-  function init(){
-    addCredentialList();
-    applyFeatureFlags();
-    deckActions();
-    hookEditor();
-    patchLonzaGalleryDeckLinks();
-    setTimeout(()=>{removeAchievementCabinet();addCredentialList();applyFeatureFlags();deckActions()},180);
+  function personalizeBuilding(){
+    const panel=q('.v49-building-exe'); if(!panel) return;
+    const line=q('.v49-building-line',panel), command=q('.v49-building-command',panel);
+    const p=page();
+    const map={projects:'PROJECT HUB // EXO · reliability · CARRT · SMURF',work:'WORK ARCHIVE // moved into Projects hub',education:'RESEARCH // gait · biomechanics · electronics',about:'SITE // portfolio + credentials',resume:'RESUME // engineering experience + projects',contact:'CONTACT // Spring / Summer 2027'};
+    if(line&&map[p]) line.innerHTML=map[p]+' <span class="v49-building-cursor">█</span>';
+    if(command) command.textContent='C:\\GUSTAVO>'+((p==='projects'||p==='work')?' project --open':' '+p+' --status');
   }
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
-})();
 
-/* =========================================================
-   V54 — Work page media helpers
-   ========================================================= */
-(()=>{
-  'use strict';
-  const q=(s,r=document)=>r.querySelector(s), qa=(s,r=document)=>[...r.querySelectorAll(s)];
-  function openLonza(){
-    const existing=q('[data-lonza-equipment-gallery]');
-    if(existing){ existing.click(); return; }
-    const x=q('#xcelodose .prow-meta');
-    if(x){
-      const fallback=x.querySelector('button');
-      if(fallback) fallback.click();
-    }
+  function observeCleanup(){
+    const obs=new MutationObserver(()=>{
+      removeDecorativeSprites();
+      qa('.v49-achievement-cabinet,.achievement-cabinet,.v49-compare-lab,.before-after-lab').forEach(n=>n.remove());
+    });
+    obs.observe(document.body,{childList:true,subtree:true});
   }
-  function init(){
-    if((document.body.dataset.page||'')!=='work')return;
-    qa('[data-v54-lonza]').forEach(el=>el.addEventListener('click',e=>{e.preventDefault();openLonza()}));
-    if(location.hash){
-      const target=q(location.hash);
-      if(target)setTimeout(()=>target.scrollIntoView({block:'center'}),90);
-    }
+
+  function initV60(){
+    window.addEventListener('storage',e=>{if(e.key==='gr-v49-sound-enabled'){qa('.v49-sound-toggle').forEach(b=>{const on=e.newValue==='1';b.textContent=on?'sound: on':'sound: off';b.setAttribute('aria-pressed',String(on));});}});
+    if(page()==='work' && location.hash){const old=location.hash.replace('#','');const map={'exo-project':'exo','xcelodose':'lonza','smurf':'smurf','carrt':'carrt'};if(map[old]){location.replace('projects.html#'+map[old]);return;}}
+    cleanNav();cleanFooter();removeDecorativeSprites();removeRetiredModules();wireHub();rewriteSearch();personalizeBuilding();observeCleanup();
+    setTimeout(()=>{cleanNav();removeDecorativeSprites();personalizeBuilding()},180);
   }
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initV60,{once:true}); else initV60();
 })();

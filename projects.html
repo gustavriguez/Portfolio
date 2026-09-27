@@ -4,13 +4,18 @@
 <aside aria-label="Today on Gustavo's site" class="daily-dock right"><section class="daily-card"><div class="daily-titlebar"><span>TODAY ON THE SITE</span><span class="daily-led alt"></span></div><div class="daily-date" data-daily-date=""></div><div class="site-photo"><img alt="Gustavo Rodriguez" id="sideHeadshot" src="gustavo-headshot-horizontal.webp"/></div><div class="site-lines"><div><small>STATUS</small><strong id="sideStatus">building things</strong></div><div><small>LOCATION</small><strong>Tampa, FL</strong></div><div><small>LISTENING</small><strong id="sideSong">Failure's "Stuck on You"</strong></div><div><small>WATCHING</small><strong id="sideMovie">This Battery Doesn't Need Lithium and It Just Hit Mass Production</strong></div><div><small>CURRENTLY</small><strong id="sideCurrent">EXO + reliability</strong></div></div><div class="site-note"><b>site note:</b> updated by hand whenever I feel like it.</div><div class="daily-status"><span>PERSONAL.HTML</span><b class="online-dot">ONLINE</b></div></section></aside>
 <div class="top-lines"></div>
 <div class="wrap">
-<nav aria-label="Main pages" class="tabs"><a class="tab home" href="index.html">◎ Gustavo</a><a class="tab" href="work.html">Work</a><a class="tab" href="education.html">Education</a><a class="tab active" href="projects.html">Projects</a><a class="tab" href="about.html">About</a><a class="tab" href="resume.html">Résumé</a><a class="tab" href="contact.html">Contact</a></nav>
-<nav aria-label="Utility pages" class="subnav"><a href="assets.html">Project Assets</a><a href="media.html">Weekly Picks</a></nav>
-<main class="page-main">
-<section id="projects"><h2 class="section-title">Selected engineering.</h2><div class="section-sub">Selected engineering projects across robotics, CAD, embedded systems, MATLAB, and biomechanics.</div>
-<div class="bull-ascii-stage" aria-label="Interactive green and gold ASCII bull. Hover to tilt, click to charge.">
-  <div class="bull-ascii" data-bull-ascii tabindex="0" role="button" aria-label="ASCII bull. Click to charge.">
-    <pre class="bull-ascii-source">                     ++                                                     ++      
+<nav aria-label="Main pages" class="tabs"><a class="tab home" href="index.html">◎ Gustavo</a><a class="tab active" href="projects.html">Projects + Work</a><a class="tab" href="education.html">Education + Research</a><a class="tab" href="about.html">About</a><a class="tab" href="resume.html">Résumé</a><a class="tab" href="contact.html">Contact</a></nav>
+<nav aria-label="Utility pages" class="subnav"><a href="projects.html#project-hub">Project hub</a><a href="projects.html#featured-experience">Experience</a><a href="projects.html#project-media">Media</a></nav>
+<main class="page-main v60-project-main">
+<section id="project-hub" class="v60-project-hub">
+  <div class="v60-hub-heading">
+    <div><small>ENGINEERING HUB / SELECTED</small><h2 class="section-title">Selected engineering.</h2></div>
+    <p>Projects, research, reliability work, and the systems I keep coming back to.</p>
+  </div>
+
+  <div class="bull-ascii-stage v60-bull" aria-label="Interactive green and gold ASCII bull. Hover to tilt, click to charge.">
+    <div class="bull-ascii" data-bull-ascii tabindex="0" role="button" aria-label="ASCII bull. Click to charge.">
+      <pre class="bull-ascii-source">                     ++                                                     ++      
                      +++                                                 +++++      
                     +++++                                              ++++++       
                    +++--++                                           +++--++        
@@ -46,26 +51,46 @@
        +++-+######################++--+++++                                         
          ++------------------------++++                                             
           ++++++++++++++++++++++++++                                                </pre>
-    <span class="bull-ascii-spark s1" aria-hidden="true">✦</span>
-    <span class="bull-ascii-spark s2" aria-hidden="true">✧</span>
-    <span class="bull-ascii-spark s3" aria-hidden="true">✦</span>
+      <span class="bull-ascii-spark s1" aria-hidden="true">✦</span><span class="bull-ascii-spark s2" aria-hidden="true">✧</span><span class="bull-ascii-spark s3" aria-hidden="true">✦</span>
+    </div>
   </div>
-</div><div class="tiles"><div class="tile"><div class="tile-layout"><div class="tile-copy"><h3>IEEE EXO</h3><p>Lower-limb exoskeleton program spanning powered hip/knee design, passive ankle development, embedded controls, CAD, testing, and OpenSim gait comparison across healthy and hemiparetic gait datasets. As EXO Chair, I also coordinate IEEE board events, workshops, recruitment, career-fair/employer outreach, sponsor communication, budgets, and cross-team planning.</p><a class="more" href="work.html#exo-project">See project</a></div><div class="badge">EXO</div></div></div><div class="tile"><div class="tile-layout"><div class="tile-copy"><h3>Lonza</h3><p>Reliability work on manufacturing equipment, root-cause investigations, mechanical alignment, asset systems, maintenance workflows, and lifecycle planning.</p><a class="more" href="work.html#xcelodose">See work</a></div><div class="badge">LZ</div></div></div><div class="tile"><div class="tile-layout"><div class="tile-copy"><h3>SMURF</h3><p>Rule-based maintenance request system with guided intake, urgency determination, maintenance assignment, reminder emails, and searchable request history.</p><a class="more" href="work.html#smurf">See system</a></div><div class="badge">SMR</div></div></div><div class="tile"><div class="tile-layout"><div class="tile-copy"><h3>CARRT</h3><p>Human-motion research using IMUs and Vicon plus a modular ESP32/IMU rugby lineout sensor. The SolidWorks enclosure was reduced from 80 × 60 mm to 48 × 36 mm (64.0% smaller footprint) and adds ventilation and adjustable strap slots around a PCB I helped validate.</p><a class="more" href="work.html#carrt">See research</a></div><div class="badge">RRT</div></div></div></div>
-<div class="project-media-shelf" aria-label="Project media quick access">
-  <span>open a mini gallery:</span>
-  <button type="button" data-gallery-open="exo-project">EXO</button>
-  <button type="button" data-gallery-open="mime">Mime</button>
-  <button type="button" data-gallery-open="locomotive">Locomotive</button>
-  <button type="button" data-gallery-open="shape-fight">Shape Fight</button>
-  <button type="button" data-gallery-open="bulls">Bull's Robot</button>
-  <button type="button" data-gallery-open="gbm">GBM</button>
-  <button type="button" data-gallery-open="smurf">SMURF</button>
-  <button type="button" data-gallery-open="bakery">Bread</button>
-</div></section>
+
+  <div class="v60-system-grid" aria-label="Core project systems">
+    <button class="v60-system-card exo" type="button" data-project-hub="exo">
+      <div class="v60-card-copy"><small>ROBOTICS / LEADERSHIP</small><h3>IEEE EXO</h3><p>Lower-limb exoskeleton program spanning mechanical design, controls, gait analysis, testing, and program leadership.</p><span>open project file ›</span></div><div class="badge">EXO</div>
+    </button>
+    <button class="v60-system-card lonza" type="button" data-project-hub="lonza">
+      <div class="v60-card-copy"><small>RELIABILITY / MANUFACTURING</small><h3>Lonza</h3><p>Equipment RCA, maintenance systems, asset work, documentation, and regulated manufacturing support.</p><span>open work file ›</span></div><div class="badge">LNZ</div>
+    </button>
+    <button class="v60-system-card smurf" type="button" data-project-hub="smurf">
+      <div class="v60-card-copy"><small>POWER PLATFORM / MAINTENANCE</small><h3>S.M.U.R.F.</h3><p>Guided maintenance intake, urgency logic, assignment, reminders, attachments, and searchable records.</p><span>open system file ›</span></div><div class="badge">SMR</div>
+    </button>
+    <button class="v60-system-card carrt" type="button" data-project-hub="carrt">
+      <div class="v60-card-copy"><small>HUMAN MOTION / EMBEDDED</small><h3>CARRT</h3><p>IMU/Vicon research plus modular ESP32 sensor packaging, SolidWorks enclosure work, and PCB support.</p><span>open research file ›</span></div><div class="badge">RRT</div>
+    </button>
+  </div>
+
+  <section id="featured-experience" class="v60-featured-tablet">
+    <div class="v60-tablet-title"><span>FEATURED EXPERIENCE</span><a href="resume.html">full résumé ›</a></div>
+    <div class="v60-role-list">
+      <button type="button" data-project-hub="lonza"><b>Reliability Engineering Intern</b><span>Lonza · Aug–Dec 2026</span><em>RCA · equipment reliability · corrective actions</em></button>
+      <button type="button" data-project-hub="lonza"><b>Facilities, Engineering &amp; Maintenance Intern</b><span>Lonza · May–Aug 2026</span><em>5S · Power Platform · maintenance systems</em></button>
+      <button type="button" data-project-hub="exo"><b>EXO Project Lead / Chair</b><span>IEEE USF · 2025–present</span><em>robotics · board leadership · outreach</em></button>
+      <button type="button" data-project-hub="carrt"><b>REU Research Assistant</b><span>CARRT Lab · 2026–present</span><em>IMU · Vicon · CAD · embedded sensing</em></button>
+    </div>
+  </section>
+
+  <section id="project-media" class="v60-mini-gallery">
+    <div class="v60-tablet-title"><span>PROJECT FILES</span><small>open a mini gallery</small></div>
+    <div class="v60-gallery-chips">
+      <button type="button" data-gallery-open="exo-project">IEEE EXO</button><button type="button" data-gallery-open="mime">Mime</button><button type="button" data-gallery-open="locomotive">Steam Locomotive</button><button type="button" data-gallery-open="shape-fight">Shape Fight</button><button type="button" data-gallery-open="bulls">Bull's Robot</button><button type="button" data-gallery-open="gbm">IEEE GBM</button><button type="button" data-gallery-open="smurf">SMURF</button><button type="button" data-gallery-open="bakery">State Flour Bakery</button>
+    </div>
+  </section>
+</section>
 </main>
 <div class="search no-print"><input aria-label="Search portfolio" id="siteSearch" placeholder="Search this portfolio"/><button id="searchBtn" type="button">Search</button></div>
 <div class="search-msg no-print" id="searchMsg"></div>
-<footer class="footer"><div class="map"><a href="index.html">Home</a> | <a href="work.html">Work</a> | <a href="education.html">Education</a> | <a href="projects.html">Projects</a> | <a href="about.html">About</a> | <a href="resume.html">Résumé</a> | <a href="contact.html">Contact</a> | <a href="media.html">Weekly Picks</a> | <a href="assets.html">Assets</a></div><div>Seeking Spring / Summer 2027 engineering internships and co-ops.</div><div style="margin-top:7px">© 2026 Gustavo Rodriguez</div><div class="server">Mechanical Engineering · Reliability · Robotics · Human Motion</div></footer>
+<footer class="footer"><div class="map"><a href="index.html">Home</a> | <a href="education.html">Education</a> | <a href="projects.html">Projects</a> | <a href="about.html">About</a> | <a href="resume.html">Résumé</a> | <a href="contact.html">Contact</a> | <a href="media.html">Weekly Picks</a> | <a href="assets.html">Assets</a></div><div>Seeking Spring / Summer 2027 engineering internships and co-ops.</div><div style="margin-top:7px">© 2026 Gustavo Rodriguez</div><div class="server">Mechanical Engineering · Reliability · Robotics · Human Motion</div></footer>
 </div>
 <script src="site-data.js"></script><script src="project-media.js"></script><script src="portfolio-content.js"></script><script src="content-editor.js"></script><script src="bootstrap.bundle.min.js"></script><script src="site.js"></script><script src="bull-ascii.js"></script>
 </body></html>
