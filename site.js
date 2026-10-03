@@ -1173,10 +1173,10 @@ qa('[data-gallery-open]').forEach(el=>el.addEventListener('click',e=>{e.preventD
         {src:'work-exo-gbm-photo-v59.png',label:'GBM EXO demonstration'},
         {src:'usf-bull-logo.png',label:'IEEE / USF project identity',contain:true}
       ],
-      tools:['SolidWorks','OpenSim','MATLAB','Teensy / embedded controls','CAN','IMUs / FSRs'],
+      tools:['SolidWorks','OpenSim','MATLAB','Teensy / embedded controls','CAN','IMUs / FSRs','Altium Designer'],
       links:[['Open EXO gallery','gallery'],['Education + research','education.html#exo'],['Résumé','resume.html']],
       roleCards:[
-        {eyebrow:'LEADERSHIP / PROGRAM',title:'EXO Project Lead / Chair',meta:'IEEE USF · Aug 2025–Present',accent:'exo',bullets:['Lead the lower-limb exoskeleton program across R&D, mechanical design, electrical, controls, testing, safety, documentation, procurement, budgets, onboarding, and design reviews.','Coordinate board-level event planning, workshops, recruitment, career-fair/employer outreach, sponsor and industry communication, purchasing, meeting logistics, and cross-team schedules.','Direct prototype planning around powered hip/knee actuation, passive ankle development, gait-data collection, actuator sizing, embedded sensing, and control-system integration.'],impact:'Program leadership + technical integration across multiple subteams.'}
+        {eyebrow:'LEADERSHIP / PROGRAM',title:'Project Lead / EXO Chair and President',meta:'IEEE USF · Aug 2025–Present',accent:'exo',bullets:['Lead a multidisciplinary lower-limb exoskeleton program spanning mechanical design, electrical, controls, research, fabrication, testing, and safety; manage design reviews, technical deliverables, procurement, subsystem dependencies, and approximately $5,000 in development budget.','Define requirements for a unilateral hip/knee assistive prototype, including joint alignment, human interfaces, actuator sizing, sensing, power, controls, and test planning; guide integration of AK80-9 actuators, IMUs, encoders, Jetson Orin Nano, and Teensy 4.1 controllers.','Translate biomechanics and motion-analysis goals into engineering decisions on assistance timing, torque targets, prototype architecture, safety limits, and validation strategy while coordinating cross-team milestones and technical documentation.','Coordinate board-level events, workshops, recruitment, career-fair/employer outreach, sponsor and industry communication, purchasing, meeting logistics, and cross-team schedules.'],impact:'Multidisciplinary technical leadership with approximately $5,000 in development budget.'}
       ]
     },
     lonza:{
@@ -1199,8 +1199,8 @@ qa('[data-gallery-open]').forEach(el=>el.addEventListener('click',e=>{e.preventD
       tools:['6M / FMEA','Gemba','Power Apps','SharePoint','Power Automate','Excel / Power BI'],
       links:[['Equipment gallery','gallery'],['View investigation deck','XD600s_Asset_Numbers_Only_Redacted.pdf'],['Download PPTX','XD600s_Asset_Numbers_Only_Redacted.pptx'],['Résumé','resume.html']],
       roleCards:[
-        {eyebrow:'RELIABILITY / RCA',title:'Reliability Engineering Intern',meta:'Lonza · Aug–Dec 2026',accent:'lonza',media:'lonza-equipment-03.jpg',bullets:['Led a cross-functional root-cause investigation after 3 of 4 Xcelodose microbalance units became unavailable, evaluating mechanical alignment, spring/load-path behavior, corner loading, static, operator handling, sensing, communication, and software-related failure modes.','Used physical inspection, Gemba observation, 6M/FMEA thinking, maintenance history, cross-unit comparison, and SOP review to isolate likely failure pathways and support corrective actions.','Translated findings into equipment checks, documentation updates, operator guidance, and recurrence-prevention training recommendations; also supported equipment-risk reviews, validation/readiness activities, technical-record review, and process-bottleneck investigations.'],impact:'75% of the microbalance fleet was unavailable at the start of the investigation.'},
-        {eyebrow:'FACILITIES / ENGINEERING / MAINTENANCE',title:'Facilities, Engineering & Maintenance Intern',meta:'Lonza · May–Aug 2026',accent:'fem',media:'lonza-equipment-01.jpg',bullets:['Supported preventive maintenance, inspections, deviations, SOP updates, work-order documentation, equipment readiness, contractor coordination, and manufacturing/facilities improvement activities.','Reduced asset search time by about 83% through a 5S asset-labeling initiative that improved equipment identification, inventory accuracy, and maintenance visibility.','Built Power Apps, SharePoint/Microsoft Lists, Power Automate, Power BI, and Excel tools for maintenance requests, cleaning readiness, equipment status, KPI visibility, and process tracking.','Supported capital and asset-lifecycle planning, cleaning-validation tracking, maintenance handoffs, training/documentation improvements, and business-risk discussions with Engineering, Reliability, technicians, Manufacturing, and Finance.'],impact:'~83% reduction in asset search time belongs to this FEM role.'}
+        {eyebrow:'RELIABILITY / RCA',title:'Reliability Engineering Intern',meta:'Lonza · Aug–Dec 2026',accent:'lonza',media:'lonza-equipment-03.jpg',bullets:['Investigate recurring Xcelodose 600S and microbalance failures through physical inspection, mechanical alignment, spring/load-cell geometry, corner-load behavior, SOP-to-practice comparison, and equipment-condition review; use 6M, Gemba, and FMEA/failure-mode analysis to isolate likely failure pathways.','Compare symptoms across multiple failed units to distinguish mechanical, sensing, communication, and software-interface issues; translate findings into corrective actions, operator guidance, controlled documentation updates, and recurrence-prevention training.','Support Engineering, Reliability, Manufacturing, and Project Engineering with equipment-risk reviews, validation/readiness activities, technical-record review, process-bottleneck investigations, and project-equipment decisions in a regulated manufacturing environment.','Led the investigation while 3 of 4 Xcelodose microbalance units were unavailable, giving the RCA a clear 75% equipment-availability problem at the start of the work.'],impact:'3 of 4 Xcelodose microbalance units unavailable during the investigation.'},
+        {eyebrow:'FACILITIES / ENGINEERING / MAINTENANCE',title:'Facilities, Engineering & Maintenance Intern',meta:'Lonza · May–Aug 2026',accent:'fem',media:'lonza-equipment-01.jpg',bullets:['Supported Facilities, Engineering, Reliability, and Manufacturing across preventive maintenance, equipment inspections, HVAC/AHU work, troubleshooting, work orders, SOP updates, technician follow-up, and contractor/facility coordination.','Led a Lean/5S A3 asset-identification improvement using standardized high-visibility labels and before/after time trials, reducing average equipment search time from roughly 9 minutes to 1.5 minutes, an 83% reduction.','Built digital maintenance and manufacturing workflows using Power Apps, Power Automate, SharePoint/Lists, Forms, and Excel, including QR-linked cleaning-status tracking and structured operator/process records for better traceability and shift continuity.','Developed technician-facing maintenance training around Receive → Prepare → Execute → Test/Verify → Document → Close/Handoff, including GDP/ALCOA, escalation, work-order, and return-to-service expectations.','Supported five-year lifecycle/capital planning by cleaning and cross-referencing condition, risk, cost, ownership, and replacement data for 300+ high-level equipment and infrastructure assets.','Supported root-cause investigations, equipment-risk reviews, cleaning-readiness tracking, maintenance KPI visibility, handoffs, documentation improvements, and business-risk discussions with Engineering, Reliability, technicians, Manufacturing, and Finance.'],impact:'Average equipment search time fell from about 9 minutes to 1.5 minutes, an 83% reduction.'}
       ]
     },
     smurf:{
@@ -1240,7 +1240,7 @@ qa('[data-gallery-open]').forEach(el=>el.addEventListener('click',e=>{e.preventD
       tools:['Vicon','IMUs','ESP32','SolidWorks','PCB validation support','Human-motion analysis'],
       links:[['Education + research','education.html'],['Résumé','resume.html']],
       roleCards:[
-        {eyebrow:'HUMAN MOTION / EMBEDDED',title:'REU Research Assistant',meta:'CARRT Lab · Aug 2026–Present',accent:'carrt',bullets:['Support human-motion studies using IMUs and Vicon through experimental setup, repeatable sensor placement, validation, collection, data-quality review, analysis, and technical documentation.','Designed a modular SolidWorks enclosure around the validated ESP32/IMU PCB for repeatable ankle and thigh placement, with ventilation and onboard adjustable strap slots.','Reduced the enclosure footprint from 80 × 60 mm to 48 × 36 mm, a 64.0% planar-footprint reduction, while improving mounting independence from athletic tape or sleeves.','Helped validate the PCB and supported PCB/layout decisions used to package the electronics into the smaller housing.'],impact:'64.0% planar-footprint reduction with added modularity and strap mounting.'}
+        {eyebrow:'HUMAN MOTION / EMBEDDED',title:'REU Research Assistant',meta:'CARRT Lab · Aug 2026–Present',accent:'carrt',bullets:['Analyze IMU and Vicon motion-capture data and support experimental setup, participant data collection, sensor validation, post-processing, data-quality checks, and technical documentation for human-motion and biomechanics research.','Designed a modular ESP32/IMU enclosure system in SolidWorks for repeatable ankle and thigh placement around a validated PCB.','Reduced the enclosure footprint from approximately 80 × 60 mm to 48 × 36 mm, a 64% reduction, while adding ventilation, service access, and onboard adjustable strap slots so the sensor can mount without relying on athletic tape or a sleeve.','Supported PCB validation and PCB/layout decisions used to package the electronics into the smaller housing.'],impact:'80 × 60 mm → 48 × 36 mm enclosure footprint, a 64% reduction.'}
       ]
     }
   };
@@ -1394,4 +1394,56 @@ qa('[data-gallery-open]').forEach(el=>el.addEventListener('click',e=>{e.preventD
     setTimeout(()=>{cleanNav();removeDecorativeSprites();personalizeBuilding()},180);
   }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initV60,{once:true}); else initV60();
+})();
+
+
+/* =========================================================
+   V62 — resume + Altium credential + experience polish
+   ========================================================= */
+(()=>{
+  'use strict';
+  const q=(s,r=document)=>r.querySelector(s), qa=(s,r=document)=>[...r.querySelectorAll(s)];
+  const page=()=>((document.body?.dataset?.page)||((location.pathname.split('/').pop()||'index.html').replace(/\.html?$/,''))).toLowerCase();
+
+  function useCurrentResume(){
+    if(page()!=='resume') return;
+    qa('object[type="application/pdf"],object[data$=".pdf"]').forEach(o=>o.data='Gustavo_Rodriguez_Engineering.pdf');
+    qa('iframe[src$=".pdf"],embed[src$=".pdf"]').forEach(o=>o.src='Gustavo_Rodriguez_Engineering.pdf');
+    qa('a').forEach(a=>{
+      const t=(a.textContent||'').toLowerCase();
+      if((t.includes('download')||t.includes('resume')||t.includes('résumé')) && /\.pdf(?:$|\?)/i.test(a.getAttribute('href')||'')) a.href='Gustavo_Rodriguez_Engineering.pdf';
+    });
+    const main=q('.page-main,main');
+    if(main && !q('.v62-resume-current',main)){
+      const bar=document.createElement('div');bar.className='v62-resume-current';
+      bar.innerHTML='<span><b>Current engineering résumé</b><small>Updated engineering experience, research, leadership, projects, and skills</small></span><a href="Gustavo_Rodriguez_Engineering.pdf" target="_blank" rel="noopener">open PDF</a>';
+      main.prepend(bar);
+    }
+  }
+
+  function addCredentialList(){
+    if(!['about','education'].includes(page()) || q('.v62-credential-strip')) return;
+    const main=q('.page-main,main'); if(!main) return;
+    const strip=document.createElement('section'); strip.className='v62-credential-strip';
+    strip.innerHTML=`<div class="v62-credential-head"><small>CREDENTIALS / TRAINING</small><b>Engineering credentials</b></div>
+      <div class="v62-credential-list">
+        <a href="altium-pcb-basic-design-certificate.pdf" target="_blank" rel="noopener"><strong>Altium Education</strong><span>PCB Basic Design Course</span><em>completed</em></a>
+        <span><strong>CSWA</strong><span>CAD Design</span><em>credential</em></span>
+        <span><strong>CSWA</strong><span>Sustainability</span><em>credential</em></span>
+        <span><strong>Lean Six Sigma</strong><span>Yellow Belt</span><em>certified</em></span>
+        <span><strong>CITI</strong><span>Biomedical / Research Integrity</span><em>training</em></span>
+      </div>`;
+    const anchor=q('.section-title',main)?.parentElement || main;
+    if(anchor===main) main.prepend(strip); else anchor.insertAdjacentElement('afterend',strip);
+  }
+
+  function fixBadgeClipping(){
+    qa('.v60-system-card .badge').forEach(b=>{
+      b.style.transform='scale(.90)';
+      b.style.transformOrigin='center';
+    });
+  }
+
+  function init(){useCurrentResume();addCredentialList();fixBadgeClipping();setTimeout(fixBadgeClipping,180)}
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init,{once:true}); else init();
 })();

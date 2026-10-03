@@ -1408,3 +1408,42 @@ body[data-page="projects"] .project-media-shelf button:hover{
   .v61-role-media img{min-height:0;height:170px}
   .v61-role-content{padding:14px}
 }
+
+
+/* =========================================================
+   V62 — denser experience files + credentials/resume
+   ========================================================= */
+.v60-system-card{grid-template-columns:minmax(0,1fr) 92px;padding-right:20px;overflow:hidden}
+.v60-system-card .badge{width:76px;height:76px;min-width:76px;min-height:76px;margin:0 auto;font-size:18px;letter-spacing:-.01em;overflow:visible;box-shadow:inset 0 0 0 2px rgba(255,255,255,.28),0 3px 9px rgba(0,0,0,.16)}
+.v61-role-stack{gap:11px}
+.v61-role-card{grid-template-columns:132px minmax(0,1fr);border-radius:15px}
+.v61-role-media{background:#edf3f5}
+.v61-role-media img{min-height:245px;object-position:center;filter:saturate(.92) contrast(.98)}
+.v61-role-content{padding:15px 17px 14px}
+.v61-role-content h3{font-size:20px}
+.v61-role-meta{font-size:8.5px;margin-bottom:9px}
+.v61-role-content ul{padding-left:17px}
+.v61-role-content li{font-size:9.4px;line-height:1.42;margin-bottom:6px}
+.v61-impact{margin-top:10px;padding:8px 10px}
+.v61-impact span{font-size:9px}
+.v61-experience-heading{padding-bottom:2px}
+.v61-experience-heading p{font-size:9px;color:#60747d;margin:4px 0 12px}
+
+.v62-resume-current{display:flex;align-items:center;justify-content:space-between;gap:16px;margin:4px 0 12px;padding:9px 11px;border:1px solid #9db7c2;border-radius:12px;background:linear-gradient(#fff,#edf6f9);box-shadow:inset 0 1px #fff,0 3px 9px rgba(42,82,100,.07)}
+.v62-resume-current span{display:grid;gap:2px}.v62-resume-current b{font:14px Georgia,'Times New Roman',serif;color:#173b4d}.v62-resume-current small{font:8px Arial,sans-serif;color:#627985}.v62-resume-current a{border:1px solid #8eafbd;border-radius:999px;background:linear-gradient(#fff,#deeff5);padding:5px 10px;text-decoration:none;font:700 8px Arial,sans-serif;color:#285d73}
+
+.v62-credential-strip{margin:13px 0 18px;border-top:1px solid #98aeb8;border-bottom:1px solid #c0cdd3;padding:8px 0 9px}
+.v62-credential-head{display:flex;align-items:baseline;gap:10px;margin-bottom:6px}.v62-credential-head small{font:7px Arial,sans-serif;letter-spacing:.12em;color:#708691}.v62-credential-head b{font:17px Georgia,'Times New Roman',serif;font-weight:normal;color:#173b4d}
+.v62-credential-list{display:flex;flex-wrap:wrap;gap:5px}.v62-credential-list>a,.v62-credential-list>span{display:grid;grid-template-columns:auto auto auto;align-items:center;gap:5px;border:1px solid #a9bdc6;border-radius:999px;background:linear-gradient(#fff,#eef5f7);padding:5px 8px;text-decoration:none;color:#264c5d;box-shadow:inset 0 1px #fff}
+.v62-credential-list strong{font:700 8px Arial,sans-serif}.v62-credential-list span{font:8px Georgia,'Times New Roman',serif}.v62-credential-list em{font:700 6px Arial,sans-serif;font-style:normal;text-transform:uppercase;letter-spacing:.06em;color:#778d96}
+.v62-credential-list>a:hover{background:#e5f6fb;border-color:#79afc3}
+
+@media(max-width:760px){
+  .v60-system-card{grid-template-columns:minmax(0,1fr) 70px;padding-right:10px}
+  .v60-system-card .badge{width:62px;height:62px;min-width:62px;min-height:62px;font-size:15px}
+  .v61-role-card{grid-template-columns:1fr}
+  .v61-role-media{height:145px}.v61-role-media img{height:145px;min-height:0;object-position:center 35%}
+  .v61-role-content li{font-size:9.2px}
+  .v62-resume-current{align-items:flex-start;flex-direction:column}
+  .v62-credential-list>a,.v62-credential-list>span{grid-template-columns:auto 1fr auto;width:100%;box-sizing:border-box}
+}
