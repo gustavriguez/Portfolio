@@ -1472,3 +1472,69 @@ body[data-page="projects"] .project-media-shelf button:hover{
 @media(max-width:700px){
   .v60-system-card.exo .badge.image-badge{width:72px;height:72px;}
 }
+
+
+/* =========================================================
+   V64 — unified project badge system
+   ========================================================= */
+body[data-page="projects"] .v60-system-card{
+  grid-template-columns:minmax(0,1fr) 100px;
+  align-items:center;
+  column-gap:12px;
+  padding-right:13px;
+}
+body[data-page="projects"] .v60-system-card .badge.v64-badge{
+  width:92px!important;
+  height:92px!important;
+  min-width:92px!important;
+  min-height:92px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  justify-self:center!important;
+  align-self:center!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:50%!important;
+  background:none!important;
+  box-shadow:none!important;
+  text-shadow:none!important;
+  overflow:visible!important;
+  line-height:1!important;
+}
+body[data-page="projects"] .v60-system-card .badge.v64-badge::before,
+body[data-page="projects"] .v60-system-card .badge.v64-badge::after{
+  content:none!important;
+  display:none!important;
+}
+body[data-page="projects"] .v60-system-card .badge.v64-badge img{
+  display:block!important;
+  width:92px!important;
+  height:92px!important;
+  max-width:none!important;
+  max-height:none!important;
+  object-fit:contain!important;
+  object-position:center!important;
+  border-radius:50%;
+  transform:none!important;
+  filter:none!important;
+}
+body[data-page="projects"] .v60-card-copy{
+  min-width:0;
+  align-self:center;
+}
+@media(max-width:700px){
+  body[data-page="projects"] .v60-system-card{
+    grid-template-columns:minmax(0,1fr) 78px;
+    column-gap:8px;
+    padding-right:9px;
+  }
+  body[data-page="projects"] .v60-system-card .badge.v64-badge,
+  body[data-page="projects"] .v60-system-card .badge.v64-badge img{
+    width:72px!important;
+    height:72px!important;
+    min-width:72px!important;
+    min-height:72px!important;
+  }
+}
