@@ -1159,11 +1159,12 @@ qa('[data-gallery-open]').forEach(el=>el.addEventListener('click',e=>{e.preventD
   const PROJECTS={
     exo:{
       title:'IEEE EXO', kicker:'ROBOTICS / LEADERSHIP', gallery:'exo-project', accent:'exo',
-      summary:'Lower-limb exoskeleton program using powered hip and knee actuation, a passive ankle, embedded controls, CAD, testing, and gait-driven design decisions.',
+      summary:'Lower-limb exoskeleton program combining powered hip and knee actuation, passive ankle development, embedded controls, CAD, gait analysis, research planning, testing, and multidisciplinary program leadership.',
       overview:[
-        'Program lead / chair for a multidisciplinary lower-limb exoskeleton effort.',
-        'Current hardware direction uses powered hip and knee actuation with a passive ankle concept.',
-        'Mechanical, controls, electrical, testing, safety, documentation, procurement, and research planning all meet in the same program.'
+        'Lead the multidisciplinary EXO program across mechanical, electrical, controls, R&D, testing, safety, documentation, procurement, and design reviews.',
+        'Current hardware direction uses powered hip and knee actuation with a passive ankle concept, with gait-driven torque and timing decisions informing prototype development.',
+        'Coordinate board-level events, workshops, recruitment, career-fair and employer outreach, sponsor communication, budgets, purchasing, meeting logistics, and cross-team schedules.',
+        'Research work includes Vicon/PKMAS/force-plate data, OpenSim gait comparison, MATLAB analysis, and pre-prototype testing used to support actuator sizing and control strategy.'
       ],
       experience:[
         ['Role','EXO Project Lead / Chair'],['Organization','IEEE at the University of South Florida'],['Focus','Robotics, controls, biomechanics, CAD, program leadership'],['Board work','Events, workshops, recruitment, career-fair/employer outreach, sponsors, budgets, meeting logistics']
@@ -1173,18 +1174,22 @@ qa('[data-gallery-open]').forEach(el=>el.addEventListener('click',e=>{e.preventD
         {src:'usf-bull-logo.png',label:'IEEE / USF project identity',contain:true}
       ],
       tools:['SolidWorks','OpenSim','MATLAB','Teensy / embedded controls','CAN','IMUs / FSRs'],
-      links:[['Open EXO gallery','gallery'],['Education + research','education.html#exo'],['Résumé','resume.html']]
+      links:[['Open EXO gallery','gallery'],['Education + research','education.html#exo'],['Résumé','resume.html']],
+      roleCards:[
+        {eyebrow:'LEADERSHIP / PROGRAM',title:'EXO Project Lead / Chair',meta:'IEEE USF · Aug 2025–Present',accent:'exo',bullets:['Lead the lower-limb exoskeleton program across R&D, mechanical design, electrical, controls, testing, safety, documentation, procurement, budgets, onboarding, and design reviews.','Coordinate board-level event planning, workshops, recruitment, career-fair/employer outreach, sponsor and industry communication, purchasing, meeting logistics, and cross-team schedules.','Direct prototype planning around powered hip/knee actuation, passive ankle development, gait-data collection, actuator sizing, embedded sensing, and control-system integration.'],impact:'Program leadership + technical integration across multiple subteams.'}
+      ]
     },
     lonza:{
       title:'Lonza', kicker:'RELIABILITY / MANUFACTURING', gallery:null, accent:'lonza',
-      summary:'Reliability engineering and facilities work across Xcelodose equipment RCA, maintenance systems, asset visibility, documentation, and regulated manufacturing support.',
+      summary:'Two Lonza engineering roles spanning Xcelodose equipment reliability, root-cause investigation, preventive maintenance, 5S asset systems, Power Platform workflows, capital planning, SOP/documentation work, and regulated manufacturing support.',
       overview:[
-        'Led a root-cause investigation after 3 of 4 Xcelodose microbalance units became unavailable.',
-        'Used physical inspection, Gemba observation, failure-mode analysis, alignment checks, maintenance history, and cross-unit comparison.',
-        'Earlier FEM work included 5S asset labeling, maintenance workflow development, cleaning readiness tracking, capital planning support, and maintenance documentation.'
+        'Reliability: led a root-cause investigation after 3 of 4 Xcelodose microbalance units became unavailable, separating mechanical, handling, static, sensing, communication, and software-related failure pathways.',
+        'Applied physical inspection, Gemba observation, equipment history, 6M/FMEA thinking, alignment and corner-load checks, cross-unit comparison, and SOP review to support corrective actions and recurrence-prevention training.',
+        'FEM: supported preventive maintenance, inspections, deviations, SOP updates, work-order documentation, equipment readiness, contractor coordination, and manufacturing/facilities improvement work.',
+        'Built 5S asset-labeling and digital maintenance systems; the 5S labeling work reduced asset search time by about 83%. Also supported cleaning-readiness tracking, maintenance KPI visibility, capital/lifecycle planning, and standardized maintenance handoffs.'
       ],
       experience:[
-        ['Reliability','Aug–Dec 2026'],['FEM','May–Aug 2026'],['Measured impact','~83% reduction in asset search time from 5S / labeling work'],['RCA scale','3 of 4 Xcelodose microbalance units unavailable during investigation']
+        ['Reliability Engineering Intern','Aug–Dec 2026 · equipment RCA, risk/readiness, corrective actions'],['Facilities, Engineering & Maintenance Intern','May–Aug 2026 · PMs, 5S, digital workflows, capital/asset support'],['FEM measured impact','~83% reduction in asset search time from 5S / labeling work'],['Reliability investigation scale','3 of 4 Xcelodose microbalance units unavailable during investigation']
       ],
       media:[
         {src:'lonza-equipment-02.jpg',label:'Microbalance mechanism'},
@@ -1192,7 +1197,11 @@ qa('[data-gallery-open]').forEach(el=>el.addEventListener('click',e=>{e.preventD
         {src:'lonza-equipment-05.jpg',label:'Equipment inspection context'}
       ],
       tools:['6M / FMEA','Gemba','Power Apps','SharePoint','Power Automate','Excel / Power BI'],
-      links:[['Equipment gallery','gallery'],['View investigation deck','XD600s_Asset_Numbers_Only_Redacted.pdf'],['Download PPTX','XD600s_Asset_Numbers_Only_Redacted.pptx'],['Résumé','resume.html']]
+      links:[['Equipment gallery','gallery'],['View investigation deck','XD600s_Asset_Numbers_Only_Redacted.pdf'],['Download PPTX','XD600s_Asset_Numbers_Only_Redacted.pptx'],['Résumé','resume.html']],
+      roleCards:[
+        {eyebrow:'RELIABILITY / RCA',title:'Reliability Engineering Intern',meta:'Lonza · Aug–Dec 2026',accent:'lonza',media:'lonza-equipment-03.jpg',bullets:['Led a cross-functional root-cause investigation after 3 of 4 Xcelodose microbalance units became unavailable, evaluating mechanical alignment, spring/load-path behavior, corner loading, static, operator handling, sensing, communication, and software-related failure modes.','Used physical inspection, Gemba observation, 6M/FMEA thinking, maintenance history, cross-unit comparison, and SOP review to isolate likely failure pathways and support corrective actions.','Translated findings into equipment checks, documentation updates, operator guidance, and recurrence-prevention training recommendations; also supported equipment-risk reviews, validation/readiness activities, technical-record review, and process-bottleneck investigations.'],impact:'75% of the microbalance fleet was unavailable at the start of the investigation.'},
+        {eyebrow:'FACILITIES / ENGINEERING / MAINTENANCE',title:'Facilities, Engineering & Maintenance Intern',meta:'Lonza · May–Aug 2026',accent:'fem',media:'lonza-equipment-01.jpg',bullets:['Supported preventive maintenance, inspections, deviations, SOP updates, work-order documentation, equipment readiness, contractor coordination, and manufacturing/facilities improvement activities.','Reduced asset search time by about 83% through a 5S asset-labeling initiative that improved equipment identification, inventory accuracy, and maintenance visibility.','Built Power Apps, SharePoint/Microsoft Lists, Power Automate, Power BI, and Excel tools for maintenance requests, cleaning readiness, equipment status, KPI visibility, and process tracking.','Supported capital and asset-lifecycle planning, cleaning-validation tracking, maintenance handoffs, training/documentation improvements, and business-risk discussions with Engineering, Reliability, technicians, Manufacturing, and Finance.'],impact:'~83% reduction in asset search time belongs to this FEM role.'}
+      ]
     },
     smurf:{
       title:'S.M.U.R.F.', kicker:'POWER PLATFORM / MAINTENANCE', gallery:'smurf', accent:'smurf',
@@ -1210,22 +1219,29 @@ qa('[data-gallery-open]').forEach(el=>el.addEventListener('click',e=>{e.preventD
         {src:'smurf-system-process-flow.png',label:'Process / urgency flow'}
       ],
       tools:['Power Apps','SharePoint','Power Automate','Excel','Power BI'],
-      links:[['Open SMURF gallery','gallery'],['Project files','projects.html#project-media']]
+      links:[['Open SMURF gallery','gallery'],['Project files','projects.html#project-media']],
+      roleCards:[
+        {eyebrow:'SYSTEM DESIGN',title:'S.M.U.R.F. maintenance request system',meta:'Power Platform · 2026',accent:'smurf',media:'SMURFFinal.png',bullets:['Designed a guided request flow where requesters answer factual condition questions instead of manually assigning urgency.','Built Immediate hard overrides and Same-Shift condition logic, with Not Immediate as the default when no higher-priority rule is met.','Created a separate maintenance-facing experience for assignment, status, work-order tracking, notes, attachments, and automated reminders, backed by SharePoint records.'],impact:'One request path from intake through maintenance follow-up.'}
+      ]
     },
     carrt:{
       title:'CARRT', kicker:'HUMAN MOTION / EMBEDDED', gallery:'carrt', accent:'carrt',
-      summary:'Human-motion research using IMUs and Vicon plus a modular ESP32 sensor package for rugby lineout motion capture.',
+      summary:'Human-motion research using IMUs and Vicon, plus development of a modular ESP32 sensor package for rugby lineout motion capture, repeatable placement, and compact electronics integration.',
       overview:[
-        'Support experimental setup, validation, collection, analysis, and technical documentation for human-motion research.',
-        'Designed a SolidWorks enclosure for repeatable ankle and thigh placement around the validated PCB.',
-        'Reduced enclosure footprint from 80 × 60 mm to 48 × 36 mm. The revised case adds ventilation and adjustable strap slots.'
+        'Support experimental setup, sensor placement, validation, data collection, data-quality review, analysis, and technical documentation for human-motion research using IMUs and Vicon.',
+        'Designed a modular SolidWorks enclosure around the validated PCB for repeatable ankle and thigh placement, with serviceable packaging and electronics integration in mind.',
+        'Reduced enclosure footprint from 80 × 60 mm to 48 × 36 mm (64.0% smaller planar footprint), while adding ventilation and onboard adjustable strap slots.',
+        'Helped validate the PCB and supported PCB/layout decisions used to package the electronics into the smaller housing without relying on athletic tape or a sleeve.'
       ],
       experience:[
         ['Role','REU Research Assistant'],['Lab','CARRT · University of South Florida'],['Enclosure','80 × 60 mm → 48 × 36 mm'],['Change','64.0% smaller planar footprint'],['Mounting','Adjustable onboard strap slots instead of tape / sleeve dependence']
       ],
       media:[],
       tools:['Vicon','IMUs','ESP32','SolidWorks','PCB validation support','Human-motion analysis'],
-      links:[['Education + research','education.html'],['Résumé','resume.html']]
+      links:[['Education + research','education.html'],['Résumé','resume.html']],
+      roleCards:[
+        {eyebrow:'HUMAN MOTION / EMBEDDED',title:'REU Research Assistant',meta:'CARRT Lab · Aug 2026–Present',accent:'carrt',bullets:['Support human-motion studies using IMUs and Vicon through experimental setup, repeatable sensor placement, validation, collection, data-quality review, analysis, and technical documentation.','Designed a modular SolidWorks enclosure around the validated ESP32/IMU PCB for repeatable ankle and thigh placement, with ventilation and onboard adjustable strap slots.','Reduced the enclosure footprint from 80 × 60 mm to 48 × 36 mm, a 64.0% planar-footprint reduction, while improving mounting independence from athletic tape or sleeves.','Helped validate the PCB and supported PCB/layout decisions used to package the electronics into the smaller housing.'],impact:'64.0% planar-footprint reduction with added modularity and strap mounting.'}
+      ]
     }
   };
 
@@ -1311,7 +1327,8 @@ qa('[data-gallery-open]').forEach(el=>el.addEventListener('click',e=>{e.preventD
     if(tab==='overview'){
       body.innerHTML=`<div class="v60-file-heading"><small>${d.kicker}</small><h2>${d.title}</h2><p>${d.summary}</p></div><div class="v60-file-grid"><div class="v60-file-panel"><b>PROJECT NOTES</b>${d.overview.map(x=>`<p>${x}</p>`).join('')}</div><div class="v60-tool-panel"><b>TOOLS / METHODS</b><div>${d.tools.map(x=>`<span>${x}</span>`).join('')}</div></div></div>`;
     }else if(tab==='experience'){
-      body.innerHTML=`<div class="v60-file-heading"><small>${d.kicker}</small><h2>${d.title} / experience</h2></div><div class="v60-spec-list">${d.experience.map(([a,b])=>`<div><small>${a}</small><strong>${b}</strong></div>`).join('')}</div>`;
+      const rich=(d.roleCards||[]).map(card=>`<article class="v61-role-card ${card.accent||''}">${card.media?`<div class="v61-role-media"><img src="${card.media}" alt="${card.title}"></div>`:''}<div class="v61-role-content"><small>${card.eyebrow||d.kicker}</small><h3>${card.title}</h3><div class="v61-role-meta">${card.meta||''}</div><ul>${(card.bullets||[]).map(x=>`<li>${x}</li>`).join('')}</ul>${card.impact?`<div class="v61-impact"><b>IMPACT</b><span>${card.impact}</span></div>`:''}</div></article>`).join('');
+      body.innerHTML=`<div class="v60-file-heading v61-experience-heading"><small>${d.kicker}</small><h2>${d.title} / experience</h2><p>Role scope, technical work, and measurable outcomes.</p></div>${rich?`<div class="v61-role-stack">${rich}</div>`:`<div class="v60-spec-list">${d.experience.map(([a,b])=>`<div><small>${a}</small><strong>${b}</strong></div>`).join('')}</div>`}`;
     }else if(tab==='media'){
       const media=d.media.length?d.media.map((m,i)=>`<button type="button" class="v60-media-preview${m.contain?' contain':''}" data-v60-media-index="${i}"><img src="${m.src}" alt="${m.label}"><span>${m.label}</span></button>`).join(''):`<div class="v60-media-empty"><b>No standalone photo set here yet.</b><span>Research details and technical notes are still available in the other tabs.</span></div>`;
       body.innerHTML=`<div class="v60-file-heading"><small>${d.kicker}</small><h2>${d.title} / media</h2></div><div class="v60-media-grid">${media}</div>${d.gallery?'<button type="button" class="v60-open-gallery">open full mini gallery ›</button>':''}`;
