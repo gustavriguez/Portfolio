@@ -1538,3 +1538,22 @@ body[data-page="projects"] .v60-card-copy{
     min-height:72px!important;
   }
 }
+
+
+/* =========================================================
+   V65 — approved EXO full-circle badge fit
+   The asset itself is tightly cropped; fill the shared badge slot.
+   ========================================================= */
+body[data-page="projects"] .v60-system-card[data-v60-open="exo"] .badge.v64-badge img{
+  width:92px!important;
+  height:92px!important;
+  object-fit:cover!important;
+  object-position:center!important;
+  border-radius:50%!important;
+}
+@media(max-width:700px){
+  body[data-page="projects"] .v60-system-card[data-v60-open="exo"] .badge.v64-badge img{
+    width:72px!important;
+    height:72px!important;
+  }
+}
