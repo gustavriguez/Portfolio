@@ -1439,7 +1439,7 @@ qa('[data-gallery-open]').forEach(el=>el.addEventListener('click',e=>{e.preventD
 
   function fixBadgeClipping(){
     qa('.v60-system-card .badge').forEach(b=>{
-      b.style.transform='scale(.90)';
+      b.style.transform=b.classList.contains('image-badge')?'scale(.96)':'scale(.90)';
       b.style.transformOrigin='center';
     });
   }
